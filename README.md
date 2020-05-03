@@ -1,2 +1,2 @@
 # GameSimpleRPG
-Bài Tập Lớn OOP
+Bài Tập Lớn Nhóm OOP
