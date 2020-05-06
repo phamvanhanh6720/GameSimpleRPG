@@ -21,7 +21,7 @@ public class Board implements IRender {
 
 
     private List<Mob> mobs=new ArrayList<Mob>();
-    private Entity entities;
+    private Entity[][] entities;
     public Board(Game game, KeyBoard input){
         this.game=game;
         this.input=input;
@@ -29,19 +29,19 @@ public class Board implements IRender {
         mobs.add(new Player(10,10,this));
         mobs.add(new Snake(200,200,this));
         mobs.add(new Dragon(500,500,this));
-        entities=new GrassTile(5,5);
+        //entities=new GrassTile(5,5);
     }
 
     @Override
     public void update() {
-        entities.update();
+        //entities.update();
         updateMobs();
 
     }
 
     @Override
     public void render(Graphics g) {
-        entities.render(g);
+        //entities.render(g);
         renderMobs(g);
 
     }
@@ -55,12 +55,21 @@ public class Board implements IRender {
         while(itr.hasNext())
             itr.next().render(g);
     }
+    public void addEntities(int x, int y, Entity entity){
+        entities[x][y]=entity;
+    }
+    public void addMobs(Mob mob){
+        mobs.add(mob);
+    }
+
+
+
 
     public KeyBoard getInput(){
         return input;
     }
     public Entity getEntities(){
-        return entities;
+        return null;
     }
     public Player getPlayer(){
         Iterator<Mob> itr=mobs.iterator();

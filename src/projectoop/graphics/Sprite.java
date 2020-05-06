@@ -7,12 +7,27 @@ import projectoop.entities.mob.enemy.Snake;
 import java.awt.image.BufferedImage;
 
 public class Sprite {
-    public static BufferedImage grass=ImageLoader.loadImage("/textures/grass.png");
+    //public static BufferedImage grass=ImageLoader.loadImage("/textures/grass.png");
     private static SpriteSheet spriteSheet_player=new SpriteSheet(ImageLoader.loadImage("/textures/player.png"));
     private static SpriteSheet spriteSheet_snake=new SpriteSheet(ImageLoader.loadImage("/textures/snake.png"));
     private static SpriteSheet spriteSheet_snakeHit= new SpriteSheet(ImageLoader.loadImage("/textures/snake-hit.png"));
     private static SpriteSheet spriteSheet_dragon=new SpriteSheet(ImageLoader.loadImage("/textures/tile002.png"));
 
+    /*
+    -------------------------------------------
+    ---Entities
+    -------------------------------------------
+     */
+    public static BufferedImage border=ImageLoader.loadImage("/textures/border.png");
+    public static BufferedImage grass0=ImageLoader.loadImage("/textures/grass0.png");
+    public static BufferedImage grass=ImageLoader.loadImage("/textures/grass.png");
+    public static BufferedImage bigtree=ImageLoader.loadImage("/textures/bigtree.png");
+    public static BufferedImage ground=ImageLoader.loadImage("/textures/ground.png");
+    public static BufferedImage lake=ImageLoader.loadImage("/textures/lake.png");
+    public static BufferedImage lake1=ImageLoader.loadImage("/textures/lake1.png");
+    public static BufferedImage port=ImageLoader.loadImage("/textures/port.png");
+    public static BufferedImage tree01=ImageLoader.loadImage("/textures/tree01.png");
+    public static BufferedImage tree0=ImageLoader.loadImage("/textures/tree0.png");
 
     /*
     -------------------------------------------
