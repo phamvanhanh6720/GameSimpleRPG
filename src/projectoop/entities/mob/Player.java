@@ -104,6 +104,7 @@ public class Player extends Mob {
     }
     @Override
     protected boolean canMove(double x, double y) {
+        /*
         GrassTile a=(GrassTile)board.getEntities();
         rectangle.setLocation((int)(this.x+14+x*3),(int)(this.y+25+y*3));
         if(rectangle.intersects(a.getRectangle())) {
@@ -112,6 +113,9 @@ public class Player extends Mob {
         else {
             return true;
         }
+
+         */
+        return true;
     }
     /*
     |-------------------------------------

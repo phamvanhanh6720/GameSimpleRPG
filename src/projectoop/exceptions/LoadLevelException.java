@@ -1,4 +1,23 @@
 package projectoop.exceptions;
 
-public class LoadLevelException {
+public class LoadLevelException extends SimpleRPGException {
+
+    public LoadLevelException() {
+    }
+
+    public LoadLevelException(String str) {
+        super(str);
+
+    }
+
+    public LoadLevelException(String str, Throwable cause) {
+        super(str, cause);
+
+    }
+
+    public LoadLevelException(Throwable cause) {
+        super(cause);
+
+    }
+
 }

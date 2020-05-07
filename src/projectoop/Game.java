@@ -1,12 +1,14 @@
 package projectoop;
 
 import projectoop.entities.mob.Player;
+import projectoop.exceptions.SimpleRPGException;
 import projectoop.graphics.Sprite;
 import projectoop.gui.Display;
 import projectoop.input.KeyBoard;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.io.IOException;
 
 public class Game implements Runnable {
     private String title;
@@ -27,7 +29,7 @@ public class Game implements Runnable {
     public final static int PLAYER_HP=100;
     public final static int PLAYER_MP=100;
 
-    public Game(String title, int width,int height){
+    public Game(String title, int width,int height)  {
         this.title=title;
         this.width=width;
         this.height=height;

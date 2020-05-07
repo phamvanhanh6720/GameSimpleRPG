@@ -1,4 +1,10 @@
 package projectoop.entities.tile;
 
-public class LakeTile {
+import projectoop.graphics.Sprite;
+
+public class LakeTile extends Tile {
+    public LakeTile(int xTile, int yTile) {
+        super(xTile, yTile);
+        sprite= Sprite.lake;
+    }
 }

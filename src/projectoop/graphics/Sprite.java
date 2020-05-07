@@ -29,6 +29,7 @@ public class Sprite {
     public static BufferedImage tree01=ImageLoader.loadImage("/textures/tree01.png");
     public static BufferedImage tree0=ImageLoader.loadImage("/textures/tree0.png");
 
+
     /*
     -------------------------------------------
     ---Player

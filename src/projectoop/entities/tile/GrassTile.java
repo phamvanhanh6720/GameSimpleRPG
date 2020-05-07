@@ -11,7 +11,6 @@ public class GrassTile extends Tile {
     public GrassTile(int xTile, int yTile) {
         super(xTile, yTile);
         sprite= Sprite.grass;
-        rectangle=new Rectangle(xTile*64,yTile*64,64,64);
     }
 
     @Override

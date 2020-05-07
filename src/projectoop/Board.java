@@ -5,12 +5,16 @@ import projectoop.entities.mob.Mob;
 import projectoop.entities.mob.Player;
 import projectoop.entities.mob.enemy.Dragon;
 import projectoop.entities.mob.enemy.Snake;
+import projectoop.entities.tile.BorderTile;
 import projectoop.entities.tile.GrassTile;
 import projectoop.entities.tile.Tile;
+import projectoop.exceptions.LoadLevelException;
 import projectoop.graphics.IRender;
 import projectoop.input.KeyBoard;
+import projectoop.level.FileLevel;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -19,31 +23,60 @@ public class Board implements IRender {
     private Game game;
     private KeyBoard input;
 
-
+    private FileLevel level;
     private List<Mob> mobs=new ArrayList<Mob>();
     private Entity[][] entities;
-    public Board(Game game, KeyBoard input){
+    private List<Entity> foreground=new ArrayList<Entity>();
+    private GrassTile grass;
+    public Board(Game game, KeyBoard input)  {
         this.game=game;
         this.input=input;
 
-        mobs.add(new Player(10,10,this));
-        mobs.add(new Snake(200,200,this));
-        mobs.add(new Dragon(500,500,this));
-        //entities=new GrassTile(5,5);
-    }
+        try {
+            level = new FileLevel("map/map1.txt", this);
+            entities = new Entity[level.getHeight()][level.getWidth()];
+            level.createEntities();
+        }
+        catch (LoadLevelException e){
+        }
 
+
+        //grass=new GrassTile(5,5);
+        //mobs.add(new Player(5*Game.TILE_SIZE,5*Game.TILE_SIZE,this));
+
+    }
+/*
+|-----------------------------
+|Update & Render
+|------------------------------
+ */
     @Override
     public void update() {
-        //entities.update();
+        updateEntities();
+        updateForeground();
         updateMobs();
+        //grass.update();
+        //updateMobs();
 
     }
 
     @Override
     public void render(Graphics g) {
-        //entities.render(g);
+        renderEntities(g);
+        renderForeground(g);
         renderMobs(g);
-
+        //grass.render(g);
+        //renderMobs(g);
+    }
+    public void updateEntities(){
+        for (int y=0;y<level.getHeight();y++)
+            for (int x=0;x<level.getWidth();x++)
+                entities[y][x].update();
+    }
+    public void updateForeground(){
+        Iterator<Entity> itr=foreground.iterator();
+        while(itr.hasNext())
+            itr.next().update();
     }
     public void updateMobs(){
         Iterator<Mob> itr=mobs.iterator();
@@ -55,8 +88,27 @@ public class Board implements IRender {
         while(itr.hasNext())
             itr.next().render(g);
     }
+    public void renderEntities(Graphics g){
+        for (int y=0;y<level.getHeight();y++)
+            for (int x=0;x<level.getWidth();x++)
+                entities[y][x].render(g);
+
+    }
+    public void renderForeground(Graphics g){
+        Iterator<Entity> itr=foreground.iterator();
+        while(itr.hasNext())
+            itr.next().render(g);
+    }
+    /*
+    |--------------------------------
+    |Add Entity
+    |--------------------------------
+     */
     public void addEntities(int x, int y, Entity entity){
-        entities[x][y]=entity;
+        entities[y][x]=entity;
+    }
+    public void addForeground(Entity entity){
+        foreground.add(entity);
     }
     public void addMobs(Mob mob){
         mobs.add(mob);
