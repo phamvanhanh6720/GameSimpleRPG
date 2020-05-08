@@ -15,11 +15,15 @@ public class Snake extends Enemy {
     public Snake(int x, int y, Board board){
         super(x,y,board, Game.PLAYER_SPEED/2,Game.PLAYER_HP/2);
         ai=new AILow();
-        rectangle=new Rectangle(x,y, Mob.DEFUALT_WIDTH,Mob.DEFUALT_HEIGHT);
         sprite= Sprite.snake_down;
+        rectangle=new Rectangle((int)x+28,(int)y+27,12,15);
     }
 
-
+    @Override
+    public void render(Graphics g) {
+        super.render(g);
+        renderRectangle(g);
+    }
 
     @Override
     public void chooseSprite() {
@@ -39,5 +43,42 @@ public class Snake extends Enemy {
 
         }
 
+    }
+
+    //Size collision box: 12*15
+    @Override
+    protected void setRectangle() {
+        switch (direction){
+            case 0:
+                rectangle.setLocation((int)x+28,(int)y+27);
+                break;
+            case 2:
+                rectangle.setLocation((int)x+31,(int)y+27);
+                break;
+            case 1:
+                rectangle.setLocation((int)x+34,(int)y+27);
+                break;
+            case 3:
+                rectangle.setLocation((int)x+28,(int)y+27);
+                break;
+        }
+    }
+
+    @Override
+    public void renderRectangle(Graphics g) {
+        switch (direction){
+            case 0:
+                g.drawRect((int)x+28,(int)y+27,12,15);
+                break;
+            case 2:
+                g.drawRect((int)x+31,(int)y+27,12,15);
+                break;
+            case 1:
+                g.drawRect((int)x+34,(int)y+27,12,15);
+                break;
+            case 3:
+                g.drawRect((int)x+28,(int)y+27,12,15);
+                break;
+        }
     }
 }

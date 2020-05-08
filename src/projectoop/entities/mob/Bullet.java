@@ -48,4 +48,9 @@ public class Bullet extends Mob {
     protected boolean canMove(double x, double y) {
         return false;
     }
+
+    @Override
+    protected void setRectangle() {
+
+    }
 }

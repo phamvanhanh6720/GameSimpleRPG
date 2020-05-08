@@ -11,7 +11,8 @@ public class Sprite {
     private static SpriteSheet spriteSheet_player=new SpriteSheet(ImageLoader.loadImage("/textures/player.png"));
     private static SpriteSheet spriteSheet_snake=new SpriteSheet(ImageLoader.loadImage("/textures/snake.png"));
     private static SpriteSheet spriteSheet_snakeHit= new SpriteSheet(ImageLoader.loadImage("/textures/snake-hit.png"));
-    private static SpriteSheet spriteSheet_dragon=new SpriteSheet(ImageLoader.loadImage("/textures/tile002.png"));
+    private static SpriteSheet spriteSheet_python=new SpriteSheet(ImageLoader.loadImage("/textures/python.png"));
+    private static SpriteSheet spriteSheet_pythonFight=new SpriteSheet(ImageLoader.loadImage("/textures/python_fight.png"));
 
     /*
     -------------------------------------------
@@ -21,6 +22,7 @@ public class Sprite {
     public static BufferedImage border=ImageLoader.loadImage("/textures/border.png");
     public static BufferedImage grass0=ImageLoader.loadImage("/textures/grass0.png");
     public static BufferedImage grass=ImageLoader.loadImage("/textures/grass.png");
+    public static BufferedImage grass1=ImageLoader.loadImage("/textures/grass1.png");
     public static BufferedImage bigtree=ImageLoader.loadImage("/textures/bigtree.png");
     public static BufferedImage ground=ImageLoader.loadImage("/textures/ground.png");
     public static BufferedImage lake=ImageLoader.loadImage("/textures/lake.png");
@@ -33,6 +35,7 @@ public class Sprite {
     /*
     -------------------------------------------
     ---Player
+    ---Size sprite=48*48
     -------------------------------------------
      */
 
@@ -59,6 +62,7 @@ public class Sprite {
     /*
     |------------------------
     |Snake
+    |Size sprite= 72*72
     |------------------------
      */
 
@@ -85,6 +89,7 @@ public class Sprite {
     /*
     |------------------------
     |Snake Hit
+    |Size sprite= 72*72
     |------------------------
     */
     public static BufferedImage snake_hit_down=spriteSheet_snakeHit.crop(0*72,0*72,72,72);
@@ -110,10 +115,59 @@ public class Sprite {
 
     /*
     |------------------------
-    |Dragon
+    |Python
+    |Size sprite: 51*48==> height=51, width=48
     |------------------------
      */
-    public static BufferedImage dragon_down=spriteSheet_dragon.crop(0,0,24,32);
+    public static BufferedImage python_down=spriteSheet_python.crop(0,0,48,51);
+    public static BufferedImage python_down_1=spriteSheet_python.crop(1*48,0,48,51);
+    public static BufferedImage python_down_2=spriteSheet_python.crop(2*48,0,48,51);
+    public static BufferedImage python_down_3=spriteSheet_python.crop(3*48,0,48,51);
+
+    public static BufferedImage python_left=spriteSheet_python.crop(0*48,1*51,48,51);
+    public static BufferedImage python_left_1=spriteSheet_python.crop(1*48,1*51,48,51);
+    public static BufferedImage python_left_2=spriteSheet_python.crop(2*48,1*51,48,51);
+    public static BufferedImage python_left_3=spriteSheet_python.crop(3*48,1*51,48,51);
+
+
+    public static BufferedImage python_right=spriteSheet_python.crop(0*48,2*51,48,51);
+    public static BufferedImage python_right_1=spriteSheet_python.crop(1*48,2*51,48,51);
+    public static BufferedImage python_right_2=spriteSheet_python.crop(2*48,2*51,48,51);
+    public static BufferedImage python_right_3=spriteSheet_python.crop(3*48,2*51,48,51);
+
+    public static BufferedImage python_up=spriteSheet_python.crop(0*48,3*51,48,51);
+    public static BufferedImage python_up_1=spriteSheet_python.crop(1*48,3*51,48,51);
+    public static BufferedImage python_up_2=spriteSheet_python.crop(2*48,3*51,48,51);
+    public static BufferedImage python_up_3=spriteSheet_python.crop(3*48,3*51,48,51);
+    /*
+    |------------------------
+    |Python Fight
+    |Size sprite: 51*48==> height=51, width=48
+    |------------------------
+     */
+    public static BufferedImage python_fight_down=spriteSheet_pythonFight.crop(0,0,48,51);
+    public static BufferedImage python_fight_down_1=spriteSheet_pythonFight.crop(1*48,0,48,51);
+    public static BufferedImage python_fight_down_2=spriteSheet_pythonFight.crop(2*48,0,48,51);
+    public static BufferedImage python_fight_down_3=spriteSheet_pythonFight.crop(3*48,0,48,51);
+
+    public static BufferedImage python_fight_left=spriteSheet_pythonFight.crop(0*48,1*51,48,51);
+    public static BufferedImage python_fight_left_1=spriteSheet_pythonFight.crop(1*48,1*51,48,51);
+    public static BufferedImage python_fight_left_2=spriteSheet_pythonFight.crop(2*48,1*51,48,51);
+    public static BufferedImage python_fight_left_3=spriteSheet_pythonFight.crop(3*48,1*51,48,51);
+
+
+    public static BufferedImage python_fight_right=spriteSheet_pythonFight.crop(0*48,2*51,48,51);
+    public static BufferedImage python_fight_right_1=spriteSheet_pythonFight.crop(1*48,2*51,48,51);
+    public static BufferedImage python_fight_right_2=spriteSheet_pythonFight.crop(2*48,2*51,48,51);
+    public static BufferedImage python_fight_right_3=spriteSheet_pythonFight.crop(3*48,2*51,48,51);
+
+    public static BufferedImage python_fight_up=spriteSheet_pythonFight.crop(0*48,3*51,48,51);
+    public static BufferedImage python_fight_up_1=spriteSheet_pythonFight.crop(1*48,3*51,48,51);
+    public static BufferedImage python_fight_up_2=spriteSheet_pythonFight.crop(2*48,3*51,48,51);
+    public static BufferedImage python_fight_up_3=spriteSheet_pythonFight.crop(3*48,3*51,48,51);
+
+
+
 
 
 
@@ -134,5 +188,15 @@ public class Sprite {
             return x2;
         }
         return x3;
+}
+    public static BufferedImage movingSprite(BufferedImage normal, BufferedImage x1, BufferedImage x2,int animate, int time){
+        int calc=animate%time;
+        int diff=time/3;
+        if(calc<diff)
+            return normal;
+        if(calc<diff*2)
+            return x1;
+        return x2;
     }
 }
+

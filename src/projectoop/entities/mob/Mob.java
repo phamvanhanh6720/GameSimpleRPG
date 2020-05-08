@@ -35,6 +35,10 @@ public abstract class Mob extends AnimatedEntity {
     protected abstract void kill();
     protected abstract void afterKill();
     protected abstract boolean canMove(double x, double y);
+    protected abstract void setRectangle();
+    public void renderRectangle(Graphics g){
+
+    }
     public boolean isAlive(){
         return alive;
     }
@@ -43,6 +47,9 @@ public abstract class Mob extends AnimatedEntity {
     }
     public int getDirection(){
         return direction;
+    }
+    public Rectangle getRectangle(){
+        return rectangle;
     }
 
 }

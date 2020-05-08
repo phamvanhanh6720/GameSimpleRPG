@@ -23,14 +23,17 @@
 0 - border
 1 - grass0
 2 - grass
-3 - bigtree
+3 - grass1
 4 - ground
 5 - lake
 6 - lake1 
 7 - port 
 8 - tree01
 9 - tree0
+b - bigtree
+
+
 # - player
 s - snake
-d - dragon
+d - python
 p - python

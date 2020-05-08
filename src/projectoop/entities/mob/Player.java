@@ -30,7 +30,7 @@ public class Player extends Mob {
 
         sprite=Sprite.player_down;
         input=board.getInput();
-        rectangle=new Rectangle((int)x+14,(int)y+25,15,25);
+        rectangle=new Rectangle((int)x+17,(int)y+25,13,16);
     }
     /*
     |-------------------------------------
@@ -43,6 +43,7 @@ public class Player extends Mob {
         calculateMove();
         detectAttack();
         detectPlaceStone();
+        setRectangle();
 
     }
 
@@ -50,7 +51,8 @@ public class Player extends Mob {
     public void render(Graphics g) {
         chooseSprite();
         g.drawImage(sprite,(int)x,(int)y,null);
-        g.drawRect((int)x+14,(int)y+25,15,25);
+        //g.drawRect((int)x+17,(int)y+25,13,16);
+        renderRectangle(g);
     }
 
     /*
@@ -184,5 +186,42 @@ public class Player extends Mob {
 
                 break;
         }
+    }
+    // Size collision box: 13,16
+    protected void setRectangle(){
+        switch (direction){
+            case 0:
+                rectangle.setLocation((int)x+17,(int)y+25);
+                break;
+            case 2:
+                rectangle.setLocation((int)x+17,(int)y+25);
+                break;
+            case 1:
+                rectangle.setLocation((int)x+26,(int)y+25);
+                break;
+            case 3:
+                rectangle.setLocation((int)x+9,(int)y+25);
+                break;
+
+
+
+        }
+    }
+    public void renderRectangle(Graphics g){
+        switch (direction){
+            case 0:
+                g.drawRect((int)x+17,(int)y+25,13,16);
+                break;
+            case 2:
+                g.drawRect((int)x+17,(int)y+25,13,16);
+                break;
+            case 1:
+                g.drawRect((int)x+26,(int)y+25,13,16);
+                break;
+            case 3:
+                g.drawRect((int)x+9,(int)y+25,13,16);
+                break;
+        }
+
     }
 }

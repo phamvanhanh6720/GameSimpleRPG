@@ -3,7 +3,6 @@ package projectoop.level;
 import projectoop.Board;
 import projectoop.Game;
 import projectoop.entities.mob.Player;
-import projectoop.entities.mob.enemy.Dragon;
 import projectoop.entities.mob.enemy.Python;
 import projectoop.entities.mob.enemy.Snake;
 import projectoop.entities.tile.*;
@@ -61,6 +60,9 @@ public class FileLevel {
             case '2':
                 board.addEntities(x,y, new GrassTile(x,y));
                 break;
+            case '3':
+                board.addEntities(x,y,new Grass1Tile(x,y));
+                break;
             case '4':
                 board.addEntities(x,y, new GroundTile(x,y));
                 break;
@@ -74,17 +76,17 @@ public class FileLevel {
                 board.addEntities(x,y, new Grass0Tile(x,y));
                 board.addForeground(new PortTile(x,y));
                 break;
-            case '3':
+            case 'b':
                 board.addEntities(x,y,new Grass0Tile(x,y));
                 board.addForeground(new BigTree(x,y));
                 break;
             case '8':
                 board.addEntities(x,y, new Grass0Tile(x,y));
-                board.addForeground(new Tree01Tile(x,y));
+                board.addForeground(new Tree01(x,y));
                 break;
             case '9':
                 board.addEntities(x,y,new Grass0Tile(x,y));
-                board.addForeground(new Tree0Tile(x,y));
+                board.addForeground(new Tree0(x,y));
                 break;
             case '#':
                 board.addEntities(x,y,new Grass0Tile(x,y));
@@ -94,14 +96,11 @@ public class FileLevel {
                 board.addEntities(x,y, new Grass0Tile(x,y));
                 board.addMobs(new Snake(x*Game.TILE_SIZE,y*Game.TILE_SIZE,board));
                 break;
-            case 'd':
-                board.addEntities(x,y,new Grass0Tile(x,y));
-                board.addMobs(new Dragon(x*Game.TILE_SIZE,y*Game.TILE_SIZE,board));
-                break;
             case 'p':
                 board.addEntities(x,y,new Grass0Tile(x,y));
                 board.addMobs(new Python(x*Game.TILE_SIZE,y*Game.TILE_SIZE,board));
                 break;
+
             default:
                 throw new IllegalStateException("Unexpected value: " + c);
         }

@@ -3,7 +3,7 @@ package projectoop;
 import projectoop.entities.Entity;
 import projectoop.entities.mob.Mob;
 import projectoop.entities.mob.Player;
-import projectoop.entities.mob.enemy.Dragon;
+import projectoop.entities.mob.enemy.Python;
 import projectoop.entities.mob.enemy.Snake;
 import projectoop.entities.tile.BorderTile;
 import projectoop.entities.tile.GrassTile;
@@ -33,7 +33,7 @@ public class Board implements IRender {
         this.input=input;
 
         try {
-            level = new FileLevel("map/map1.txt", this);
+            level = new FileLevel("map/mapdemo2.txt", this);
             entities = new Entity[level.getHeight()][level.getWidth()];
             level.createEntities();
         }
@@ -41,8 +41,7 @@ public class Board implements IRender {
         }
 
 
-        //grass=new GrassTile(5,5);
-        //mobs.add(new Player(5*Game.TILE_SIZE,5*Game.TILE_SIZE,this));
+
 
     }
 /*
@@ -55,8 +54,7 @@ public class Board implements IRender {
         updateEntities();
         updateForeground();
         updateMobs();
-        //grass.update();
-        //updateMobs();
+
 
     }
 
@@ -65,8 +63,7 @@ public class Board implements IRender {
         renderEntities(g);
         renderForeground(g);
         renderMobs(g);
-        //grass.render(g);
-        //renderMobs(g);
+
     }
     public void updateEntities(){
         for (int y=0;y<level.getHeight();y++)
