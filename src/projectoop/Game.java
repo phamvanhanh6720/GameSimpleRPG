@@ -22,7 +22,6 @@ public class Game implements Runnable {
     private Thread thread;
 
     private Board board;
-
     public static final int TILE_SIZE=32;
 
     public final static double PLAYER_SPEED=1.0;
@@ -53,7 +52,6 @@ public class Game implements Runnable {
         }
         g=bs.getDrawGraphics();
         g.clearRect(0,0,width,height);
-        //g.drawImage(Sprite.grass,5*64,5*64,null);
         board.render(g);
 
         bs.show();

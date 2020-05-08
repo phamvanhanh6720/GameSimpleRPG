@@ -9,6 +9,7 @@ public class Tree01 extends CollisionTile {
     public Tree01(int xTile, int yTile) {
         super(xTile, yTile);
         sprite= Sprite.tree01;
+        setRectangle(new Rectangle(x*Game.TILE_SIZE+19,y*Game.TILE_SIZE+19,40,40));
     }
 
     @Override

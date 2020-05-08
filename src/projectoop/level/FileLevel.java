@@ -52,8 +52,10 @@ public class FileLevel {
     public void addLevelEntity(char c,int x, int y){
         switch (c){
             case '0':
-                board.addEntities(x,y,new BorderTile(x,y));
-                break;
+                BorderTile border=new BorderTile(x,y);
+                board.addEntities(x,y,border);
+                board.addStaticRectangles(border.getRectangle());
+            break;
             case '1':
                 board.addEntities(x,y,new Grass0Tile(x,y));
                 break;
@@ -67,38 +69,56 @@ public class FileLevel {
                 board.addEntities(x,y, new GroundTile(x,y));
                 break;
             case '5':
-                board.addEntities(x,y, new LakeTile(x,y));
+                LakeTile lake=new LakeTile(x,y);
+                board.addEntities(x,y, lake);
+                board.addStaticRectangles(lake.getRectangle());
                 break;
             case '6':
-                board.addEntities(x,y, new Lake1Tile(x,y));
+                Lake1Tile lake1=new Lake1Tile(x,y);
+                board.addEntities(x,y, lake1);
+                board.addStaticRectangles(lake1.getRectangle());
                 break;
             case '7':
+                PortTile portTile=new PortTile(x,y);
                 board.addEntities(x,y, new Grass0Tile(x,y));
-                board.addForeground(new PortTile(x,y));
+                board.addForeground(portTile);
+                board.addMovingRectangles(portTile.getRectangle());
                 break;
             case 'b':
+                BigTree bigTree=new BigTree(x,y);
                 board.addEntities(x,y,new Grass0Tile(x,y));
-                board.addForeground(new BigTree(x,y));
+                board.addForeground(bigTree);
+                board.addStaticRectangles(bigTree.getRectangle());
                 break;
             case '8':
+                Tree01 tree01=new Tree01(x,y);
                 board.addEntities(x,y, new Grass0Tile(x,y));
-                board.addForeground(new Tree01(x,y));
+                board.addForeground(tree01);
+                board.addStaticRectangles(tree01.getRectangle());
                 break;
             case '9':
+                Tree0 tree0=new Tree0(x,y);
                 board.addEntities(x,y,new Grass0Tile(x,y));
-                board.addForeground(new Tree0(x,y));
+                board.addForeground(tree0);
+                board.addStaticRectangles(tree0.getRectangle());
                 break;
             case '#':
+                Player player=new Player(x* Game.TILE_SIZE,y*Game.TILE_SIZE,board);
                 board.addEntities(x,y,new Grass0Tile(x,y));
-                board.addMobs(new Player(x* Game.TILE_SIZE,y*Game.TILE_SIZE,board));
+                board.addMobs(player);
+                board.addMovingRectangles(player.getRectangle());
                 break;
             case 's':
+                Snake snake=new Snake(x* Game.TILE_SIZE,y*Game.TILE_SIZE,board);
                 board.addEntities(x,y, new Grass0Tile(x,y));
-                board.addMobs(new Snake(x*Game.TILE_SIZE,y*Game.TILE_SIZE,board));
+                board.addMobs(snake);
+                board.addMovingRectangles(snake.getRectangle());
                 break;
             case 'p':
+                Python python=new Python(x* Game.TILE_SIZE,y*Game.TILE_SIZE,board);
                 board.addEntities(x,y,new Grass0Tile(x,y));
-                board.addMobs(new Python(x*Game.TILE_SIZE,y*Game.TILE_SIZE,board));
+                board.addMobs(python);
+                board.addMovingRectangles(python.getRectangle());
                 break;
 
             default:

@@ -100,23 +100,39 @@ public class Player extends Mob {
         }
         else
             moving=false;
-        rectangle.setLocation((int)x+14,(int)y+25);
+        rectangle.setLocation((int)x+13,(int)y+16);
 
 
     }
     @Override
     protected boolean canMove(double x, double y) {
-        /*
-        GrassTile a=(GrassTile)board.getEntities();
-        rectangle.setLocation((int)(this.x+14+x*3),(int)(this.y+25+y*3));
-        if(rectangle.intersects(a.getRectangle())) {
-            return false;
+
+        double xRec=rectangle.getX();
+        double yRec=rectangle.getY();
+        rectangle.setLocation((int)(xRec+x*1),(int)(yRec+y*1));
+        List<Rectangle> staticRectangles= board.getStaticRectangles();
+        List<Mob> mobs=board.getMobs();
+        Iterator<Rectangle> itr1=staticRectangles.iterator();
+
+        while(itr1.hasNext()){
+            Rectangle tmpRectangle =itr1.next();
+            if(rectangle.intersects(tmpRectangle)) {
+                return false;
+            }
         }
-        else {
-            return true;
+         Iterator<Mob> itr2=mobs.iterator();
+        while(itr2.hasNext()){
+            Mob tmpMob=itr2.next();
+            if(tmpMob instanceof Player){
+                continue;
+            }
+            else{
+                if(rectangle.intersects(tmpMob.getRectangle()))
+                    return false;
+            }
+
         }
 
-         */
         return true;
     }
     /*

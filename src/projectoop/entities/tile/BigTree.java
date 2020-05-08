@@ -9,6 +9,7 @@ public class BigTree extends CollisionTile {
     public BigTree(int xTile, int yTile) {
         super(xTile, yTile);
         sprite= Sprite.bigtree;
+
     }
 
     @Override

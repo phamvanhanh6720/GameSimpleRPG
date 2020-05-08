@@ -27,7 +27,9 @@ public class Board implements IRender {
     private List<Mob> mobs=new ArrayList<Mob>();
     private Entity[][] entities;
     private List<Entity> foreground=new ArrayList<Entity>();
-    private GrassTile grass;
+    private List<Rectangle> staticRectangles=new ArrayList<Rectangle>();
+    private List<Rectangle> movingRectangles=new ArrayList<Rectangle>();
+
     public Board(Game game, KeyBoard input)  {
         this.game=game;
         this.input=input;
@@ -54,6 +56,7 @@ public class Board implements IRender {
         updateEntities();
         updateForeground();
         updateMobs();
+        updateMovingRectangle();
 
 
     }
@@ -80,6 +83,20 @@ public class Board implements IRender {
         while(itr.hasNext())
             itr.next().update();
     }
+    public void updateMovingRectangle(){
+        movingRectangles.clear();
+        Iterator<Mob> itr=mobs.iterator();
+        Rectangle tmp;
+        while(itr.hasNext()){
+            tmp=itr.next().getRectangle();
+            movingRectangles.add(tmp);
+        }
+
+
+
+    }
+
+
     public void renderMobs(Graphics g){
         Iterator<Mob> itr=mobs.iterator();
         while(itr.hasNext())
@@ -111,7 +128,17 @@ public class Board implements IRender {
         mobs.add(mob);
     }
 
-
+    /*
+    |--------------------------------
+    |Add Rectangle
+    |--------------------------------
+     */
+    public void addStaticRectangles(Rectangle rectangle){
+        staticRectangles.add(rectangle);
+    }
+    public void addMovingRectangles(Rectangle rectangle){
+        movingRectangles.add(rectangle);
+    }
 
 
     public KeyBoard getInput(){
@@ -130,4 +157,14 @@ public class Board implements IRender {
         }
         return null;
     }
+    public List<Rectangle> getStaticRectangles(){
+        return staticRectangles;
+    }
+    public List<Rectangle> getMovingRectangles(){
+        return movingRectangles;
+    }
+    public List<Mob> getMobs(){
+        return mobs;
+    }
+
 }
