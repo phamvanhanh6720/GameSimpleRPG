@@ -25,7 +25,7 @@ public abstract class Enemy extends Mob {
     public Enemy(int x, int y, Board board, double speed,int hp){
         super(x,y,board,speed);
         this.hp=hp;
-        MAX_STEPS= Game.TILE_SIZE/speed;
+        MAX_STEPS= 2*Game.TILE_SIZE/speed;
         rest=(MAX_STEPS-(int)MAX_STEPS)/MAX_STEPS;
         step=MAX_STEPS;
 
@@ -41,6 +41,7 @@ public abstract class Enemy extends Mob {
     public void update() {
         animate();
         calculateMove();
+        setRectangle();
 
     }
 
@@ -50,16 +51,7 @@ public abstract class Enemy extends Mob {
         g.drawImage(sprite,(int)x,(int)y,null);
 
     }
-    /*
-    |-------------------------------------
-    |Collide
-    |-------------------------------------
-    */
 
-    @Override
-    public boolean collide(Entity entity) {
-        return false;
-    }
     /*
     |-------------------------------------
     |Move
@@ -67,6 +59,10 @@ public abstract class Enemy extends Mob {
     */
     @Override
     protected void calculateMove() {
+        if(rectangle.intersects(board.getPlayer().getRectangle())) {
+            moving=false;
+            return;
+        }
         int xa=0,ya=0;
         if(step<=0){
             direction=ai.calculateDirection();
@@ -76,15 +72,18 @@ public abstract class Enemy extends Mob {
         if(direction==3) xa--;
         if(direction==2) ya--;
         if(direction==0) ya++;
+
         if(canMove(xa,ya)){
             step-=1+rest;
             move(xa*speed,ya*speed);
             moving=true;
         }
         else{
+
             step=0;
             moving=false;
         }
+
 
     }
 
@@ -95,10 +94,7 @@ public abstract class Enemy extends Mob {
         x+=xa;
 
     }
-    @Override
-    protected boolean canMove(double x, double y) {
-        return true;
-    }
+
     /*
     |-------------------------------------
     |Be Killed

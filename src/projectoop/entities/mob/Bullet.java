@@ -19,10 +19,6 @@ public class Bullet extends Mob {
 
     }
 
-    @Override
-    public boolean collide(Entity entity) {
-        return false;
-    }
 
     @Override
     protected void calculateMove() {

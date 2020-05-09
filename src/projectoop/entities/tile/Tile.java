@@ -24,8 +24,4 @@ public class Tile extends Entity {
         g.drawImage(sprite,x* Game.TILE_SIZE,y*Game.TILE_SIZE,null);
     }
 
-    @Override
-    public boolean collide(Entity entity) {
-        return false;
-    }
 }

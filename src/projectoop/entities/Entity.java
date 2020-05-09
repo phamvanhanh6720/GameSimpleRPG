@@ -24,7 +24,7 @@ public abstract class Entity implements IRender {
     public BufferedImage getSprite() {
         return sprite;
     }
-    public abstract boolean collide(Entity entity);
+
     public double getX(){
         return x;
     }

@@ -55,16 +55,7 @@ public class Player extends Mob {
         renderRectangle(g);
     }
 
-    /*
-    |-------------------------------------
-    |Collide
-    |-------------------------------------
-    */
 
-    @Override
-    public boolean collide(Entity entity) {
-        return false;
-    }
     /*
     |-------------------------------------
     |Moving
@@ -100,7 +91,7 @@ public class Player extends Mob {
         }
         else
             moving=false;
-        rectangle.setLocation((int)x+13,(int)y+16);
+        //rectangle.setLocation((int)x+13,(int)y+16);
 
 
     }
