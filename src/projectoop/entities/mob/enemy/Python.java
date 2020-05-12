@@ -15,7 +15,7 @@ public class Python extends Enemy {
 
 
     public Python(int x, int y, Board board){
-        super(x,y,board, Game.PLAYER_SPEED/2,Game.PLAYER_HP);
+        super(x,y,board, Game.PLAYER_SPEED/2,Game.PLAYER_HP,Game.TILE_SIZE);
         ai=new AILow();
         sprite= Sprite.python_down;
         rectangle=new Rectangle((int)x+16,(int)y+25,13,17);
@@ -25,6 +25,31 @@ public class Python extends Enemy {
     public void render(Graphics g) {
         super.render(g);
         renderRectangle(g);
+    }
+
+    @Override
+    protected void calculateMove() {
+        int xa=0,ya=0;
+        if(step<=0){
+            direction=ai.calculateDirection();
+            step=MAX_STEPS;
+        }
+        if(direction==1) xa++;
+        if(direction==3) xa--;
+        if(direction==2) ya--;
+        if(direction==0) ya++;
+
+        if(canMove(xa,ya)){
+            step-=1+rest;
+            move(xa*speed,ya*speed);
+            moving=true;
+        }
+        else{
+
+            step=0;
+            moving=false;
+        }
+
     }
 
     @Override
@@ -124,5 +149,15 @@ public class Python extends Enemy {
                 g.drawRect((int)x+6,(int)y+25,13,17);
                 break;
         }
+    }
+
+    @Override
+    public double getXCentrer() {
+        return x+Sprite.python_down.getWidth()/2;
+    }
+
+    @Override
+    public double getYCenter() {
+        return y+Sprite.python_down.getHeight()/2;
     }
 }

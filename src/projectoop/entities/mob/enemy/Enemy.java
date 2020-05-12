@@ -22,10 +22,11 @@ public abstract class Enemy extends Mob {
 
 
 
-    public Enemy(int x, int y, Board board, double speed,int hp){
+    public Enemy(int x, int y, Board board, double speed,int hp,double MAX_STEPS){
         super(x,y,board,speed);
         this.hp=hp;
-        MAX_STEPS= 2*Game.TILE_SIZE/speed;
+
+        this.MAX_STEPS=MAX_STEPS;
         rest=(MAX_STEPS-(int)MAX_STEPS)/MAX_STEPS;
         step=MAX_STEPS;
 
@@ -113,4 +114,13 @@ public abstract class Enemy extends Mob {
 
     public abstract void chooseSprite();
 
+    @Override
+    public double getXCentrer() {
+        return 0;
+    }
+
+    @Override
+    public double getYCenter() {
+        return 0;
+    }
 }

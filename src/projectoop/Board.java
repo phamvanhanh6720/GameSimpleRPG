@@ -1,6 +1,7 @@
 package projectoop;
 
 import projectoop.entities.Entity;
+import projectoop.entities.mob.Bullet;
 import projectoop.entities.mob.Mob;
 import projectoop.entities.mob.Player;
 import projectoop.entities.mob.enemy.Python;
@@ -29,6 +30,7 @@ public class Board implements IRender {
     private List<Entity> foreground=new ArrayList<Entity>();
     private List<Rectangle> staticRectangles=new ArrayList<Rectangle>();
     private List<Rectangle> movingRectangles=new ArrayList<Rectangle>();
+    private List<Bullet> bullets=new ArrayList<Bullet>();
 
     public Board(Game game, KeyBoard input)  {
         this.game=game;
@@ -57,6 +59,7 @@ public class Board implements IRender {
         updateForeground();
         updateMobs();
         updateMovingRectangle();
+        updateBullets();
 
 
     }
@@ -65,8 +68,14 @@ public class Board implements IRender {
     public void render(Graphics g) {
         renderEntities(g);
         renderForeground(g);
-        renderMobs(g);
-
+        if(getPlayer().getDirection()==0){
+            renderMobs(g);
+            renderBullets(g);
+        }
+        else {
+            renderBullets(g);
+            renderMobs(g);
+        }
     }
     public void updateEntities(){
         for (int y=0;y<level.getHeight();y++)
@@ -92,8 +101,20 @@ public class Board implements IRender {
             movingRectangles.add(tmp);
         }
 
-
-
+    }
+    public void updateBullets(){
+        Iterator<Bullet> itr=bullets.iterator();
+        Bullet bullet;
+        while(itr.hasNext()){
+            bullet=itr.next();
+            if(bullet.isRemoved()==true){
+                itr.remove();
+            }
+            else{
+                bullet.update();
+            }
+        }
+        //System.out.println(bullets.size());
     }
 
 
@@ -113,6 +134,12 @@ public class Board implements IRender {
         while(itr.hasNext())
             itr.next().render(g);
     }
+    public void renderBullets(Graphics g){
+        Iterator<Bullet> itr=bullets.iterator();
+        while(itr.hasNext()){
+            itr.next().render(g);
+        }
+    }
     /*
     |--------------------------------
     |Add Entity
@@ -127,7 +154,9 @@ public class Board implements IRender {
     public void addMobs(Mob mob){
         mobs.add(mob);
     }
-
+    public void addBullets(Bullet bullet){
+        bullets.add(bullet);
+    }
     /*
     |--------------------------------
     |Add Rectangle

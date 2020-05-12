@@ -15,8 +15,7 @@ import java.awt.*;
 
 public class Player extends Mob {
 
-    private List<Bullet> bullets;
-    private List<StoneTile> stones;
+
 
     private KeyBoard input;
     private boolean shot=false;
@@ -39,6 +38,17 @@ public class Player extends Mob {
      */
     @Override
     public void update() {
+        if(alive==false){
+            afterKill();
+            return;
+        }
+        if(timeBetweenShot<-7500){
+            timeBetweenShot=0;
+        }
+        else{
+            timeBetweenShot--;
+        }
+
         animate();
         calculateMove();
         detectAttack();
@@ -51,7 +61,7 @@ public class Player extends Mob {
     public void render(Graphics g) {
         chooseSprite();
         g.drawImage(sprite,(int)x,(int)y,null);
-        //g.drawRect((int)x+17,(int)y+25,13,16);
+
         renderRectangle(g);
     }
 
@@ -100,7 +110,7 @@ public class Player extends Mob {
 
         double xRec=rectangle.getX();
         double yRec=rectangle.getY();
-        rectangle.setLocation((int)(xRec+x*1),(int)(yRec+y*1));
+        rectangle.setLocation((int)(xRec+x*3),(int)(yRec+y*3));
         List<Rectangle> staticRectangles= board.getStaticRectangles();
         List<Mob> mobs=board.getMobs();
         Iterator<Rectangle> itr1=staticRectangles.iterator();
@@ -147,10 +157,37 @@ public class Player extends Mob {
     |-------------------------------------
     */
     public void detectAttack(){
+        if(input.space&&timeBetweenShot<0){
+            double xBullet=0,yBullet=0;
+            switch(direction){
+                case 0:
+                    xBullet=x+Sprite.player_down.getWidth()/2;
+                    yBullet=y+Sprite.player_down.getHeight()/3;
+                    break;
+                case 1:
+                    xBullet=x+Sprite.player_down.getWidth();
+                    yBullet=y+Sprite.player_down.getHeight()/3;
+                    break;
+                case 2:
+                    xBullet=x+Sprite.player_down.getWidth()/2;
+                    yBullet=y+Sprite.player_down.getHeight()/3;
+                    break;
+                case 3:
+                    xBullet=x;
+                    yBullet=y+Sprite.player_down.getHeight()/3;
+                    break;
+
+            }
+            attack((int)xBullet,(int)yBullet);
+            timeBetweenShot=15;
+
+        }
 
     }
-    public void attack(){
-
+     public void attack(int xBullet, int yBullet){
+        Bullet bullet=new Bullet(xBullet,yBullet,board,Game.PLAYER_SPEED*1.5);
+        bullet.setDirection(direction);
+        board.addBullets(bullet);
     }
     /*
     |-------------------------------------
@@ -231,4 +268,15 @@ public class Player extends Mob {
         }
 
     }
+
+    @Override
+    public double getXCentrer() {
+        return x+Sprite.player_down.getWidth()/2;
+    }
+
+    @Override
+    public double getYCenter() {
+        return y+Sprite.player_down.getHeight()/2;
+    }
+
 }

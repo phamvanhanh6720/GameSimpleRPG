@@ -5,6 +5,7 @@ import projectoop.Game;
 import projectoop.entities.mob.Mob;
 import projectoop.entities.mob.Player;
 import projectoop.entities.mob.enemy.ai.AILow;
+import projectoop.entities.mob.enemy.ai.AIMedium;
 import projectoop.graphics.Sprite;
 
 import java.awt.*;
@@ -16,7 +17,7 @@ public class Snake extends Enemy {
 
 
     public Snake(int x, int y, Board board){
-        super(x,y,board, Game.PLAYER_SPEED/2,Game.PLAYER_HP/2);
+        super(x,y,board, Game.PLAYER_SPEED,Game.PLAYER_HP,Game.TILE_SIZE);
         ai=new AILow();
         sprite= Sprite.snake_down;
         rectangle=new Rectangle((int)x+28,(int)y+27,12,15);
@@ -122,5 +123,15 @@ public class Snake extends Enemy {
                 g.drawRect((int)x+28,(int)y+27,12,15);
                 break;
         }
+    }
+
+    @Override
+    public double getXCentrer() {
+        return x+Sprite.snake_down.getWidth()/2;
+    }
+
+    @Override
+    public double getYCenter() {
+        return y+Sprite.snake_down.getHeight();
     }
 }

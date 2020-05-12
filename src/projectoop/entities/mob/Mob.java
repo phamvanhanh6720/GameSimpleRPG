@@ -39,6 +39,8 @@ public abstract class Mob extends AnimatedEntity {
     public void renderRectangle(Graphics g){
 
     }
+    public abstract double getXCentrer();
+    public abstract double getYCenter();
     public boolean isAlive(){
         return alive;
     }
