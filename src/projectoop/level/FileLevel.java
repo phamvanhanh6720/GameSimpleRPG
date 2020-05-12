@@ -82,7 +82,7 @@ public class FileLevel {
                 PortTile portTile=new PortTile(x,y);
                 board.addEntities(x,y, new Grass0Tile(x,y));
                 board.addForeground(portTile);
-                board.addMovingRectangles(portTile.getRectangle());
+                board.addStaticRectangles(portTile.getRectangle());
                 break;
             case 'b':
                 BigTree bigTree=new BigTree(x,y);
@@ -106,19 +106,18 @@ public class FileLevel {
                 Player player=new Player(x* Game.TILE_SIZE,y*Game.TILE_SIZE,board);
                 board.addEntities(x,y,new Grass0Tile(x,y));
                 board.addMobs(player);
-                board.addMovingRectangles(player.getRectangle());
                 break;
             case 's':
                 Snake snake=new Snake(x* Game.TILE_SIZE,y*Game.TILE_SIZE,board);
                 board.addEntities(x,y, new Grass0Tile(x,y));
                 board.addMobs(snake);
-                board.addMovingRectangles(snake.getRectangle());
+
                 break;
             case 'p':
                 Python python=new Python(x* Game.TILE_SIZE,y*Game.TILE_SIZE,board);
                 board.addEntities(x,y,new Grass0Tile(x,y));
                 board.addMobs(python);
-                board.addMovingRectangles(python.getRectangle());
+
                 break;
 
             default:

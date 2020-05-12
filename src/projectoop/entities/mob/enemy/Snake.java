@@ -107,23 +107,6 @@ public class Snake extends Enemy {
         }
     }
 
-    @Override
-    public void renderRectangle(Graphics g) {
-        switch (direction){
-            case 0:
-                g.drawRect((int)x+28,(int)y+27,12,15);
-                break;
-            case 2:
-                g.drawRect((int)x+31,(int)y+27,12,15);
-                break;
-            case 1:
-                g.drawRect((int)x+34,(int)y+27,12,15);
-                break;
-            case 3:
-                g.drawRect((int)x+28,(int)y+27,12,15);
-                break;
-        }
-    }
 
     @Override
     public double getXCentrer() {

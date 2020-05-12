@@ -58,7 +58,6 @@ public class Board implements IRender {
         updateEntities();
         updateForeground();
         updateMobs();
-        updateMovingRectangle();
         updateBullets();
 
 
@@ -68,6 +67,7 @@ public class Board implements IRender {
     public void render(Graphics g) {
         renderEntities(g);
         renderForeground(g);
+        //thu tu render
         if(getPlayer().getDirection()==0){
             renderMobs(g);
             renderBullets(g);
@@ -89,19 +89,19 @@ public class Board implements IRender {
     }
     public void updateMobs(){
         Iterator<Mob> itr=mobs.iterator();
-        while(itr.hasNext())
-            itr.next().update();
-    }
-    public void updateMovingRectangle(){
-        movingRectangles.clear();
-        Iterator<Mob> itr=mobs.iterator();
-        Rectangle tmp;
+        Mob tmpMob;
         while(itr.hasNext()){
-            tmp=itr.next().getRectangle();
-            movingRectangles.add(tmp);
-        }
+            tmpMob=itr.next();
+            if(tmpMob.isRemoved()==true){
+                itr.remove();
+            }
+            else{
+                tmpMob.update();
+            }
 
+        }
     }
+
     public void updateBullets(){
         Iterator<Bullet> itr=bullets.iterator();
         Bullet bullet;
@@ -114,7 +114,6 @@ public class Board implements IRender {
                 bullet.update();
             }
         }
-        //System.out.println(bullets.size());
     }
 
 
@@ -165,9 +164,7 @@ public class Board implements IRender {
     public void addStaticRectangles(Rectangle rectangle){
         staticRectangles.add(rectangle);
     }
-    public void addMovingRectangles(Rectangle rectangle){
-        movingRectangles.add(rectangle);
-    }
+
 
 
     public KeyBoard getInput(){

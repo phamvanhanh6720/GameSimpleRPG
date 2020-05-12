@@ -191,7 +191,7 @@ public class Player extends Mob {
     }
     /*
     |-------------------------------------
-    |Attack
+    |Skill
     |-------------------------------------
     */
     public void detectPlaceStone(){
@@ -250,23 +250,6 @@ public class Player extends Mob {
 
 
         }
-    }
-    public void renderRectangle(Graphics g){
-        switch (direction){
-            case 0:
-                g.drawRect((int)x+17,(int)y+25,13,16);
-                break;
-            case 2:
-                g.drawRect((int)x+17,(int)y+25,13,16);
-                break;
-            case 1:
-                g.drawRect((int)x+26,(int)y+25,13,16);
-                break;
-            case 3:
-                g.drawRect((int)x+9,(int)y+25,13,16);
-                break;
-        }
-
     }
 
     @Override

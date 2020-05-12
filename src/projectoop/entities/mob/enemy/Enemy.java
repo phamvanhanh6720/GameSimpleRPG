@@ -40,6 +40,10 @@ public abstract class Enemy extends Mob {
     */
     @Override
     public void update() {
+        if(alive==false){
+            afterKill();
+            return;
+        }
         animate();
         calculateMove();
         setRectangle();

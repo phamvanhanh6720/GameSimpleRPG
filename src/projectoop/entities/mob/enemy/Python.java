@@ -134,24 +134,6 @@ public class Python extends Enemy {
     }
 
     @Override
-    public void renderRectangle(Graphics g) {
-        switch (direction){
-            case 0:
-                g.drawRect((int)x+16,(int)y+25,13,17);
-                break;
-            case 2:
-                g.drawRect((int)x+16,(int)y+25,13,17);
-                break;
-            case 1:
-                g.drawRect((int)x+26,(int)y+25,13,17);
-                break;
-            case 3:
-                g.drawRect((int)x+6,(int)y+25,13,17);
-                break;
-        }
-    }
-
-    @Override
     public double getXCentrer() {
         return x+Sprite.python_down.getWidth()/2;
     }

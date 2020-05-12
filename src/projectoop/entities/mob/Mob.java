@@ -37,6 +37,7 @@ public abstract class Mob extends AnimatedEntity {
     protected abstract boolean canMove(double x, double y);
     protected abstract void setRectangle();
     public void renderRectangle(Graphics g){
+        g.drawRect((int)rectangle.getX(),(int)rectangle.getY(),(int)rectangle.getWidth(),(int)rectangle.getHeight());
 
     }
     public abstract double getXCentrer();
