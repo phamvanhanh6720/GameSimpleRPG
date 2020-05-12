@@ -17,7 +17,7 @@ public class Snake extends Enemy {
 
 
     public Snake(int x, int y, Board board){
-        super(x,y,board, Game.PLAYER_SPEED,Game.PLAYER_HP,Game.TILE_SIZE);
+        super(x,y,board, Game.PLAYER_SPEED/2,Game.PLAYER_HP,Game.TILE_SIZE);
         ai=new AILow();
         sprite= Sprite.snake_down;
         rectangle=new Rectangle((int)x+28,(int)y+27,12,15);

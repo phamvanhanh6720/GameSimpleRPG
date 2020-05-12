@@ -21,8 +21,8 @@ public class Player extends Mob {
     private boolean shot=false;
     private int timeBetweenShot=0;
 
-    private int mp=100,hp=100;
-
+    private int mp=Game.PLAYER_MP;
+    private int hp=Game.PLAYER_HP;
 
     public Player(int x, int y, Board board){
         super(x,y,board, Game.PLAYER_SPEED);
@@ -48,7 +48,10 @@ public class Player extends Mob {
         else{
             timeBetweenShot--;
         }
-
+        //cong mp theo thoi gian
+        if(animate%40==0&& mp<100){
+            mp+=5;
+        }
         animate();
         calculateMove();
         detectAttack();
@@ -157,7 +160,7 @@ public class Player extends Mob {
     |-------------------------------------
     */
     public void detectAttack(){
-        if(input.space&&timeBetweenShot<0){
+        if(input.space&&timeBetweenShot<0&&mp>0){
             double xBullet=0,yBullet=0;
             switch(direction){
                 case 0:
@@ -188,6 +191,7 @@ public class Player extends Mob {
         Bullet bullet=new Bullet(xBullet,yBullet,board,Game.PLAYER_SPEED*1.5);
         bullet.setDirection(direction);
         board.addBullets(bullet);
+        mp-=5;
     }
     /*
     |-------------------------------------

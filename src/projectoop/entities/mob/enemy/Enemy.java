@@ -18,6 +18,7 @@ public abstract class Enemy extends Mob {
     protected final double MAX_STEPS;
     protected final double rest;
     protected double step;
+    protected boolean attack=false;
 
 
 

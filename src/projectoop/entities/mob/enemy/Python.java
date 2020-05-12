@@ -15,10 +15,27 @@ public class Python extends Enemy {
 
 
     public Python(int x, int y, Board board){
-        super(x,y,board, Game.PLAYER_SPEED/2,Game.PLAYER_HP,Game.TILE_SIZE);
+        super(x,y,board, Game.PLAYER_SPEED/2,Game.PLAYER_HP,Game.TILE_SIZE*2);
         ai=new AILow();
         sprite= Sprite.python_down;
         rectangle=new Rectangle((int)x+16,(int)y+25,13,17);
+    }
+
+    @Override
+    public void update() {
+        if(alive==false){
+            afterKill();
+            return;
+        }
+        animate();
+        chooseState();
+        if(attack){
+            setDirection(board.getPlayer());
+        }
+        else{
+            calculateMove();
+            setRectangle();
+        }
     }
 
     @Override
@@ -26,7 +43,11 @@ public class Python extends Enemy {
         super.render(g);
         renderRectangle(g);
     }
-
+/*
+|----------------------------
+|Move
+|----------------------------
+ */
     @Override
     protected void calculateMove() {
         int xa=0,ya=0;
@@ -84,7 +105,11 @@ public class Python extends Enemy {
         return true;
     }
 
-
+    /*
+    |----------------------------
+    |Choose
+    |----------------------------
+     */
     @Override
     public void chooseSprite() {
         switch(direction){
@@ -113,6 +138,19 @@ public class Python extends Enemy {
         }
 
     }
+    public void chooseState(){
+        int calc=animate%400;
+        if(calc<=300){
+            moving=true;
+            attack=false;
+            return;
+        }
+        else{
+            moving=false;
+            attack=true;
+            return;
+        }
+    }
     // Size collision box: 13,17=> width=13, height=17
     @Override
     protected void setRectangle() {
@@ -130,6 +168,10 @@ public class Python extends Enemy {
                 rectangle.setLocation((int)x+6,(int)y+25);
                 break;
         }
+
+    }
+    public void setDirection(Player player){
+
 
     }
 
