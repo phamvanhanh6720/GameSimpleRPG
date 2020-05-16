@@ -156,16 +156,20 @@ public class Python extends Enemy {
     protected void setRectangle() {
         switch (direction){
             case 0:
-                rectangle.setLocation((int)x+16,(int)y+25);
+                rectangle.setLocation((int)x+13,(int)y+10);
+                rectangle.setSize(16,35);
                 break;
             case 2:
-                rectangle.setLocation((int)x+16,(int)y+25);
+                rectangle.setLocation((int)x+13,(int)y+10);
+                rectangle.setSize(16,35);
                 break;
             case 1:
-                rectangle.setLocation((int)x+26,(int)y+25);
+                rectangle.setLocation((int)x+5,(int)y+28);
+                rectangle.setSize(35,15);
                 break;
             case 3:
-                rectangle.setLocation((int)x+6,(int)y+25);
+                rectangle.setLocation((int)x+6,(int)y+28);
+                rectangle.setSize(35,15);
                 break;
         }
 

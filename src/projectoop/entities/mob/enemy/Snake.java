@@ -93,16 +93,21 @@ public class Snake extends Enemy {
     protected void setRectangle() {
         switch (direction){
             case 0:
-                rectangle.setLocation((int)x+28,(int)y+27);
+                rectangle.setLocation((int)x+30,(int)y+10);
+                rectangle.setSize(15,40);
                 break;
             case 2:
-                rectangle.setLocation((int)x+31,(int)y+27);
+                rectangle.setLocation((int)x+30,(int)y+10);
+                rectangle.setSize(15,40);
+
                 break;
             case 1:
-                rectangle.setLocation((int)x+34,(int)y+27);
+                rectangle.setLocation((int)x+18,(int)y+27);
+                rectangle.setSize(35,15);
                 break;
             case 3:
                 rectangle.setLocation((int)x+28,(int)y+27);
+                rectangle.setSize(30,15);
                 break;
         }
     }
