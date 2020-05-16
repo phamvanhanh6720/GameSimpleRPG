@@ -49,7 +49,7 @@ public class Board implements IRender {
 
     }
 /*
-|-----------------------------
+|------------------------------
 |Update & Render
 |------------------------------
  */
@@ -59,7 +59,6 @@ public class Board implements IRender {
         updateForeground();
         updateMobs();
         updateBullets();
-
 
     }
 

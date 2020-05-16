@@ -57,7 +57,7 @@ public class Player extends Mob {
         detectAttack();
         detectPlaceStone();
         setRectangle();
-
+        //System.out.println(mp);
     }
 
     @Override
@@ -188,7 +188,7 @@ public class Player extends Mob {
 
     }
      public void attack(int xBullet, int yBullet){
-        Bullet bullet=new Bullet(xBullet,yBullet,board,Game.PLAYER_SPEED*1.5);
+        Bullet bullet=new Bullet(xBullet,yBullet,board,Game.PLAYER_SPEED*2);
         bullet.setDirection(direction);
         board.addBullets(bullet);
         mp-=5;

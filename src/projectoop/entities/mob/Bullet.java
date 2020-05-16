@@ -16,6 +16,7 @@ public class Bullet extends Weapon {
         rectangle=new Rectangle(x,y,10,10);
 
     }
+
     @Override
     public void update() {
         if(animate>=100){
