@@ -45,6 +45,7 @@ public abstract class Enemy extends Mob {
             afterKill();
             return;
         }
+        checkBeKilled();
         animate();
         calculateMove();
         setRectangle();
@@ -114,6 +115,12 @@ public abstract class Enemy extends Mob {
     @Override
     protected void afterKill() {
 
+
+    }
+    public void checkBeKilled(){
+        if(hp<=0){
+            remove();
+        }
     }
 
 
@@ -127,5 +134,12 @@ public abstract class Enemy extends Mob {
     @Override
     public double getYCenter() {
         return 0;
+    }
+
+    public int getHp(){
+        return hp;
+    }
+    public void setHp(int hp){
+        this.hp=hp;
     }
 }

@@ -3,6 +3,7 @@ package projectoop.entities.mob;
 import projectoop.Board;
 import projectoop.entities.Entity;
 import projectoop.entities.Weapon;
+import projectoop.entities.mob.enemy.Enemy;
 import projectoop.graphics.Sprite;
 
 import java.awt.*;
@@ -83,6 +84,8 @@ public class Bullet extends Weapon {
                 continue;
             }
             if(rectangle.intersects(tmpMob.getRectangle())){
+                int hp=((Enemy)tmpMob).getHp();
+                ((Enemy)tmpMob).setHp(hp-5);
                 remove();
                 return;
             }

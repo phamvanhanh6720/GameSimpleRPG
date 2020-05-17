@@ -1,4 +1,5 @@
 package projectoop.entities.mob;
+import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;

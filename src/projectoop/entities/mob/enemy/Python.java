@@ -15,7 +15,7 @@ public class Python extends Enemy {
 
 
     public Python(int x, int y, Board board){
-        super(x,y,board, Game.PLAYER_SPEED/2,Game.PLAYER_HP,Game.TILE_SIZE*2);
+        super(x,y,board, Game.PLAYER_SPEED/2,Game.PLAYER_HP/10,Game.TILE_SIZE*2);
         ai=new AILow();
         sprite= Sprite.python_down;
         rectangle=new Rectangle((int)x+16,(int)y+25,13,17);
