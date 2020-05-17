@@ -239,20 +239,20 @@ public class Player extends Mob {
     protected void setRectangle(){
         switch (direction){
             case 0:
-                rectangle.setLocation((int)x+15,(int)y+2);
-                rectangle.setSize(16,40);
+                rectangle.setLocation((int)x+18,(int)y+4);
+                rectangle.setSize(16,36);
                 break;
             case 2:
                 rectangle.setLocation((int)x+15,(int)y+5);
-                rectangle.setSize(16,40);
+                rectangle.setSize(16,38);
                 break;
             case 1:
-                rectangle.setLocation((int)x+2,(int)y+25);
-                rectangle.setSize(40,18);
+                rectangle.setLocation((int)x+4,(int)y+27);
+                rectangle.setSize(36,15);
                 break;
             case 3:
-                rectangle.setLocation((int)x+5,(int)y+25);
-                rectangle.setSize(40,18);
+                rectangle.setLocation((int)x+5,(int)y+27);
+                rectangle.setSize(37,15);
                 break;
 
 
