@@ -50,6 +50,7 @@ public abstract class Enemy extends Mob {
         calculateMove();
         setRectangle();
 
+
     }
 
     @Override
@@ -86,7 +87,6 @@ public abstract class Enemy extends Mob {
             moving=true;
         }
         else{
-
             step=0;
             moving=false;
         }
@@ -109,23 +109,32 @@ public abstract class Enemy extends Mob {
     */
     @Override
     protected void kill() {
-
+        remove();
     }
 
     @Override
     protected void afterKill() {
-
+        if(timeAfter>0){
+            timeAfter--;
+        }
+        else{
+            kill();
+        }
 
     }
     public void checkBeKilled(){
         if(hp<=0){
-            remove();
+            alive=false;
         }
     }
 
 
     public abstract void chooseSprite();
-
+    /*
+    |-------------------------------------
+    |Get and Set
+    |-------------------------------------
+    */
     @Override
     public double getXCentrer() {
         return 0;

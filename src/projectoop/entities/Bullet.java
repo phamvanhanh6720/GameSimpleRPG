@@ -1,8 +1,8 @@
-package projectoop.entities.mob;
+package projectoop.entities;
 
 import projectoop.Board;
-import projectoop.entities.Entity;
-import projectoop.entities.Weapon;
+import projectoop.entities.mob.Mob;
+import projectoop.entities.mob.Player;
 import projectoop.entities.mob.enemy.Enemy;
 import projectoop.graphics.Sprite;
 
@@ -17,6 +17,11 @@ public class Bullet extends Weapon {
         rectangle=new Rectangle(x,y,10,10);
 
     }
+    /*
+    |-------------------------------------
+    |Update and Render
+    |-------------------------------------
+    */    
     @Override
     public void update() {
         if(animate>=100){
@@ -36,7 +41,17 @@ public class Bullet extends Weapon {
         g.drawRect((int)x,(int)y,10,10);
     }
 
+    /*
+    |-------------------------------------
+    |Moving and Collision    
+    |-------------------------------------
+    */
+    @Override
+    public void move(double xa, double ya) {
+        x+=xa;
+        y+=ya;
 
+    }
     @Override
     public void calculateMove() {
         int xa=0,ya=0;
@@ -95,12 +110,7 @@ public class Bullet extends Weapon {
 
     }
 
-    @Override
-    public void move(double xa, double ya) {
-        x+=xa;
-        y+=ya;
 
-    }
 
 
 }

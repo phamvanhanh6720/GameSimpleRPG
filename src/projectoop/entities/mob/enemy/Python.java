@@ -20,7 +20,11 @@ public class Python extends Enemy {
         sprite= Sprite.python_down;
         rectangle=new Rectangle((int)x+16,(int)y+25,13,17);
     }
-
+    /*
+    |-------------------------------------
+    |Update and Render
+    |-------------------------------------
+    */
     @Override
     public void update() {
         if(alive==false){
@@ -29,8 +33,9 @@ public class Python extends Enemy {
         }
         animate();
         chooseState();
+        checkBeKilled();
         if(attack){
-            setDirection(board.getPlayer());
+
         }
         else{
             calculateMove();
@@ -48,30 +53,6 @@ public class Python extends Enemy {
 |Move
 |----------------------------
  */
-    @Override
-    protected void calculateMove() {
-        int xa=0,ya=0;
-        if(step<=0){
-            direction=ai.calculateDirection();
-            step=MAX_STEPS;
-        }
-        if(direction==1) xa++;
-        if(direction==3) xa--;
-        if(direction==2) ya--;
-        if(direction==0) ya++;
-
-        if(canMove(xa,ya)){
-            step-=1+rest;
-            move(xa*speed,ya*speed);
-            moving=true;
-        }
-        else{
-
-            step=0;
-            moving=false;
-        }
-
-    }
 
     @Override
     protected boolean canMove(double x, double y) {
@@ -151,7 +132,11 @@ public class Python extends Enemy {
             return;
         }
     }
-    // Size collision box: 13,17=> width=13, height=17
+    /*
+    |-------------------------------------
+    |Get and Set
+    |-------------------------------------
+    */
     @Override
     protected void setRectangle() {
         switch (direction){
@@ -172,10 +157,6 @@ public class Python extends Enemy {
                 rectangle.setSize(35,13);
                 break;
         }
-
-    }
-    public void setDirection(Player player){
-
 
     }
 

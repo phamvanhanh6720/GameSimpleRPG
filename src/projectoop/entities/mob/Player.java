@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import projectoop.Board;
 import projectoop.Game;
+import projectoop.entities.Bullet;
 import projectoop.entities.Entity;
 import projectoop.entities.tile.GrassTile;
 import projectoop.entities.tile.StoneTile;
@@ -205,6 +206,11 @@ public class Player extends Mob {
     public void placeStone(){
 
     }
+    /*
+    |-------------------------------------
+    |Choose
+    |-------------------------------------
+    */
     private void chooseSprite(){
         switch (direction){
             case 0:
@@ -236,7 +242,11 @@ public class Player extends Mob {
                 break;
         }
     }
-    // Size collision box: 13,16
+    /*
+    |----------------------------------
+    |Get and Set
+    |----------------------------------
+     */
     protected void setRectangle(){
         switch (direction){
             case 0:
@@ -271,6 +281,7 @@ public class Player extends Mob {
     public double getYCenter() {
         return y+Sprite.player_down.getHeight()/2;
     }
+
     public int getHp(){
         return hp;
     }

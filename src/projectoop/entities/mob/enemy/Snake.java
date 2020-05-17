@@ -21,14 +21,21 @@ public class Snake extends Enemy {
         sprite= Sprite.snake_down;
         rectangle=new Rectangle((int)x+28,(int)y+27,12,15);
     }
-
+    /*
+    |-------------------------------------
+    |Update and render
+    |-------------------------------------
+    */
     @Override
     public void render(Graphics g) {
         super.render(g);
         renderRectangle(g);
-        System.out.println(hp);
     }
-
+    /*
+    |-------------------------------------
+    |Move
+    |-------------------------------------
+    */
 
     @Override
     protected boolean canMove(double x, double y) {
@@ -59,7 +66,11 @@ public class Snake extends Enemy {
         }
         return true;
     }
-
+    /*
+    |-------------------------------------
+    |Choose
+    |-------------------------------------
+    */
     @Override
     public void chooseSprite() {
         switch (direction){
@@ -88,7 +99,11 @@ public class Snake extends Enemy {
 
     }
 
-    //Size collision box: 12*15
+    /*
+    |-------------------------------------
+    |Get and Set
+    |-------------------------------------
+    */
     @Override
     protected void setRectangle() {
         switch (direction){
