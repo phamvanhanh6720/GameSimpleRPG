@@ -21,6 +21,7 @@ public class Sprite {
     -------------------------------------------
      */
     public static BufferedImage bullet=ImageLoader.loadImage("/textures/bullet_1.png");
+    public static BufferedImage pythonBullet=ImageLoader.loadImage("/textures/pythonbullet.png");
     public static BufferedImage border=ImageLoader.loadImage("/textures/border.png");
     public static BufferedImage grass0=ImageLoader.loadImage("/textures/grass0.png");
     public static BufferedImage grass=ImageLoader.loadImage("/textures/grass.png");
