@@ -260,6 +260,7 @@ public class Player extends Mob {
         }
     }
 
+
     @Override
     public double getXCentrer() {
         return x+Sprite.player_down.getWidth()/2;
@@ -268,6 +269,13 @@ public class Player extends Mob {
     @Override
     public double getYCenter() {
         return y+Sprite.player_down.getHeight()/2;
+    }
+    public int getHp(){
+        return hp;
+    }
+    public void setHp(int hp){
+        this.hp=hp;
+
     }
 
 }

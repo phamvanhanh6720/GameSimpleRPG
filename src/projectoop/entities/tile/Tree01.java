@@ -15,6 +15,6 @@ public class Tree01 extends CollisionTile {
     @Override
     public void render(Graphics g) {
         g.drawImage(sprite,x* Game.TILE_SIZE,y*Game.TILE_SIZE,null);
-        //g.drawRect(x*Game.TILE_SIZE+12,y*Game.TILE_SIZE+10,48,50);
+        g.drawRect(x*Game.TILE_SIZE+12,y*Game.TILE_SIZE+10,48,50);
     }
 }
