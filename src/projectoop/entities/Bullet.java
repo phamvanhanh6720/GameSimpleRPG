@@ -38,7 +38,6 @@ public class Bullet extends Weapon {
     @Override
     public void render(Graphics g) {
         g.drawImage(sprite,(int)x,(int)y,null);
-        g.drawRect((int)x,(int)y,10,10);
     }
 
     /*
@@ -86,7 +85,6 @@ public class Bullet extends Weapon {
         while(itr1.hasNext()){
             Rectangle tmpRectangle=itr1.next();
             if(rectangle.intersects(tmpRectangle)){
-                System.out.println(1);
                 remove();
                 return;
             }

@@ -2,11 +2,13 @@ package projectoop.entities.mob.enemy;
 
 import projectoop.Board;
 import projectoop.Game;
+import projectoop.entities.PythonBullet;
 import projectoop.entities.mob.Mob;
 import projectoop.entities.mob.Player;
 import projectoop.entities.mob.enemy.ai.AILow;
 import projectoop.graphics.Sprite;
 
+import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.awt.*;
 import java.util.Iterator;
 import java.util.List;
@@ -14,11 +16,13 @@ import java.util.List;
 public class Python extends Enemy {
 
 
+    private int timeBetweenShot;
     public Python(int x, int y, Board board){
         super(x,y,board, Game.PLAYER_SPEED/2,Game.PLAYER_HP/10,Game.TILE_SIZE*2);
         ai=new AILow();
         sprite= Sprite.python_down;
         rectangle=new Rectangle((int)x+16,(int)y+25,13,17);
+        timeBetweenShot=15;
     }
     /*
     |-------------------------------------
@@ -35,6 +39,15 @@ public class Python extends Enemy {
         chooseState();
         checkBeKilled();
         if(attack){
+            if(timeBetweenShot<0){
+                chooseDirection();
+                attack();
+                //System.out.println("Attack");
+                timeBetweenShot=15;
+            }
+            else{
+                timeBetweenShot--;
+            }
 
         }
         else{
@@ -48,6 +61,37 @@ public class Python extends Enemy {
         super.render(g);
         renderRectangle(g);
     }
+    /*
+    |----------------------------
+    |Attack
+    |----------------------------
+    */
+    public void attack(){
+        int xBullet=0,yBullet=0;
+        switch(direction){
+            case 0:
+                xBullet=(int)(x+Sprite.python_left.getWidth()/3);
+                yBullet=(int)(y+Sprite.python_left.getHeight()*3/4);
+                break;
+            case 1:
+                xBullet=(int)(x+Sprite.python_left.getWidth()*3/4);
+                yBullet=(int)(y+Sprite.python_left.getHeight()/4);
+                break;
+            case 2:
+                xBullet=(int)(x+Sprite.python_left.getWidth()/3);
+                yBullet=(int)(y+Sprite.python_left.getHeight()/4);
+                break;
+            case 3:
+                xBullet=(int)(x+Sprite.python_left.getWidth()/4);
+                yBullet=(int)(y+Sprite.python_left.getHeight()/4);
+                break;
+        }
+        PythonBullet pythonBullet=new PythonBullet(xBullet,yBullet,board,Game.PLAYER_SPEED*1.5);
+        pythonBullet.setDirection(direction);
+        board.addBullets(pythonBullet);
+
+    }
+
 /*
 |----------------------------
 |Move
@@ -132,6 +176,15 @@ public class Python extends Enemy {
             return;
         }
     }
+    //Choose direction before attack
+    public void chooseDirection(){
+        if (getXCentrer()>board.getPlayer().getXCentrer()){
+            setDirection(3);
+        }
+        else{
+            setDirection(1);
+        }
+    }
     /*
     |-------------------------------------
     |Get and Set
@@ -169,4 +222,5 @@ public class Python extends Enemy {
     public double getYCenter() {
         return y+Sprite.python_down.getHeight()/2;
     }
+
 }

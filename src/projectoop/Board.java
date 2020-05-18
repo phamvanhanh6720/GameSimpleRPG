@@ -57,6 +57,7 @@ public class Board implements IRender {
         updateBullets();
 
 
+
     }
 
     @Override
@@ -149,7 +150,7 @@ public class Board implements IRender {
     public void addMobs(Mob mob){
         mobs.add(mob);
     }
-    public void addBullets(Bullet bullet){
+    public void addBullets(Weapon bullet){
         bullets.add(bullet);
     }
     /*

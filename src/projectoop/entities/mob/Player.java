@@ -59,6 +59,7 @@ public class Player extends Mob {
         detectAttack();
         detectPlaceStone();
         setRectangle();
+        System.out.println(hp);
 
     }
 
@@ -166,7 +167,7 @@ public class Player extends Mob {
             double xBullet=0,yBullet=0;
             switch(direction){
                 case 0:
-                    xBullet=x+Sprite.player_down.getWidth()/2;
+                    xBullet=x+Sprite.player_down.getWidth()/2.5;
                     yBullet=y+Sprite.player_down.getHeight()/3;
                     break;
                 case 1:
@@ -174,7 +175,7 @@ public class Player extends Mob {
                     yBullet=y+Sprite.player_down.getHeight()/3;
                     break;
                 case 2:
-                    xBullet=x+Sprite.player_down.getWidth()/2;
+                    xBullet=x+Sprite.player_down.getWidth()/2.5;
                     yBullet=y+Sprite.player_down.getHeight()/3;
                     break;
                 case 3:
