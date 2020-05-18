@@ -3,6 +3,7 @@ package projectoop.entities;
 import projectoop.Board;
 import projectoop.entities.mob.Mob;
 import projectoop.entities.mob.Player;
+import projectoop.entities.mob.enemy.Python;
 import projectoop.graphics.Sprite;
 
 import java.awt.*;
@@ -37,7 +38,6 @@ public class PythonBullet extends Weapon {
     @Override
     public void render(Graphics g) {
         g.drawImage(sprite,(int)x,(int)y,null);
-        g.drawRect((int)x,(int)y,10,10);
     }
 
 
@@ -94,12 +94,19 @@ public class PythonBullet extends Weapon {
         Iterator<Mob> itr2=mobs.iterator();
         while(itr2.hasNext()){
             Mob tmpMob=itr2.next();
-            if(tmpMob instanceof Player){
-                int hp=((Player)tmpMob).getHp();
-                ((Player)tmpMob).setHp(hp-5);
-                remove();
+            if(tmpMob instanceof Python){
+                continue;
             }
-            if(rectangle.intersects(tmpMob.getRectangle())){
+            if(tmpMob instanceof Player){
+                if(rectangle.intersects(tmpMob.getRectangle()))
+                {
+                    int hp=((Player)tmpMob).getHp();
+                    ((Player)tmpMob).setHp(hp-5);
+                    remove();
+                    return;
+                }
+            }
+            if (rectangle.intersects(tmpMob.getRectangle())){
                 remove();
                 return;
             }

@@ -51,6 +51,9 @@ public abstract class Mob extends AnimatedEntity {
     public int getDirection(){
         return direction;
     }
+    public void setDirection(int direction){
+        this.direction=direction;
+    }
     public Rectangle getRectangle(){
         return rectangle;
     }

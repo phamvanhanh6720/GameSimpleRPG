@@ -31,11 +31,6 @@ public abstract class Entity implements IRender {
     public double getY(){
         return y;
     }
-    public int getXTile(){
-        return 0;
-    }
-    public int getYTile(){
-        return 0;
-    }
+
 
 }
