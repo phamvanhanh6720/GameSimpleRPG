@@ -13,6 +13,7 @@ import projectoop.entities.tile.StoneTile;
 import projectoop.graphics.Sprite;
 import projectoop.input.KeyBoard;
 
+import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.awt.*;
 
 public class Player extends Mob {
@@ -30,7 +31,7 @@ public class Player extends Mob {
 
         sprite=Sprite.player_down;
         input=board.getInput();
-        rectangle=new Rectangle((int)x+17,(int)y+25,13,16);
+        rectangle=new Rectangle((int)x+9,(int)y+8,32,36);
         spriteHp=Sprite.hp100;
         spriteMp=Sprite.mp100;
 
@@ -62,7 +63,8 @@ public class Player extends Mob {
         detectAttack();
         detectPlaceStone();
         setRectangle();
-        System.out.println(mp);
+        System.out.println(hp);
+
 
     }
 
@@ -278,20 +280,16 @@ public class Player extends Mob {
     protected void setRectangle(){
         switch (direction){
             case 0:
-                rectangle.setLocation((int)x+18,(int)y+4);
-                rectangle.setSize(16,36);
+                rectangle.setLocation((int)x+9,(int)y+8);
                 break;
             case 2:
-                rectangle.setLocation((int)x+15,(int)y+5);
-                rectangle.setSize(16,38);
+                rectangle.setLocation((int)x+7,(int)y+8);
                 break;
             case 1:
-                rectangle.setLocation((int)x+4,(int)y+27);
-                rectangle.setSize(36,15);
+                rectangle.setLocation((int)x+13,(int)y+8);
                 break;
             case 3:
-                rectangle.setLocation((int)x+5,(int)y+27);
-                rectangle.setSize(37,15);
+                rectangle.setLocation((int)x+3,(int)y+8);
                 break;
 
 
@@ -302,12 +300,12 @@ public class Player extends Mob {
 
     @Override
     public double getXCentrer() {
-        return x+Sprite.player_down.getWidth()/2;
+        return x+25;
     }
 
     @Override
     public double getYCenter() {
-        return y+Sprite.player_down.getHeight()/2;
+        return y+25;
     }
 
     public int getHp(){
