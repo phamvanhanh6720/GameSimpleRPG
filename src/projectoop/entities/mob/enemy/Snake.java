@@ -16,7 +16,7 @@ public class Snake extends Enemy {
 
 
     public Snake(int x, int y, Board board){
-        super(x,y,board, Game.PLAYER_SPEED/2,Game.PLAYER_HP/5,Game.TILE_SIZE);
+        super(x,y,board, Game.PLAYER_SPEED,Game.PLAYER_HP/5,40);
         ai=new AIMedium(board.getPlayer(),this);
         sprite= Sprite.snake_down;
         rectangle=new Rectangle((int)x+18,(int)y+12,28,30);
@@ -31,6 +31,8 @@ public class Snake extends Enemy {
     public void update() {
         super.update();
         if(attack==true){
+            Player player=board.getPlayer();
+            setDirection(player);
             attack();
         }
     }
@@ -52,6 +54,7 @@ public class Snake extends Enemy {
     protected void calculateMove() {
         Player p = null;
         p = board.getPlayer();
+        // khi khoang cach giua Snake va player nho hon 1 gia tri thi snake chuyen trang thai sang tan cong, moving=false
         if(Math.sqrt(Math.pow(this.getXCentrer()-p.getXCentrer(),2)+Math.pow(this.getYCenter()-p.getYCenter(),2)) <= 40){
             moving = false;
             attack = true;
@@ -122,7 +125,7 @@ public class Snake extends Enemy {
     @Override
     public void attack() {
         // thoi gian 1 lan tru mau, tinh theo vong lap game
-        if(animate%10<2){
+        if(animate%10==0){
             subtractPlayerHp();
         }
     }
@@ -165,7 +168,7 @@ public class Snake extends Enemy {
                 if(moving)
                     sprite=Sprite.movingSprite(Sprite.snake_left,Sprite.snake_left_1,Sprite.snake_left_2,Sprite.snake_left_3,animate,40);
                 if(attack)
-                    sprite=Sprite.movingSprite(Sprite.snake_hit_down,Sprite.snake_hit_down_1,Sprite.snake_hit_down_2,Sprite.snake_hit_down_3,animate,60);
+                    sprite=Sprite.movingSprite(Sprite.snake_hit_left,Sprite.snake_hit_left_1,Sprite.snake_hit_left_2,Sprite.snake_hit_left_3,animate,60);
                 break;
 
         }
@@ -204,5 +207,28 @@ public class Snake extends Enemy {
     @Override
     public double getYCenter() {
         return y+30;
+    }
+    //set direction khi tan cong
+    public void setDirection(Player player){
+        double verticalDistance, horizontalDistance;
+        verticalDistance=Math.abs(player.getYCenter()-this.getYCenter());
+        horizontalDistance=Math.abs(player.getXCentrer()-this.getXCentrer());
+        if(verticalDistance>horizontalDistance){
+            if(player.getYCenter()<this.getYCenter()){
+                direction=2;
+            }
+            else{
+                direction=0;
+            }
+            return;
+        }
+        if(player.getXCentrer()<this.getXCentrer()){
+            direction=3;
+        }
+        else{
+            direction=1;
+        }
+        return;
+
     }
 }

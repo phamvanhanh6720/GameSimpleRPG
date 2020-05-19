@@ -63,7 +63,7 @@ public class Player extends Mob {
         detectAttack();
         detectPlaceStone();
         setRectangle();
-        System.out.println(hp);
+        //System.out.println(hp);
 
 
     }
