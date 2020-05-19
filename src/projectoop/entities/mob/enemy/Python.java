@@ -2,11 +2,13 @@ package projectoop.entities.mob.enemy;
 
 import projectoop.Board;
 import projectoop.Game;
+import projectoop.entities.PythonBullet;
 import projectoop.entities.mob.Mob;
 import projectoop.entities.mob.Player;
 import projectoop.entities.mob.enemy.ai.AILow;
 import projectoop.graphics.Sprite;
 
+import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.awt.*;
 import java.util.Iterator;
 import java.util.List;
@@ -14,13 +16,19 @@ import java.util.List;
 public class Python extends Enemy {
 
 
+    private int timeBetweenShot;
     public Python(int x, int y, Board board){
-        super(x,y,board, Game.PLAYER_SPEED/2,Game.PLAYER_HP,Game.TILE_SIZE*2);
+        super(x,y,board, Game.PLAYER_SPEED/2,Game.PLAYER_HP/10,Game.TILE_SIZE*2);
         ai=new AILow();
         sprite= Sprite.python_down;
         rectangle=new Rectangle((int)x+16,(int)y+25,13,17);
+        timeBetweenShot=15;
     }
-
+    /*
+    |-------------------------------------
+    |Update and Render
+    |-------------------------------------
+    */
     @Override
     public void update() {
         if(alive==false){
@@ -29,8 +37,18 @@ public class Python extends Enemy {
         }
         animate();
         chooseState();
+        checkBeKilled();
         if(attack){
-            setDirection(board.getPlayer());
+            if(timeBetweenShot<0){
+                chooseDirection();
+                attack();
+                //System.out.println("Attack");
+                timeBetweenShot=15;
+            }
+            else{
+                timeBetweenShot--;
+            }
+
         }
         else{
             calculateMove();
@@ -41,37 +59,46 @@ public class Python extends Enemy {
     @Override
     public void render(Graphics g) {
         super.render(g);
+        chooseSpriteHp(Game.PLAYER_HP/10,hp);
+        g.drawImage(spriteHp,(int)x+4,(int)y-8,null);
         renderRectangle(g);
     }
+    /*
+    |----------------------------
+    |Attack
+    |----------------------------
+    */
+    public void attack(){
+        int xBullet=0,yBullet=0;
+        switch(direction){
+            case 0:
+                xBullet=(int)(x+Sprite.python_left.getWidth()/3);
+                yBullet=(int)(y+Sprite.python_left.getHeight()*3/4);
+                break;
+            case 1:
+                xBullet=(int)(x+Sprite.python_left.getWidth()*3/4);
+                yBullet=(int)(y+Sprite.python_left.getHeight()/4);
+                break;
+            case 2:
+                xBullet=(int)(x+Sprite.python_left.getWidth()/3);
+                yBullet=(int)(y+Sprite.python_left.getHeight()/4);
+                break;
+            case 3:
+                xBullet=(int)(x+Sprite.python_left.getWidth()/4);
+                yBullet=(int)(y+Sprite.python_left.getHeight()/4);
+                break;
+        }
+        PythonBullet pythonBullet=new PythonBullet(xBullet,yBullet,board,Game.PLAYER_SPEED*1.5);
+        pythonBullet.setDirection(direction);
+        board.addBullets(pythonBullet);
+
+    }
+
 /*
 |----------------------------
 |Move
 |----------------------------
  */
-    @Override
-    protected void calculateMove() {
-        int xa=0,ya=0;
-        if(step<=0){
-            direction=ai.calculateDirection();
-            step=MAX_STEPS;
-        }
-        if(direction==1) xa++;
-        if(direction==3) xa--;
-        if(direction==2) ya--;
-        if(direction==0) ya++;
-
-        if(canMove(xa,ya)){
-            step-=1+rest;
-            move(xa*speed,ya*speed);
-            moving=true;
-        }
-        else{
-
-            step=0;
-            moving=false;
-        }
-
-    }
 
     @Override
     protected boolean canMove(double x, double y) {
@@ -92,7 +119,7 @@ public class Python extends Enemy {
         Iterator<Mob> itr2=mobs.iterator();
         while(itr2.hasNext()){
             Mob tmpMob=itr2.next();
-            if(tmpMob instanceof Python){
+            if(tmpMob==this){
                 continue;
             }
             else{
@@ -138,6 +165,9 @@ public class Python extends Enemy {
         }
 
     }
+
+
+
     public void chooseState(){
         int calc=animate%400;
         if(calc<=300){
@@ -151,31 +181,40 @@ public class Python extends Enemy {
             return;
         }
     }
-    // Size collision box: 13,17=> width=13, height=17
+    //Choose direction before attack
+    public void chooseDirection(){
+        if (getXCentrer()>board.getPlayer().getXCentrer()){
+            setDirection(3);
+        }
+        else{
+            setDirection(1);
+        }
+    }
+    /*
+    |-------------------------------------
+    |Get and Set
+    |-------------------------------------
+    */
     @Override
     protected void setRectangle() {
         switch (direction){
             case 0:
                 rectangle.setLocation((int)x+13,(int)y+10);
-                rectangle.setSize(16,35);
+                rectangle.setSize(14,33);
                 break;
             case 2:
                 rectangle.setLocation((int)x+13,(int)y+10);
-                rectangle.setSize(16,35);
+                rectangle.setSize(14,33);
                 break;
             case 1:
-                rectangle.setLocation((int)x+5,(int)y+28);
-                rectangle.setSize(35,15);
+                rectangle.setLocation((int)x+6,(int)y+30);
+                rectangle.setSize(35,13);
                 break;
             case 3:
-                rectangle.setLocation((int)x+6,(int)y+28);
-                rectangle.setSize(35,15);
+                rectangle.setLocation((int)x+6,(int)y+30);
+                rectangle.setSize(35,13);
                 break;
         }
-
-    }
-    public void setDirection(Player player){
-
 
     }
 
@@ -188,4 +227,5 @@ public class Python extends Enemy {
     public double getYCenter() {
         return y+Sprite.python_down.getHeight()/2;
     }
+
 }

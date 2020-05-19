@@ -15,20 +15,70 @@ import java.util.List;
 public class Snake extends Enemy {
 
 
-
     public Snake(int x, int y, Board board){
-        super(x,y,board, Game.PLAYER_SPEED/2,Game.PLAYER_HP,Game.TILE_SIZE);
+        super(x,y,board, Game.PLAYER_SPEED/2,Game.PLAYER_HP/5,Game.TILE_SIZE);
         ai=new AIMedium(board.getPlayer(),this);
         sprite= Sprite.snake_down;
         rectangle=new Rectangle((int)x+28,(int)y+27,12,15);
     }
-
+    /*
+    |-------------------------------------
+    |Update and render
+    |-------------------------------------
+    */
     @Override
     public void render(Graphics g) {
         super.render(g);
+        chooseSpriteHp(Game.PLAYER_HP/5,hp);
+        g.drawImage(spriteHp,(int)x+13,(int)y+2,null);
         renderRectangle(g);
     }
+    /*
+    |-------------------------------------
+    |Move
+    |-------------------------------------
+    */
 
+    @Override
+    protected void calculateMove() {
+        Player p = null;
+        p = board.getPlayer();
+        if(Math.sqrt(((this.getXCentrer()-p.getXCentrer())*(this.getXCentrer()-p.getXCentrer()))+(this.getYCenter()-p.getYCenter())) <= 7){
+            moving = false;
+            attack = true;
+            subtractPlayerHp();
+            return;
+        }
+        int xa=0,ya=0;
+        if(step<=0){
+            direction=ai.calculateDirection();
+            step=MAX_STEPS;
+        }
+        if(direction==1) xa++;
+        if(direction==3) xa--;
+        if(direction==2) ya--;
+        if(direction==0) ya++;
+
+        if(canMove(xa,ya)){
+            step-=1+rest;
+            move(xa*speed,ya*speed);
+            moving=true;
+        }
+        else{
+            step=0;
+            moving=false;
+        }
+        attack = false;
+
+    }
+
+    public void subtractPlayerHp(){
+        Player p = null;
+        p = board.getPlayer();
+        if (attack && (rectangle.intersects(p.getRectangle()))){
+            p.setHp(p.getHp()-5);
+        }
+    }
 
     @Override
     protected boolean canMove(double x, double y) {
@@ -48,7 +98,7 @@ public class Snake extends Enemy {
         Iterator<Mob> itr2=mobs.iterator();
         while(itr2.hasNext()){
             Mob tmpMob=itr2.next();
-            if(tmpMob instanceof Snake){
+            if(tmpMob==this){
                 continue;
             }
             else{
@@ -59,7 +109,11 @@ public class Snake extends Enemy {
         }
         return true;
     }
-
+    /*
+    |-------------------------------------
+    |Choose
+    |-------------------------------------
+    */
     @Override
     public void chooseSprite() {
         switch (direction){
@@ -67,46 +121,58 @@ public class Snake extends Enemy {
                 sprite=Sprite.snake_down;
                 if(moving)
                     sprite=Sprite.movingSprite(Sprite.snake_down,Sprite.snake_down_1,Sprite.snake_down_2,Sprite.snake_down_3,animate,40);
+                if(attack)
+                    sprite=Sprite.movingSprite(Sprite.snake_hit_down,Sprite.snake_hit_down_1,Sprite.snake_hit_down_2,Sprite.snake_hit_down_3,animate,30);
                 break;
             case 1:
                 sprite=Sprite.snake_right;
                 if(moving)
                     sprite=Sprite.movingSprite(Sprite.snake_right,Sprite.snake_right_1,Sprite.snake_right_2,Sprite.snake_right_3,animate,40);
+                if(attack)
+                    sprite=Sprite.movingSprite(Sprite.snake_hit_right,Sprite.snake_hit_right_1,Sprite.snake_hit_right_2,Sprite.snake_hit_right_3,animate,30);
                 break;
             case 2:
                 sprite=Sprite.snake_up;
                 if(moving)
                     sprite=Sprite.movingSprite(Sprite.snake_up,Sprite.snake_up_1,Sprite.snake_up_2,Sprite.snake_up_3,animate,40);
+                if(attack)
+                    sprite=Sprite.movingSprite(Sprite.snake_hit_up,Sprite.snake_hit_up_1,Sprite.snake_hit_up_2,Sprite.snake_hit_up_3,animate,30);
                 break;
             case 3:
                 sprite=Sprite.snake_left;
                 if(moving)
                     sprite=Sprite.movingSprite(Sprite.snake_left,Sprite.snake_left_1,Sprite.snake_left_2,Sprite.snake_left_3,animate,40);
+                if(attack)
+                    sprite=Sprite.movingSprite(Sprite.snake_hit_down,Sprite.snake_hit_down_1,Sprite.snake_hit_down_2,Sprite.snake_hit_down_3,animate,30);
                 break;
 
         }
 
     }
 
-    //Size collision box: 12*15
+    /*
+    |-------------------------------------
+    |Get and Set
+    |-------------------------------------
+    */
     @Override
     protected void setRectangle() {
         switch (direction){
             case 0:
-                rectangle.setLocation((int)x+30,(int)y+10);
-                rectangle.setSize(15,40);
+                rectangle.setLocation((int)x+28,(int)y+12);
+                rectangle.setSize(13,33);
                 break;
             case 2:
-                rectangle.setLocation((int)x+30,(int)y+10);
-                rectangle.setSize(15,40);
+                rectangle.setLocation((int)x+28,(int)y+12);
+                rectangle.setSize(13,33);
 
                 break;
             case 1:
                 rectangle.setLocation((int)x+18,(int)y+27);
-                rectangle.setSize(35,15);
+                rectangle.setSize(30,15);
                 break;
             case 3:
-                rectangle.setLocation((int)x+28,(int)y+27);
+                rectangle.setLocation((int)x+26,(int)y+27);
                 rectangle.setSize(30,15);
                 break;
         }

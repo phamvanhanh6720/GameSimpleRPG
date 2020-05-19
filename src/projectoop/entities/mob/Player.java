@@ -1,10 +1,12 @@
 package projectoop.entities.mob;
+import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import projectoop.Board;
 import projectoop.Game;
+import projectoop.entities.Bullet;
 import projectoop.entities.Entity;
 import projectoop.entities.tile.GrassTile;
 import projectoop.entities.tile.StoneTile;
@@ -20,16 +22,18 @@ public class Player extends Mob {
     private KeyBoard input;
     private boolean shot=false;
     private int timeBetweenShot=0;
-
     private int mp=Game.PLAYER_MP;
-    private int hp=Game.PLAYER_HP;
+    private BufferedImage spriteMp;
 
     public Player(int x, int y, Board board){
-        super(x,y,board, Game.PLAYER_SPEED);
+        super(x,y,board, Game.PLAYER_SPEED,Game.PLAYER_HP);
 
         sprite=Sprite.player_down;
         input=board.getInput();
         rectangle=new Rectangle((int)x+17,(int)y+25,13,16);
+        spriteHp=Sprite.hp100;
+        spriteMp=Sprite.mp100;
+
     }
     /*
     |-------------------------------------
@@ -52,18 +56,24 @@ public class Player extends Mob {
         if(animate%40==0&& mp<100){
             mp+=5;
         }
+
         animate();
         calculateMove();
         detectAttack();
         detectPlaceStone();
         setRectangle();
-        //System.out.println(mp);
+        System.out.println(mp);
+
     }
 
     @Override
     public void render(Graphics g) {
         chooseSprite();
+        chooseSpriteMp(Game.PLAYER_MP,mp);
+        chooseSpriteHp(Game.PLAYER_HP,hp);
         g.drawImage(sprite,(int)x,(int)y,null);
+        g.drawImage(spriteHp,(int)x+4,(int)y-15,null);
+        g.drawImage(spriteMp,(int)x+4,(int)y-8,null);
 
         renderRectangle(g);
     }
@@ -164,7 +174,7 @@ public class Player extends Mob {
             double xBullet=0,yBullet=0;
             switch(direction){
                 case 0:
-                    xBullet=x+Sprite.player_down.getWidth()/2;
+                    xBullet=x+Sprite.player_down.getWidth()/2.5;
                     yBullet=y+Sprite.player_down.getHeight()/3;
                     break;
                 case 1:
@@ -172,7 +182,7 @@ public class Player extends Mob {
                     yBullet=y+Sprite.player_down.getHeight()/3;
                     break;
                 case 2:
-                    xBullet=x+Sprite.player_down.getWidth()/2;
+                    xBullet=x+Sprite.player_down.getWidth()/2.5;
                     yBullet=y+Sprite.player_down.getHeight()/3;
                     break;
                 case 3:
@@ -188,7 +198,7 @@ public class Player extends Mob {
 
     }
      public void attack(int xBullet, int yBullet){
-        Bullet bullet=new Bullet(xBullet,yBullet,board,Game.PLAYER_SPEED*2);
+        Bullet bullet=new Bullet(xBullet,yBullet,board,Game.PLAYER_SPEED*1.5);
         bullet.setDirection(direction);
         board.addBullets(bullet);
         mp-=5;
@@ -204,7 +214,12 @@ public class Player extends Mob {
     public void placeStone(){
 
     }
-    private void chooseSprite(){
+    /*
+    |-------------------------------------
+    |Choose
+    |-------------------------------------
+    */
+    public void chooseSprite(){
         switch (direction){
             case 0:
                 sprite=Sprite.player_down;
@@ -235,30 +250,55 @@ public class Player extends Mob {
                 break;
         }
     }
-    // Size collision box: 13,16
+    public void chooseSpriteMp(int MAX_MP,int mp){
+        if(mp> MAX_MP*3/4){
+            spriteMp= Sprite.mp100;
+            return;
+        }
+        if(mp>MAX_MP/2){
+            spriteMp=Sprite.mp75;
+            return;
+        }
+        if(mp>MAX_MP/4){
+            spriteMp=Sprite.mp50;
+            return;
+        }
+        if(mp>0){
+            spriteMp= Sprite.mp25;
+            return;
+        }
+        spriteMp=Sprite.mp0;
+        return;
+    }
+    /*
+    |----------------------------------
+    |Get and Set
+    |----------------------------------
+     */
     protected void setRectangle(){
         switch (direction){
             case 0:
-                rectangle.setLocation((int)x+15,(int)y+2);
-                rectangle.setSize(16,40);
+                rectangle.setLocation((int)x+18,(int)y+4);
+                rectangle.setSize(16,36);
                 break;
             case 2:
                 rectangle.setLocation((int)x+15,(int)y+5);
-                rectangle.setSize(16,40);
+                rectangle.setSize(16,38);
                 break;
             case 1:
-                rectangle.setLocation((int)x+2,(int)y+25);
-                rectangle.setSize(40,18);
+                rectangle.setLocation((int)x+4,(int)y+27);
+                rectangle.setSize(36,15);
                 break;
             case 3:
-                rectangle.setLocation((int)x+5,(int)y+25);
-                rectangle.setSize(40,18);
+                rectangle.setLocation((int)x+5,(int)y+27);
+                rectangle.setSize(37,15);
                 break;
 
 
 
         }
     }
+
 
     @Override
     public double getXCentrer() {
@@ -268,6 +308,14 @@ public class Player extends Mob {
     @Override
     public double getYCenter() {
         return y+Sprite.player_down.getHeight()/2;
+    }
+
+    public int getHp(){
+        return hp;
+    }
+    public void setHp(int hp){
+        this.hp=hp;
+
     }
 
 }

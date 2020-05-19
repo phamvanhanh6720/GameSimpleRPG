@@ -1,22 +1,27 @@
-package projectoop.entities.mob;
+package projectoop.entities;
 
 import projectoop.Board;
-import projectoop.entities.Entity;
-import projectoop.entities.Weapon;
+import projectoop.entities.mob.Mob;
+import projectoop.entities.mob.Player;
+import projectoop.entities.mob.enemy.Python;
 import projectoop.graphics.Sprite;
 
 import java.awt.*;
 import java.util.Iterator;
 import java.util.List;
 
-public class Bullet extends Weapon {
-    public Bullet(int x, int y, Board board, double speed){
+public class PythonBullet extends Weapon {
+    public PythonBullet(int x, int y, Board board, double speed){
         super(x,y,board,speed);
-        sprite= Sprite.bullet;
-        rectangle=new Rectangle(x,y,10,10);
+        sprite= Sprite.pythonBullet;
+        rectangle=new Rectangle((int)x,(int)y,10,10);
 
     }
-
+    /*
+|-------------------------------------
+|Update and Render
+|-------------------------------------
+*/
     @Override
     public void update() {
         if(animate>=100){
@@ -33,10 +38,20 @@ public class Bullet extends Weapon {
     @Override
     public void render(Graphics g) {
         g.drawImage(sprite,(int)x,(int)y,null);
-        g.drawRect((int)x,(int)y,10,10);
     }
 
 
+    /*
+    |-------------------------------------
+    |Moving and Collision
+    |-------------------------------------
+    */
+    @Override
+    public void move(double xa, double ya) {
+        x+=xa;
+        y+=ya;
+
+    }
     @Override
     public void calculateMove() {
         int xa=0,ya=0;
@@ -60,7 +75,7 @@ public class Bullet extends Weapon {
     }
 
 
-    // phat hien va cham voi vat the khac thi bi xoa
+    // Collision
     @Override
     public void detectCollision() {
         List<Rectangle> staticRectangles=board.getStaticRectangles();
@@ -71,7 +86,6 @@ public class Bullet extends Weapon {
         while(itr1.hasNext()){
             Rectangle tmpRectangle=itr1.next();
             if(rectangle.intersects(tmpRectangle)){
-                System.out.println(1);
                 remove();
                 return;
             }
@@ -80,23 +94,25 @@ public class Bullet extends Weapon {
         Iterator<Mob> itr2=mobs.iterator();
         while(itr2.hasNext()){
             Mob tmpMob=itr2.next();
-            if(tmpMob instanceof Player){
+            if(tmpMob instanceof Python){
                 continue;
             }
-            if(rectangle.intersects(tmpMob.getRectangle())){
+            if(tmpMob instanceof Player){
+                if(rectangle.intersects(tmpMob.getRectangle()))
+                {
+                    int hp=((Player)tmpMob).getHp();
+                    ((Player)tmpMob).setHp(hp-5);
+                    remove();
+                    return;
+                }
+            }
+            if (rectangle.intersects(tmpMob.getRectangle())){
                 remove();
                 return;
             }
         }
         return;
 
-
-    }
-
-    @Override
-    public void move(double xa, double ya) {
-        x+=xa;
-        y+=ya;
 
     }
 

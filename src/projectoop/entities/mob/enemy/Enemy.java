@@ -11,8 +11,6 @@ import java.awt.image.BufferedImage;
 
 public abstract class Enemy extends Mob {
 
-
-    protected int hp;
     protected AI ai;
 
     protected final double MAX_STEPS;
@@ -24,8 +22,8 @@ public abstract class Enemy extends Mob {
 
 
     public Enemy(int x, int y, Board board, double speed,int hp,double MAX_STEPS){
-        super(x,y,board,speed);
-        this.hp=hp;
+        super(x,y,board,speed,hp);
+
 
         this.MAX_STEPS=MAX_STEPS;
         rest=(MAX_STEPS-(int)MAX_STEPS)/MAX_STEPS;
@@ -45,9 +43,11 @@ public abstract class Enemy extends Mob {
             afterKill();
             return;
         }
+        checkBeKilled();
         animate();
         calculateMove();
         setRectangle();
+
 
     }
 
@@ -85,7 +85,6 @@ public abstract class Enemy extends Mob {
             moving=true;
         }
         else{
-
             step=0;
             moving=false;
         }
@@ -108,17 +107,32 @@ public abstract class Enemy extends Mob {
     */
     @Override
     protected void kill() {
-
+        remove();
     }
 
     @Override
     protected void afterKill() {
+        if(timeAfter>0){
+            timeAfter--;
+        }
+        else{
+            kill();
+        }
 
+    }
+    public void checkBeKilled(){
+        if(hp<=0){
+            alive=false;
+        }
     }
 
 
-    public abstract void chooseSprite();
 
+    /*
+    |-------------------------------------
+    |Get and Set
+    |-------------------------------------
+    */
     @Override
     public double getXCentrer() {
         return 0;
@@ -127,5 +141,12 @@ public abstract class Enemy extends Mob {
     @Override
     public double getYCenter() {
         return 0;
+    }
+
+    public int getHp(){
+        return hp;
+    }
+    public void setHp(int hp){
+        this.hp=hp;
     }
 }

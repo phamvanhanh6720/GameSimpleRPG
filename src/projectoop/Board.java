@@ -1,21 +1,16 @@
 package projectoop;
 
+import projectoop.entities.Bullet;
 import projectoop.entities.Entity;
-import projectoop.entities.mob.Bullet;
+import projectoop.entities.Weapon;
 import projectoop.entities.mob.Mob;
 import projectoop.entities.mob.Player;
-import projectoop.entities.mob.enemy.Python;
-import projectoop.entities.mob.enemy.Snake;
-import projectoop.entities.tile.BorderTile;
-import projectoop.entities.tile.GrassTile;
-import projectoop.entities.tile.Tile;
 import projectoop.exceptions.LoadLevelException;
 import projectoop.graphics.IRender;
 import projectoop.input.KeyBoard;
 import projectoop.level.FileLevel;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -29,8 +24,9 @@ public class Board implements IRender {
     private Entity[][] entities;
     private List<Entity> foreground=new ArrayList<Entity>();
     private List<Rectangle> staticRectangles=new ArrayList<Rectangle>();
-    private List<Rectangle> movingRectangles=new ArrayList<Rectangle>();
-    private List<Bullet> bullets=new ArrayList<Bullet>();
+
+    private List<Weapon> bullets=new ArrayList<Weapon>();
+
 
     public Board(Game game, KeyBoard input)  {
         this.game=game;
@@ -49,7 +45,7 @@ public class Board implements IRender {
 
     }
 /*
-|------------------------------
+|-----------------------------
 |Update & Render
 |------------------------------
  */
@@ -59,6 +55,8 @@ public class Board implements IRender {
         updateForeground();
         updateMobs();
         updateBullets();
+
+
 
     }
 
@@ -102,8 +100,8 @@ public class Board implements IRender {
     }
 
     public void updateBullets(){
-        Iterator<Bullet> itr=bullets.iterator();
-        Bullet bullet;
+        Iterator<Weapon> itr=bullets.iterator();
+        Weapon bullet;
         while(itr.hasNext()){
             bullet=itr.next();
             if(bullet.isRemoved()==true){
@@ -133,7 +131,7 @@ public class Board implements IRender {
             itr.next().render(g);
     }
     public void renderBullets(Graphics g){
-        Iterator<Bullet> itr=bullets.iterator();
+        Iterator<Weapon> itr=bullets.iterator();
         while(itr.hasNext()){
             itr.next().render(g);
         }
@@ -152,7 +150,7 @@ public class Board implements IRender {
     public void addMobs(Mob mob){
         mobs.add(mob);
     }
-    public void addBullets(Bullet bullet){
+    public void addBullets(Weapon bullet){
         bullets.add(bullet);
     }
     /*
@@ -164,8 +162,11 @@ public class Board implements IRender {
         staticRectangles.add(rectangle);
     }
 
-
-
+    /*
+    |-------------------------------------
+    |Get and Set
+    |-------------------------------------
+    */
     public KeyBoard getInput(){
         return input;
     }
@@ -184,9 +185,6 @@ public class Board implements IRender {
     }
     public List<Rectangle> getStaticRectangles(){
         return staticRectangles;
-    }
-    public List<Rectangle> getMovingRectangles(){
-        return movingRectangles;
     }
     public List<Mob> getMobs(){
         return mobs;
