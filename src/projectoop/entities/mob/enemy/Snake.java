@@ -19,7 +19,7 @@ public class Snake extends Enemy {
         super(x,y,board, Game.PLAYER_SPEED/2,Game.PLAYER_HP/5,Game.TILE_SIZE);
         ai=new AIMedium(board.getPlayer(),this);
         sprite= Sprite.snake_down;
-        rectangle=new Rectangle((int)x+28,(int)y+27,12,15);
+        rectangle=new Rectangle((int)x+18,(int)y+10,28,34);
     }
     /*
     |-------------------------------------
@@ -159,21 +159,21 @@ public class Snake extends Enemy {
     protected void setRectangle() {
         switch (direction){
             case 0:
-                rectangle.setLocation((int)x+28,(int)y+12);
-                rectangle.setSize(13,33);
+                rectangle.setLocation((int)x+18,(int)y+12);
+              //  rectangle.setSize(13,33);
                 break;
             case 2:
-                rectangle.setLocation((int)x+28,(int)y+12);
-                rectangle.setSize(13,33);
+                rectangle.setLocation((int)x+18,(int)y+12);
+             //   rectangle.setSize(13,33);
 
                 break;
             case 1:
-                rectangle.setLocation((int)x+18,(int)y+27);
-                rectangle.setSize(30,15);
+                rectangle.setLocation((int)x+18,(int)y+12);
+              //  rectangle.setSize(30,15);
                 break;
             case 3:
-                rectangle.setLocation((int)x+26,(int)y+27);
-                rectangle.setSize(30,15);
+                rectangle.setLocation((int)x+18,(int)y+12);
+               // rectangle.setSize(30,15);
                 break;
         }
     }

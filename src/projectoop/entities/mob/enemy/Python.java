@@ -21,7 +21,7 @@ public class Python extends Enemy {
         super(x,y,board, Game.PLAYER_SPEED/2,Game.PLAYER_HP/10,Game.TILE_SIZE*2);
         ai=new AILow();
         sprite= Sprite.python_down;
-        rectangle=new Rectangle((int)x+16,(int)y+25,13,17);
+        rectangle=new Rectangle((int)x+5,(int)y+8,32,36);
         timeBetweenShot=15;
     }
     /*
@@ -199,20 +199,20 @@ public class Python extends Enemy {
     protected void setRectangle() {
         switch (direction){
             case 0:
-                rectangle.setLocation((int)x+13,(int)y+10);
-                rectangle.setSize(14,33);
+                rectangle.setLocation((int)x+5,(int)y+8);
+               // rectangle.setSize(14,33);
                 break;
             case 2:
-                rectangle.setLocation((int)x+13,(int)y+10);
-                rectangle.setSize(14,33);
+                rectangle.setLocation((int)x+5,(int)y+8);
+              //  rectangle.setSize(14,33);
                 break;
             case 1:
-                rectangle.setLocation((int)x+6,(int)y+30);
-                rectangle.setSize(35,13);
+                rectangle.setLocation((int)x+13,(int)y+8);
+              //  rectangle.setSize(35,13);
                 break;
             case 3:
-                rectangle.setLocation((int)x+6,(int)y+30);
-                rectangle.setSize(35,13);
+                rectangle.setLocation((int)x+2,(int)y+8);
+              //  rectangle.setSize(35,13);
                 break;
         }
 
