@@ -4,6 +4,7 @@ import projectoop.entities.mob.Mob;
 import projectoop.entities.mob.Player;
 import projectoop.entities.mob.enemy.Snake;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Sprite {
@@ -34,6 +35,18 @@ public class Sprite {
     public static BufferedImage tree01=ImageLoader.loadImage("/textures/tree01.png");
     public static BufferedImage tree0=ImageLoader.loadImage("/textures/tree0.png");
 
+    //hp and mp
+    public static BufferedImage hp100= ImageLoader.loadImage("/textures/hp100.png");
+    public static BufferedImage hp75= ImageLoader.loadImage("/textures/hp75.png");
+    public static BufferedImage hp50= ImageLoader.loadImage("/textures/hp50.png");
+    public static BufferedImage hp25= ImageLoader.loadImage("/textures/hp25.png");
+    public static BufferedImage hp0=ImageLoader.loadImage("/textures/hp0.png");
+
+    public static BufferedImage mp100=ImageLoader.loadImage("/textures/mp100.png");
+    public static BufferedImage mp75=ImageLoader.loadImage("/textures/mp75.png");
+    public static BufferedImage mp50=ImageLoader.loadImage("/textures/mp50.png");
+    public static BufferedImage mp25=ImageLoader.loadImage("/textures/mp25.png");
+    public static BufferedImage mp0=ImageLoader.loadImage("/textures/mp0.png");
 
     /*
     -------------------------------------------

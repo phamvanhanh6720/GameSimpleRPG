@@ -29,6 +29,8 @@ public class Snake extends Enemy {
     @Override
     public void render(Graphics g) {
         super.render(g);
+        chooseSpriteHp(Game.PLAYER_HP/5,hp);
+        g.drawImage(spriteHp,(int)x+13,(int)y+2,null);
         renderRectangle(g);
     }
     /*
@@ -96,7 +98,7 @@ public class Snake extends Enemy {
         Iterator<Mob> itr2=mobs.iterator();
         while(itr2.hasNext()){
             Mob tmpMob=itr2.next();
-            if(tmpMob instanceof Snake){
+            if(tmpMob==this){
                 continue;
             }
             else{

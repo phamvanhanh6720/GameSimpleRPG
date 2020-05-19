@@ -6,7 +6,7 @@ import projectoop.entities.mob.enemy.Enemy;
 public class AIMedium extends AI{
     Player player;
     Enemy enemy;
-    int tmp=1;
+    //int tmp=1;
     public AIMedium(Player player,Enemy enemy){
         this.player=player;
         this.enemy=enemy;
@@ -16,10 +16,10 @@ public class AIMedium extends AI{
     public int calculateDirection() {
         if(player==null)
             return random.nextInt(4);
-        //int tmp=random.nextInt(2);
+        int tmp=random.nextInt(2);
         if(tmp==1){
             int v=calculateRowDirection();
-            tmp=0;
+            //tmp=0;
             if(v!=-1){
                 return v;
             }
@@ -29,7 +29,7 @@ public class AIMedium extends AI{
         }
         else{
             int h=calcualteColDirection();
-            tmp=1;
+            //tmp=1;
             if(h!=-1)
                 return h;
             else

@@ -16,6 +16,7 @@ public abstract class Weapon extends AnimatedEntity {
         this.speed=speed;
 
     }
+
     public abstract void update();
     public abstract void render(Graphics g);
     public abstract void calculateMove();

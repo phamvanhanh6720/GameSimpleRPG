@@ -59,6 +59,8 @@ public class Python extends Enemy {
     @Override
     public void render(Graphics g) {
         super.render(g);
+        chooseSpriteHp(Game.PLAYER_HP/10,hp);
+        g.drawImage(spriteHp,(int)x+4,(int)y-8,null);
         renderRectangle(g);
     }
     /*
@@ -117,7 +119,7 @@ public class Python extends Enemy {
         Iterator<Mob> itr2=mobs.iterator();
         while(itr2.hasNext()){
             Mob tmpMob=itr2.next();
-            if(tmpMob instanceof Python){
+            if(tmpMob==this){
                 continue;
             }
             else{
@@ -163,6 +165,9 @@ public class Python extends Enemy {
         }
 
     }
+
+
+
     public void chooseState(){
         int calc=animate%400;
         if(calc<=300){

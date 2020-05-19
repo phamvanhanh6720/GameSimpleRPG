@@ -22,16 +22,18 @@ public class Player extends Mob {
     private KeyBoard input;
     private boolean shot=false;
     private int timeBetweenShot=0;
-
     private int mp=Game.PLAYER_MP;
-    private int hp=Game.PLAYER_HP;
+    private BufferedImage spriteMp;
 
     public Player(int x, int y, Board board){
-        super(x,y,board, Game.PLAYER_SPEED);
+        super(x,y,board, Game.PLAYER_SPEED,Game.PLAYER_HP);
 
         sprite=Sprite.player_down;
         input=board.getInput();
         rectangle=new Rectangle((int)x+17,(int)y+25,13,16);
+        spriteHp=Sprite.hp100;
+        spriteMp=Sprite.mp100;
+
     }
     /*
     |-------------------------------------
@@ -54,19 +56,24 @@ public class Player extends Mob {
         if(animate%40==0&& mp<100){
             mp+=5;
         }
+
         animate();
         calculateMove();
         detectAttack();
         detectPlaceStone();
         setRectangle();
-        System.out.println(hp);
+        System.out.println(mp);
 
     }
 
     @Override
     public void render(Graphics g) {
         chooseSprite();
+        chooseSpriteMp(Game.PLAYER_MP,mp);
+        chooseSpriteHp(Game.PLAYER_HP,hp);
         g.drawImage(sprite,(int)x,(int)y,null);
+        g.drawImage(spriteHp,(int)x+4,(int)y-15,null);
+        g.drawImage(spriteMp,(int)x+4,(int)y-8,null);
 
         renderRectangle(g);
     }
@@ -212,7 +219,7 @@ public class Player extends Mob {
     |Choose
     |-------------------------------------
     */
-    private void chooseSprite(){
+    public void chooseSprite(){
         switch (direction){
             case 0:
                 sprite=Sprite.player_down;
@@ -242,6 +249,26 @@ public class Player extends Mob {
 
                 break;
         }
+    }
+    public void chooseSpriteMp(int MAX_MP,int mp){
+        if(mp> MAX_MP*3/4){
+            spriteMp= Sprite.mp100;
+            return;
+        }
+        if(mp>MAX_MP/2){
+            spriteMp=Sprite.mp75;
+            return;
+        }
+        if(mp>MAX_MP/4){
+            spriteMp=Sprite.mp50;
+            return;
+        }
+        if(mp>0){
+            spriteMp= Sprite.mp25;
+            return;
+        }
+        spriteMp=Sprite.mp0;
+        return;
     }
     /*
     |----------------------------------
