@@ -39,6 +39,8 @@ public abstract class Enemy extends Mob {
     */
     @Override
     public void update() {
+        attack=false;
+        moving=false;
         if(alive==false){
             afterKill();
             return;
@@ -47,7 +49,6 @@ public abstract class Enemy extends Mob {
         animate();
         calculateMove();
         setRectangle();
-
 
     }
 
@@ -100,6 +101,12 @@ public abstract class Enemy extends Mob {
 
     }
 
+    /*
+    |-------------------------------------
+    |Attack
+    |-------------------------------------
+    */
+    public abstract void attack();
     /*
     |-------------------------------------
     |Be Killed

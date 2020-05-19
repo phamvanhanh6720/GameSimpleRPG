@@ -19,7 +19,6 @@ public class AIMedium extends AI{
         int tmp=random.nextInt(2);
         if(tmp==1){
             int v=calculateRowDirection();
-            //tmp=0;
             if(v!=-1){
                 return v;
             }
@@ -29,7 +28,6 @@ public class AIMedium extends AI{
         }
         else{
             int h=calcualteColDirection();
-            //tmp=1;
             if(h!=-1)
                 return h;
             else
