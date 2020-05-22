@@ -1,6 +1,7 @@
-package projectoop.entities;
+package projectoop.entities.weapon;
 
 import projectoop.Board;
+import projectoop.entities.AnimatedEntity;
 
 import java.awt.*;
 

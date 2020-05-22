@@ -1,19 +1,15 @@
 package projectoop.entities.mob;
 import java.awt.image.BufferedImage;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import projectoop.Board;
 import projectoop.Game;
-import projectoop.entities.Bullet;
-import projectoop.entities.Entity;
-import projectoop.entities.tile.GrassTile;
-import projectoop.entities.tile.StoneTile;
+import projectoop.entities.tile.Stone;
+import projectoop.entities.weapon.Bullet;
 import projectoop.graphics.Sprite;
 import projectoop.input.KeyBoard;
 
-import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.awt.*;
 
 public class Player extends Mob {
@@ -22,7 +18,8 @@ public class Player extends Mob {
 
     private KeyBoard input;
     private boolean shot=false;
-    private int timeBetweenShot=0;
+    private int timeBetweenShot=30;
+    private int timeBetweenPlace=15;
     private int mp=Game.PLAYER_MP;
     private BufferedImage spriteMp;
 
@@ -34,6 +31,7 @@ public class Player extends Mob {
         rectangle=new Rectangle((int)x+9,(int)y+8,32,36);
         spriteHp=Sprite.hp100;
         spriteMp=Sprite.mp100;
+        direction=0;
 
     }
     /*
@@ -53,6 +51,12 @@ public class Player extends Mob {
         else{
             timeBetweenShot--;
         }
+        if(timeBetweenPlace<-2000){
+            timeBetweenPlace=0;
+        }
+        else{
+            timeBetweenPlace--;
+        }
         //cong mp theo thoi gian
         if(animate%40==0&& mp<100){
             mp+=5;
@@ -63,7 +67,6 @@ public class Player extends Mob {
         detectAttack();
         detectPlaceStone();
         setRectangle();
-        //System.out.println(hp);
 
 
     }
@@ -116,8 +119,6 @@ public class Player extends Mob {
         }
         else
             moving=false;
-        //rectangle.setLocation((int)x+13,(int)y+16);
-
 
     }
     @Override
@@ -211,9 +212,60 @@ public class Player extends Mob {
     |-------------------------------------
     */
     public void detectPlaceStone(){
+        if(timeBetweenPlace<0&&(mp/50)>=1&&input.skill){
+            System.out.println("Player"+x+","+y);
+            System.out.println(direction);
+            double xStone=0,yStone=0;
+            switch (direction){
+                case 0:
+                    xStone=x+9;
+                    yStone=y+8+38;
+                    System.out.println("Stone"+xStone+","+yStone);
+                    break;
+                case 1:
+                    xStone=x+13+32;
+                    yStone=y+8;
+                    System.out.println("Stone"+xStone+","+yStone);
+                    break;
+                case 2:
+                    xStone=x+7;
+                    yStone=y+8-30-2;
+                    System.out.println("Stone"+xStone+","+yStone);
+                    break;
+                case 3:
+                    xStone=x+3-30-2;
+                    yStone=y+8;
+                    System.out.println("Stone"+xStone+","+yStone);
+                    break;
+            }
+            placeStone((int)xStone,(int)yStone);
+            timeBetweenPlace=30;
+        }
 
     }
-    public void placeStone(){
+    public void placeStone(int xStone, int yStone){
+        Stone stone=new Stone(xStone,yStone);
+        List<Rectangle> staticsRectangle=board.getStaticRectangles();
+        Iterator<Rectangle> itr=staticsRectangle.iterator();
+        while(itr.hasNext()){
+            if(stone.getRectangle().intersects(itr.next())){
+                return;
+            }
+        }
+        List<Mob> mobs=board.getMobs();
+        Iterator<Mob> itr1=mobs.iterator();
+        while(itr1.hasNext()){
+            Mob mob=itr1.next();
+            if(mob instanceof Player){
+                continue;
+            }
+            if(stone.getRectangle().intersects(mob.getRectangle())){
+                return;
+            }
+        }
+        board.addForeground(stone);
+        board.addStaticRectangles(stone.getRectangle());
+        mp-=80;
 
     }
     /*

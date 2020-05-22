@@ -1,8 +1,7 @@
 package projectoop;
 
-import projectoop.entities.Bullet;
 import projectoop.entities.Entity;
-import projectoop.entities.Weapon;
+import projectoop.entities.weapon.Weapon;
 import projectoop.entities.mob.Mob;
 import projectoop.entities.mob.Player;
 import projectoop.exceptions.LoadLevelException;

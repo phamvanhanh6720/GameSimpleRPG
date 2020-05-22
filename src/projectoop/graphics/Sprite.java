@@ -34,6 +34,7 @@ public class Sprite {
     public static BufferedImage port=ImageLoader.loadImage("/textures/port.png");
     public static BufferedImage tree01=ImageLoader.loadImage("/textures/tree01.png");
     public static BufferedImage tree0=ImageLoader.loadImage("/textures/tree0.png");
+    public static BufferedImage stone=ImageLoader.loadImage("/textures/stone.png");
 
     //hp and mp
     public static BufferedImage hp100= ImageLoader.loadImage("/textures/hp100.png");
