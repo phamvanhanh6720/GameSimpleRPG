@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class KeyBoard implements KeyListener {
     private boolean[] keys;
-    public boolean up, down,left, right,space;
+    public boolean up, down,left, right,space,skill;
     public KeyBoard(){
         keys=new boolean[128];
     }
@@ -16,6 +16,8 @@ public class KeyBoard implements KeyListener {
         left=keys[KeyEvent.VK_LEFT]||keys[KeyEvent.VK_A];
         right=keys[KeyEvent.VK_RIGHT]||keys[KeyEvent.VK_D];
         space=keys[KeyEvent.VK_SPACE];
+        skill=keys[KeyEvent.VK_F];
+
     }
 
     @Override

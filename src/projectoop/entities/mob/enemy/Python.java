@@ -2,13 +2,11 @@ package projectoop.entities.mob.enemy;
 
 import projectoop.Board;
 import projectoop.Game;
-import projectoop.entities.PythonBullet;
+import projectoop.entities.weapon.PythonBullet;
 import projectoop.entities.mob.Mob;
-import projectoop.entities.mob.Player;
 import projectoop.entities.mob.enemy.ai.AILow;
 import projectoop.graphics.Sprite;
 
-import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.awt.*;
 import java.util.Iterator;
 import java.util.List;

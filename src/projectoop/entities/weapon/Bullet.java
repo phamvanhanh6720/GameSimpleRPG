@@ -1,9 +1,10 @@
-package projectoop.entities;
+package projectoop.entities.weapon;
 
 import projectoop.Board;
 import projectoop.entities.mob.Mob;
 import projectoop.entities.mob.Player;
 import projectoop.entities.mob.enemy.Enemy;
+import projectoop.entities.weapon.Weapon;
 import projectoop.graphics.Sprite;
 
 import java.awt.*;
