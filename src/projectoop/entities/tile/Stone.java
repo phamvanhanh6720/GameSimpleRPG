@@ -13,6 +13,5 @@ public class Stone extends CollisionTile {
     @Override
     public void render(Graphics g){
         g.drawImage(sprite,x,y,null);
-        g.drawRect((int)rectangle.getX(),(int)rectangle.getY(),(int)rectangle.getWidth(),(int)rectangle.getHeight());
     }
 }

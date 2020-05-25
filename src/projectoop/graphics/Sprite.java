@@ -1,10 +1,7 @@
 package projectoop.graphics;
 
-import projectoop.entities.mob.Mob;
-import projectoop.entities.mob.Player;
-import projectoop.entities.mob.enemy.Snake;
+import projectoop.entities.creatures.Creature;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Sprite {
@@ -56,26 +53,26 @@ public class Sprite {
     -------------------------------------------
      */
 
-    public static BufferedImage player_down=spriteSheet_player.crop(0* Mob.DEFUALT_WIDTH,0*Mob.DEFUALT_HEIGHT,48,48);
-    public static BufferedImage player_down_1=spriteSheet_player.crop(1* Mob.DEFUALT_WIDTH,0*Mob.DEFUALT_HEIGHT,48,48);
-    public static BufferedImage player_down_2=spriteSheet_player.crop(2* Mob.DEFUALT_WIDTH,0*Mob.DEFUALT_HEIGHT,48,48);
-    public static BufferedImage player_down_3=spriteSheet_player.crop(3* Mob.DEFUALT_WIDTH,0*Mob.DEFUALT_HEIGHT,48,48);
+    public static BufferedImage player_down=spriteSheet_player.crop(0* 48,0* 48,48,48);
+    public static BufferedImage player_down_1=spriteSheet_player.crop(1* 48,0* 48,48,48);
+    public static BufferedImage player_down_2=spriteSheet_player.crop(2* 48,0* 48,48,48);
+    public static BufferedImage player_down_3=spriteSheet_player.crop(3* 48,0* 48,48,48);
 
 
-    public static BufferedImage player_left=spriteSheet_player.crop(0*Mob.DEFUALT_WIDTH,1*Mob.DEFUALT_HEIGHT,48,48);
-    public static BufferedImage player_left_1=spriteSheet_player.crop(1*Mob.DEFUALT_WIDTH,1*Mob.DEFUALT_HEIGHT,48,48);
-    public static BufferedImage player_left_2=spriteSheet_player.crop(2*Mob.DEFUALT_WIDTH,1*Mob.DEFUALT_HEIGHT,48,48);
-    public static BufferedImage player_left_3=spriteSheet_player.crop(3*Mob.DEFUALT_WIDTH,1*Mob.DEFUALT_HEIGHT,48,48);
+    public static BufferedImage player_left=spriteSheet_player.crop(0* 48,1* 48,48,48);
+    public static BufferedImage player_left_1=spriteSheet_player.crop(1* 48,1* 48,48,48);
+    public static BufferedImage player_left_2=spriteSheet_player.crop(2* 48,1* 48,48,48);
+    public static BufferedImage player_left_3=spriteSheet_player.crop(3* 48,1* 48,48,48);
 
-    public static BufferedImage player_right=spriteSheet_player.crop(0*Mob.DEFUALT_WIDTH,2*Mob.DEFUALT_HEIGHT,48,48);
-    public static BufferedImage player_right_1=spriteSheet_player.crop(1*Mob.DEFUALT_WIDTH,2*Mob.DEFUALT_HEIGHT,48,48);
-    public static BufferedImage player_right_2=spriteSheet_player.crop(2*Mob.DEFUALT_WIDTH,2*Mob.DEFUALT_HEIGHT,48,48);
-    public static BufferedImage player_right_3=spriteSheet_player.crop(3*Mob.DEFUALT_WIDTH,2*Mob.DEFUALT_HEIGHT,48,48);
+    public static BufferedImage player_right=spriteSheet_player.crop(0* 48,2* 48,48,48);
+    public static BufferedImage player_right_1=spriteSheet_player.crop(1* 48,2* 48,48,48);
+    public static BufferedImage player_right_2=spriteSheet_player.crop(2* 48,2* 48,48,48);
+    public static BufferedImage player_right_3=spriteSheet_player.crop(3* 48,2* 48,48,48);
 
-    public static BufferedImage player_up=spriteSheet_player.crop(0*Mob.DEFUALT_WIDTH,3*Mob.DEFUALT_HEIGHT,48,48);
-    public static BufferedImage player_up_1=spriteSheet_player.crop(1*Mob.DEFUALT_WIDTH,3*Mob.DEFUALT_HEIGHT,48,48);
-    public static BufferedImage player_up_2=spriteSheet_player.crop(2*Mob.DEFUALT_WIDTH,3*Mob.DEFUALT_HEIGHT,48,48);
-    public static BufferedImage player_up_3=spriteSheet_player.crop(3*Mob.DEFUALT_WIDTH,3*Mob.DEFUALT_HEIGHT,48,48);
+    public static BufferedImage player_up=spriteSheet_player.crop(0* 48,3* 48,48,48);
+    public static BufferedImage player_up_1=spriteSheet_player.crop(1* 48,3* 48,48,48);
+    public static BufferedImage player_up_2=spriteSheet_player.crop(2* 48,3* 48,48,48);
+    public static BufferedImage player_up_3=spriteSheet_player.crop(3* 48,3* 48,48,48);
     /*
     |------------------------
     |Snake

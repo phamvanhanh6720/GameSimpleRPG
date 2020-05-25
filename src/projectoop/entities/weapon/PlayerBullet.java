@@ -1,18 +1,17 @@
 package projectoop.entities.weapon;
 
 import projectoop.Board;
-import projectoop.entities.mob.Mob;
-import projectoop.entities.mob.Player;
-import projectoop.entities.mob.enemy.Enemy;
-import projectoop.entities.weapon.Weapon;
+import projectoop.entities.creatures.Creature;
+import projectoop.entities.creatures.Player;
+import projectoop.entities.creatures.enemy.Enemy;
 import projectoop.graphics.Sprite;
 
 import java.awt.*;
 import java.util.Iterator;
 import java.util.List;
 
-public class Bullet extends Weapon {
-    public Bullet(int x, int y, Board board, double speed){
+public class PlayerBullet extends Weapon {
+    public PlayerBullet(int x, int y, Board board, double speed){
         super(x,y,board,speed);
         sprite= Sprite.bullet;
         rectangle=new Rectangle(x,y,10,10);
@@ -29,7 +28,9 @@ public class Bullet extends Weapon {
             remove();
             return;
         }
-        detectCollision();
+        List<Rectangle> staticRectangles=board.getStaticRectangles();
+        List<Creature> creatures=board.getCreatures();
+        detectCollision(staticRectangles,creatures);
         animate();
         calculateMove();
         rectangle.setLocation((int)x,(int)y);
@@ -77,10 +78,7 @@ public class Bullet extends Weapon {
 
     // phat hien va cham voi vat the khac thi bi xoa
     @Override
-    public void detectCollision() {
-        List<Rectangle> staticRectangles=board.getStaticRectangles();
-        List<Mob> mobs=board.getMobs();
-
+    public void detectCollision(List<Rectangle> staticRectangles, List<Creature> creatures) {
         Iterator<Rectangle> itr1=staticRectangles.iterator();
 
         while(itr1.hasNext()){
@@ -91,15 +89,15 @@ public class Bullet extends Weapon {
             }
         }
 
-        Iterator<Mob> itr2=mobs.iterator();
+        Iterator<Creature> itr2=creatures.iterator();
         while(itr2.hasNext()){
-            Mob tmpMob=itr2.next();
-            if(tmpMob instanceof Player){
+            Creature creature=itr2.next();
+            if(creature instanceof Player){
                 continue;
             }
-            if(rectangle.intersects(tmpMob.getRectangle())){
-                int hp=((Enemy)tmpMob).getHp();
-                ((Enemy)tmpMob).setHp(hp-5);
+            if(rectangle.intersects(creature.getRectangle())){
+                int hp=((Enemy)creature).getHp();
+                ((Enemy)creature).setHp(hp-5);
                 remove();
                 return;
             }
@@ -108,8 +106,6 @@ public class Bullet extends Weapon {
 
 
     }
-
-
 
 
 }

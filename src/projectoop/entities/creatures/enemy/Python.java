@@ -1,10 +1,10 @@
-package projectoop.entities.mob.enemy;
+package projectoop.entities.creatures.enemy;
 
 import projectoop.Board;
 import projectoop.Game;
 import projectoop.entities.weapon.PythonBullet;
-import projectoop.entities.mob.Mob;
-import projectoop.entities.mob.enemy.ai.AILow;
+import projectoop.entities.creatures.Creature;
+import projectoop.entities.creatures.enemy.ai.AILow;
 import projectoop.graphics.Sprite;
 
 import java.awt.*;
@@ -30,7 +30,7 @@ public class Python extends Enemy {
     @Override
     public void update() {
         if(alive==false){
-            afterKill();
+            afterBeKilled();
             return;
         }
         animate();
@@ -40,7 +40,6 @@ public class Python extends Enemy {
             if(timeBetweenShot<0){
                 chooseDirection();
                 attack();
-                //System.out.println("Attack");
                 timeBetweenShot=15;
             }
             else{
@@ -59,7 +58,6 @@ public class Python extends Enemy {
         super.render(g);
         chooseSpriteHp(Game.PLAYER_HP/10,hp);
         g.drawImage(spriteHp,(int)x+4,(int)y-8,null);
-        renderRectangle(g);
     }
     /*
     |----------------------------
@@ -100,13 +98,13 @@ public class Python extends Enemy {
  */
 
     @Override
-    protected boolean canMove(double x, double y) {
+    public boolean canMove(double x, double y) {
         double xRec=rectangle.getX();
         double yRec=rectangle.getY();
         rectangle.setLocation((int)(xRec+x*1),(int)(yRec+y*1));
 
         List<Rectangle> staticRectangles= board.getStaticRectangles();
-        List<Mob> mobs=board.getMobs();
+        List<Creature> creatures=board.getCreatures();
         Iterator<Rectangle> itr1=staticRectangles.iterator();
 
         while(itr1.hasNext()){
@@ -115,14 +113,14 @@ public class Python extends Enemy {
                 return false;
             }
         }
-        Iterator<Mob> itr2=mobs.iterator();
+        Iterator<Creature> itr2=creatures.iterator();
         while(itr2.hasNext()){
-            Mob tmpMob=itr2.next();
-            if(tmpMob==this){
+            Creature creature=itr2.next();
+            if(creature==this){
                 continue;
             }
             else{
-                if(rectangle.intersects(tmpMob.getRectangle()))
+                if(rectangle.intersects(creature.getRectangle()))
                     return false;
             }
 
@@ -195,7 +193,7 @@ public class Python extends Enemy {
     |-------------------------------------
     */
     @Override
-    protected void setRectangle() {
+    public void setRectangle() {
         switch (direction){
             case 0:
                 rectangle.setLocation((int)x+5,(int)y+8);

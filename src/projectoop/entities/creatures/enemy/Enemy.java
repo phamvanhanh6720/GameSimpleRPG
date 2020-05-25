@@ -1,15 +1,12 @@
-package projectoop.entities.mob.enemy;
+package projectoop.entities.creatures.enemy;
 
 import projectoop.Board;
-import projectoop.Game;
-import projectoop.entities.Entity;
-import projectoop.entities.mob.Mob;
-import projectoop.entities.mob.enemy.ai.AI;
+import projectoop.entities.creatures.Creature;
+import projectoop.entities.creatures.enemy.ai.AI;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
-public abstract class Enemy extends Mob {
+public abstract class Enemy extends Creature {
 
     protected AI ai;
 
@@ -42,7 +39,7 @@ public abstract class Enemy extends Mob {
         attack=false;
         moving=false;
         if(alive==false){
-            afterKill();
+            afterBeKilled();
             return;
         }
         checkBeKilled();
@@ -65,7 +62,7 @@ public abstract class Enemy extends Mob {
     |-------------------------------------
     */
     @Override
-    protected void calculateMove() {
+    public void calculateMove() {
         if(rectangle.intersects(board.getPlayer().getRectangle())) {
             moving=false;
             return;
@@ -94,7 +91,7 @@ public abstract class Enemy extends Mob {
     }
 
     @Override
-    protected void move(double xa, double ya) {
+    public void move(double xa, double ya) {
         if(!alive) return;
         y+=ya;
         x+=xa;
@@ -112,48 +109,23 @@ public abstract class Enemy extends Mob {
     |Be Killed
     |-------------------------------------
     */
-    @Override
-    protected void kill() {
-        remove();
-    }
 
     @Override
-    protected void afterKill() {
+    public void afterBeKilled() {
         if(timeAfter>0){
             timeAfter--;
         }
         else{
-            kill();
+            remove();
         }
 
     }
-    public void checkBeKilled(){
-        if(hp<=0){
-            alive=false;
-        }
-    }
-
 
 
     /*
     |-------------------------------------
     |Get and Set
     |-------------------------------------
-    */
-    @Override
-    public double getXCentrer() {
-        return 0;
-    }
 
-    @Override
-    public double getYCenter() {
-        return 0;
-    }
-
-    public int getHp(){
-        return hp;
-    }
-    public void setHp(int hp){
-        this.hp=hp;
-    }
+     */
 }

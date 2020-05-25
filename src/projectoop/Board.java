@@ -2,8 +2,8 @@ package projectoop;
 
 import projectoop.entities.Entity;
 import projectoop.entities.weapon.Weapon;
-import projectoop.entities.mob.Mob;
-import projectoop.entities.mob.Player;
+import projectoop.entities.creatures.Creature;
+import projectoop.entities.creatures.Player;
 import projectoop.exceptions.LoadLevelException;
 import projectoop.graphics.IRender;
 import projectoop.input.KeyBoard;
@@ -19,7 +19,7 @@ public class Board implements IRender {
     private KeyBoard input;
 
     private FileLevel level;
-    private List<Mob> mobs=new ArrayList<Mob>();
+    private List<Creature> creatures=new ArrayList<Creature>();
     private Entity[][] entities;
     private List<Entity> foreground=new ArrayList<Entity>();
     private List<Rectangle> staticRectangles=new ArrayList<Rectangle>();
@@ -52,7 +52,7 @@ public class Board implements IRender {
     public void update() {
         updateEntities();
         updateForeground();
-        updateMobs();
+        updateCreatures();
         updateBullets();
 
 
@@ -65,12 +65,12 @@ public class Board implements IRender {
         renderForeground(g);
         //thu tu render
         if(getPlayer().getDirection()==0){
-            renderMobs(g);
+            renderCreatures(g);
             renderBullets(g);
         }
         else {
             renderBullets(g);
-            renderMobs(g);
+            renderCreatures(g);
         }
     }
     public void updateEntities(){
@@ -83,16 +83,16 @@ public class Board implements IRender {
         while(itr.hasNext())
             itr.next().update();
     }
-    public void updateMobs(){
-        Iterator<Mob> itr=mobs.iterator();
-        Mob tmpMob;
+    public void updateCreatures(){
+        Iterator<Creature> itr=creatures.iterator();
+        Creature creature;
         while(itr.hasNext()){
-            tmpMob=itr.next();
-            if(tmpMob.isRemoved()==true){
+            creature=itr.next();
+            if(creature.isRemoved()==true){
                 itr.remove();
             }
             else{
-                tmpMob.update();
+                creature.update();
             }
 
         }
@@ -113,8 +113,8 @@ public class Board implements IRender {
     }
 
 
-    public void renderMobs(Graphics g){
-        Iterator<Mob> itr=mobs.iterator();
+    public void renderCreatures(Graphics g){
+        Iterator<Creature> itr=creatures.iterator();
         while(itr.hasNext())
             itr.next().render(g);
     }
@@ -146,8 +146,8 @@ public class Board implements IRender {
     public void addForeground(Entity entity){
         foreground.add(entity);
     }
-    public void addMobs(Mob mob){
-        mobs.add(mob);
+    public void addCreatures(Creature creature){
+        creatures.add(creature);
     }
     public void addBullets(Weapon bullet){
         bullets.add(bullet);
@@ -173,8 +173,8 @@ public class Board implements IRender {
         return null;
     }
     public Player getPlayer(){
-        Iterator<Mob> itr=mobs.iterator();
-        Mob cur;
+        Iterator<Creature> itr=creatures.iterator();
+        Creature cur;
         while(itr.hasNext()){
             cur=itr.next();
             if(cur instanceof Player)
@@ -185,8 +185,8 @@ public class Board implements IRender {
     public List<Rectangle> getStaticRectangles(){
         return staticRectangles;
     }
-    public List<Mob> getMobs(){
-        return mobs;
+    public List<Creature> getCreatures(){
+        return creatures;
     }
 
 }

@@ -2,6 +2,7 @@ package projectoop.entities.weapon;
 
 import projectoop.Board;
 import projectoop.entities.AnimatedEntity;
+import projectoop.entities.creatures.Creature;
 
 import java.awt.*;
 
@@ -20,15 +21,19 @@ public abstract class Weapon extends AnimatedEntity {
 
     public abstract void update();
     public abstract void render(Graphics g);
+
+
     public abstract void calculateMove();
     public abstract void move(double xa,double ya);
-    public abstract void detectCollision();
+    // Collision
+    public abstract void detectCollision(java.util.List<Rectangle> staticRectangles, java.util.List<Creature> creatures);
+
+
     public int getDirection(){
         return direction;
     }
     public void setDirection(int direction){
         this.direction=direction;
     }
-
 
 }

@@ -1,12 +1,11 @@
-package projectoop.entities.mob.enemy.ai;
+package projectoop.entities.creatures.enemy.ai;
 
-import projectoop.entities.mob.Player;
-import projectoop.entities.mob.enemy.Enemy;
+import projectoop.entities.creatures.Player;
+import projectoop.entities.creatures.enemy.Enemy;
 
 public class AIMedium extends AI{
     Player player;
     Enemy enemy;
-    //int tmp=1;
     public AIMedium(Player player,Enemy enemy){
         this.player=player;
         this.enemy=enemy;

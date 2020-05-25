@@ -1,4 +1,4 @@
-package projectoop.entities.mob;
+package projectoop.entities.creatures;
 import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Iterator;
@@ -6,13 +6,13 @@ import java.util.Iterator;
 import projectoop.Board;
 import projectoop.Game;
 import projectoop.entities.tile.Stone;
-import projectoop.entities.weapon.Bullet;
+import projectoop.entities.weapon.PlayerBullet;
 import projectoop.graphics.Sprite;
 import projectoop.input.KeyBoard;
 
 import java.awt.*;
 
-public class Player extends Mob {
+public class Player extends Creature {
 
 
 
@@ -42,7 +42,7 @@ public class Player extends Mob {
     @Override
     public void update() {
         if(alive==false){
-            afterKill();
+            afterBeKilled();
             return;
         }
         if(timeBetweenShot<-7500){
@@ -76,11 +76,11 @@ public class Player extends Mob {
         chooseSprite();
         chooseSpriteMp(Game.PLAYER_MP,mp);
         chooseSpriteHp(Game.PLAYER_HP,hp);
+
         g.drawImage(sprite,(int)x,(int)y,null);
         g.drawImage(spriteHp,(int)x+4,(int)y-15,null);
         g.drawImage(spriteMp,(int)x+4,(int)y-8,null);
 
-        renderRectangle(g);
     }
 
 
@@ -90,7 +90,7 @@ public class Player extends Mob {
     |-------------------------------------
     */
     @Override
-    protected void calculateMove() {
+    public void calculateMove() {
         int xa=0; int ya=0;
         if(input.up) ya--;
         if(input.down)ya++;
@@ -107,7 +107,7 @@ public class Player extends Mob {
     }
 
     @Override
-    protected void move(double xa, double ya) {
+    public void move(double xa, double ya) {
         if(xa>0) direction=1;
         if(xa<0) direction=3;
         if(ya>0) direction=0;
@@ -122,13 +122,13 @@ public class Player extends Mob {
 
     }
     @Override
-    protected boolean canMove(double x, double y) {
+    public boolean canMove(double x, double y) {
 
         double xRec=rectangle.getX();
         double yRec=rectangle.getY();
         rectangle.setLocation((int)(xRec+x*3),(int)(yRec+y*3));
         List<Rectangle> staticRectangles= board.getStaticRectangles();
-        List<Mob> mobs=board.getMobs();
+        List<Creature> creatures=board.getCreatures();
         Iterator<Rectangle> itr1=staticRectangles.iterator();
 
         while(itr1.hasNext()){
@@ -137,14 +137,14 @@ public class Player extends Mob {
                 return false;
             }
         }
-         Iterator<Mob> itr2=mobs.iterator();
+         Iterator<Creature> itr2=creatures.iterator();
         while(itr2.hasNext()){
-            Mob tmpMob=itr2.next();
-            if(tmpMob instanceof Player){
+            Creature creature=itr2.next();
+            if(creature instanceof Player){
                 continue;
             }
             else{
-                if(rectangle.intersects(tmpMob.getRectangle()))
+                if(rectangle.intersects(creature.getRectangle()))
                     return false;
             }
 
@@ -157,13 +157,9 @@ public class Player extends Mob {
     |Be Killed
     |-------------------------------------
     */
-    @Override
-    protected void kill() {
-
-    }
 
     @Override
-    protected void afterKill() {
+    public void afterBeKilled() {
 
     }
 
@@ -201,41 +197,36 @@ public class Player extends Mob {
 
     }
      public void attack(int xBullet, int yBullet){
-        Bullet bullet=new Bullet(xBullet,yBullet,board,Game.PLAYER_SPEED*1.5);
-        bullet.setDirection(direction);
-        board.addBullets(bullet);
+        PlayerBullet playerBullet =new PlayerBullet(xBullet,yBullet,board,Game.PLAYER_SPEED*1.5);
+        playerBullet.setDirection(direction);
+        board.addBullets(playerBullet);
         mp-=5;
     }
     /*
     |-------------------------------------
-    |Skill
+    |Skill Place Stone
     |-------------------------------------
     */
     public void detectPlaceStone(){
-        if(timeBetweenPlace<0&&(mp/50)>=1&&input.skill){
-            System.out.println("Player"+x+","+y);
+        if(timeBetweenPlace<0&&(mp/80)>=1&&input.skill){
             System.out.println(direction);
             double xStone=0,yStone=0;
             switch (direction){
-                case 0:
+                case 2:
                     xStone=x+9;
                     yStone=y+8+38;
-                    System.out.println("Stone"+xStone+","+yStone);
-                    break;
-                case 1:
-                    xStone=x+13+32;
-                    yStone=y+8;
-                    System.out.println("Stone"+xStone+","+yStone);
-                    break;
-                case 2:
-                    xStone=x+7;
-                    yStone=y+8-30-2;
-                    System.out.println("Stone"+xStone+","+yStone);
                     break;
                 case 3:
+                    xStone=x+13+32;
+                    yStone=y+8;
+                    break;
+                case 0:
+                    xStone=x+7;
+                    yStone=y+8-30-2;
+                    break;
+                case 1:
                     xStone=x+3-30-2;
                     yStone=y+8;
-                    System.out.println("Stone"+xStone+","+yStone);
                     break;
             }
             placeStone((int)xStone,(int)yStone);
@@ -245,32 +236,38 @@ public class Player extends Mob {
     }
     public void placeStone(int xStone, int yStone){
         Stone stone=new Stone(xStone,yStone);
-        List<Rectangle> staticsRectangle=board.getStaticRectangles();
-        Iterator<Rectangle> itr=staticsRectangle.iterator();
+        if(canPlaceStone(stone)==true) {
+            board.addForeground(stone);
+            board.addStaticRectangles(stone.getRectangle());
+            mp -= 80;
+        }
+
+    }
+    public boolean canPlaceStone(Stone stone){
+        List<Rectangle> staticRectangles=board.getStaticRectangles();
+        Iterator<Rectangle> itr=staticRectangles.iterator();
         while(itr.hasNext()){
             if(stone.getRectangle().intersects(itr.next())){
-                return;
+                return false;
             }
         }
-        List<Mob> mobs=board.getMobs();
-        Iterator<Mob> itr1=mobs.iterator();
+        List<Creature> creatures=board.getCreatures();
+        Iterator<Creature> itr1=creatures.iterator();
         while(itr1.hasNext()){
-            Mob mob=itr1.next();
-            if(mob instanceof Player){
+            Creature creature=itr1.next();
+            if(creature instanceof Player){
                 continue;
             }
-            if(stone.getRectangle().intersects(mob.getRectangle())){
-                return;
+            if(stone.getRectangle().intersects(creature.getRectangle())){
+                return false;
             }
         }
-        board.addForeground(stone);
-        board.addStaticRectangles(stone.getRectangle());
-        mp-=80;
+        return true;
 
     }
     /*
     |-------------------------------------
-    |Choose
+    |Choose sprite and spriteMP, spriteHP
     |-------------------------------------
     */
     public void chooseSprite(){
@@ -329,7 +326,7 @@ public class Player extends Mob {
     |Get and Set
     |----------------------------------
      */
-    protected void setRectangle(){
+    public void setRectangle(){
         switch (direction){
             case 0:
                 rectangle.setLocation((int)x+9,(int)y+8);
@@ -360,12 +357,5 @@ public class Player extends Mob {
         return y+25;
     }
 
-    public int getHp(){
-        return hp;
-    }
-    public void setHp(int hp){
-        this.hp=hp;
-
-    }
 
 }

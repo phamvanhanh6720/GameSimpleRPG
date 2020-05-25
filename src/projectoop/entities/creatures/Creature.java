@@ -1,28 +1,25 @@
-package projectoop.entities.mob;
+package projectoop.entities.creatures;
 
 import projectoop.Board;
 import projectoop.entities.AnimatedEntity;
 import projectoop.graphics.Sprite;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public abstract class Mob extends AnimatedEntity {
+public abstract class Creature extends AnimatedEntity {
     protected Board board;
 
-    public static final int DEFUALT_WIDTH=48;
-    public static final int DEFUALT_HEIGHT=48;
     protected int direction=-1;
     protected boolean alive=true;
     protected boolean moving=false;
     protected double speed;
     protected int hp;
     protected Rectangle rectangle;
-    public int timeAfter=80;
+    protected int timeAfter=80;
     protected BufferedImage spriteHp;
 
-    public Mob(int x, int y,Board board,double speed,int hp){
+    public Creature(int x, int y, Board board, double speed, int hp){
         this.x=x;
         this.y=y;
         this.board=board;
@@ -36,13 +33,18 @@ public abstract class Mob extends AnimatedEntity {
 
     @Override
     public abstract void render(Graphics g);
-    protected abstract void calculateMove();
-    protected abstract void move(double xa, double ya);
-    protected abstract void kill();
-    protected abstract void afterKill();
-    protected abstract boolean canMove(double x, double y);
-    protected abstract void setRectangle();
-    protected abstract  void chooseSprite();
+    public abstract void calculateMove();
+    public abstract void move(double xa, double ya);
+    public abstract void afterBeKilled();
+    public void checkBeKilled() {
+        if (hp <= 0) {
+            alive = false;
+        }
+    }
+
+    public abstract boolean canMove(double x, double y);
+    public abstract void setRectangle();
+    public abstract  void chooseSprite();
     public void chooseSpriteHp(int MAX_HP,int hp){
         if(hp>MAX_HP*3/4){
             spriteHp= Sprite.hp100;
@@ -63,10 +65,11 @@ public abstract class Mob extends AnimatedEntity {
         spriteHp=Sprite.hp0;
         return;
     }
-    public void renderRectangle(Graphics g){
-        g.drawRect((int)rectangle.getX(),(int)rectangle.getY(),(int)rectangle.getWidth(),(int)rectangle.getHeight());
-
-    }
+    /*
+    |----------------------------------
+    |Get and Set
+    |----------------------------------
+     */
     public abstract double getXCentrer();
     public abstract double getYCenter();
     public boolean isAlive(){
@@ -83,6 +86,13 @@ public abstract class Mob extends AnimatedEntity {
     }
     public Rectangle getRectangle(){
         return rectangle;
+    }
+
+    public int getHp(){
+        return hp;
+    }
+    public void setHp(int hp){
+        this.hp=hp;
     }
 
 }

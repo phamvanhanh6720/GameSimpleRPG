@@ -1,10 +1,9 @@
 package projectoop.entities.weapon;
 
 import projectoop.Board;
-import projectoop.entities.mob.Mob;
-import projectoop.entities.mob.Player;
-import projectoop.entities.mob.enemy.Python;
-import projectoop.entities.weapon.Weapon;
+import projectoop.entities.creatures.Creature;
+import projectoop.entities.creatures.Player;
+import projectoop.entities.creatures.enemy.Python;
 import projectoop.graphics.Sprite;
 
 import java.awt.*;
@@ -29,7 +28,9 @@ public class PythonBullet extends Weapon {
             remove();
             return;
         }
-        detectCollision();
+        List<Rectangle> staticRectangles=board.getStaticRectangles();
+        List<Creature> creatures=board.getCreatures();
+        detectCollision(staticRectangles,creatures);
         animate();
         calculateMove();
         rectangle.setLocation((int)x,(int)y);
@@ -78,12 +79,9 @@ public class PythonBullet extends Weapon {
 
     // Collision
     @Override
-    public void detectCollision() {
-        List<Rectangle> staticRectangles=board.getStaticRectangles();
-        List<Mob> mobs=board.getMobs();
+    public void detectCollision(List<Rectangle> staticRectangles, List<Creature> creatures) {
 
         Iterator<Rectangle> itr1=staticRectangles.iterator();
-
         while(itr1.hasNext()){
             Rectangle tmpRectangle=itr1.next();
             if(rectangle.intersects(tmpRectangle)){
@@ -92,22 +90,23 @@ public class PythonBullet extends Weapon {
             }
         }
 
-        Iterator<Mob> itr2=mobs.iterator();
+
+        Iterator<Creature> itr2=creatures.iterator();
         while(itr2.hasNext()){
-            Mob tmpMob=itr2.next();
-            if(tmpMob instanceof Python){
+            Creature creature=itr2.next();
+            if(creature instanceof Python){
                 continue;
             }
-            if(tmpMob instanceof Player){
-                if(rectangle.intersects(tmpMob.getRectangle()))
+            if(creature instanceof Player){
+                if(rectangle.intersects(creature.getRectangle()))
                 {
-                    int hp=((Player)tmpMob).getHp();
-                    ((Player)tmpMob).setHp(hp-5);
+                    int hp=((Player)creature).getHp();
+                    ((Player)creature).setHp(hp-5);
                     remove();
                     return;
                 }
             }
-            if (rectangle.intersects(tmpMob.getRectangle())){
+            if (rectangle.intersects(creature.getRectangle())){
                 remove();
                 return;
             }

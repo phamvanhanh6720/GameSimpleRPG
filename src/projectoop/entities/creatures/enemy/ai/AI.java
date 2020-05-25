@@ -1,4 +1,4 @@
-package projectoop.entities.mob.enemy.ai;
+package projectoop.entities.creatures.enemy.ai;
 
 import java.util.Random;
 

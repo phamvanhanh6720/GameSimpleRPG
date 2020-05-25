@@ -2,9 +2,9 @@ package projectoop.level;
 
 import projectoop.Board;
 import projectoop.Game;
-import projectoop.entities.mob.Player;
-import projectoop.entities.mob.enemy.Python;
-import projectoop.entities.mob.enemy.Snake;
+import projectoop.entities.creatures.Player;
+import projectoop.entities.creatures.enemy.Python;
+import projectoop.entities.creatures.enemy.Snake;
 import projectoop.entities.tile.*;
 import projectoop.exceptions.LoadLevelException;
 
@@ -105,18 +105,18 @@ public class FileLevel {
             case '#':
                 Player player=new Player(x* Game.TILE_SIZE,y*Game.TILE_SIZE,board);
                 board.addEntities(x,y,new Grass0Tile(x,y));
-                board.addMobs(player);
+                board.addCreatures(player);
                 break;
             case 's':
                 Snake snake=new Snake(x* Game.TILE_SIZE,y*Game.TILE_SIZE,board);
                 board.addEntities(x,y, new Grass0Tile(x,y));
-                board.addMobs(snake);
+                board.addCreatures(snake);
 
                 break;
             case 'p':
                 Python python=new Python(x* Game.TILE_SIZE,y*Game.TILE_SIZE,board);
                 board.addEntities(x,y,new Grass0Tile(x,y));
-                board.addMobs(python);
+                board.addCreatures(python);
 
                 break;
 

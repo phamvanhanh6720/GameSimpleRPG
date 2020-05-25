@@ -1,11 +1,10 @@
-package projectoop.entities.mob.enemy;
+package projectoop.entities.creatures.enemy;
 
 import projectoop.Board;
 import projectoop.Game;
-import projectoop.entities.mob.Mob;
-import projectoop.entities.mob.Player;
-import projectoop.entities.mob.enemy.ai.AILow;
-import projectoop.entities.mob.enemy.ai.AIMedium;
+import projectoop.entities.creatures.Creature;
+import projectoop.entities.creatures.Player;
+import projectoop.entities.creatures.enemy.ai.AIMedium;
 import projectoop.graphics.Sprite;
 
 import java.awt.*;
@@ -42,7 +41,6 @@ public class Snake extends Enemy {
         super.render(g);
         chooseSpriteHp(Game.PLAYER_HP/5,hp);
         g.drawImage(spriteHp,(int)x+13,(int)y+2,null);
-        renderRectangle(g);
     }
     /*
     |-------------------------------------
@@ -51,7 +49,7 @@ public class Snake extends Enemy {
     */
 
     @Override
-    protected void calculateMove() {
+    public void calculateMove() {
         Player p = null;
         p = board.getPlayer();
         // khi khoang cach giua Snake va player nho hon 1 gia tri thi snake chuyen trang thai sang tan cong, moving=false
@@ -89,12 +87,12 @@ public class Snake extends Enemy {
 
 
     @Override
-    protected boolean canMove(double x, double y) {
+    public boolean canMove(double x, double y) {
         double xRec = rectangle.getX();
         double yRec = rectangle.getY();
         rectangle.setLocation((int) (xRec + x * 1), (int) (yRec + y * 1));
         java.util.List<Rectangle> staticRectangles = board.getStaticRectangles();
-        List<Mob> mobs = board.getMobs();
+        List<Creature> creatures = board.getCreatures();
         Iterator<Rectangle> itr1 = staticRectangles.iterator();
 
         while (itr1.hasNext()) {
@@ -103,13 +101,13 @@ public class Snake extends Enemy {
                 return false;
             }
         }
-        Iterator<Mob> itr2 = mobs.iterator();
+        Iterator<Creature> itr2 = creatures.iterator();
         while (itr2.hasNext()) {
-            Mob tmpMob = itr2.next();
-            if (tmpMob == this) {
+            Creature creature = itr2.next();
+            if (creature == this) {
                 continue;
             } else {
-                if (rectangle.intersects(tmpMob.getRectangle()))
+                if (rectangle.intersects(creature.getRectangle()))
                     return false;
             }
 
@@ -181,7 +179,7 @@ public class Snake extends Enemy {
     |-------------------------------------
     */
     @Override
-    protected void setRectangle() {
+    public void setRectangle() {
         switch (direction){
             case 0:
                 rectangle.setLocation((int)x+18,(int)y+20);
@@ -209,6 +207,7 @@ public class Snake extends Enemy {
         return y+30;
     }
     //set direction khi tan cong
+
     public void setDirection(Player player){
         double verticalDistance, horizontalDistance;
         verticalDistance=Math.abs(player.getYCenter()-this.getYCenter());
