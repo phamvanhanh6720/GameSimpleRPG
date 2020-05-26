@@ -1,5 +1,7 @@
 package projectoop.gui;
 
+import projectoop.Game;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,10 +11,10 @@ public class Display {
 
     private String title;
     private int width, height;
-    public Display(String title,int width,int height){
+    public Display(String title){
         this.title=title;
-        this.width=width;
-        this.height=height;
+        this.width= Game.WIDTH;
+        this.height=Game.HEIGHT;
         createDisplay();
     }
 

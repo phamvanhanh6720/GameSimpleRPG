@@ -7,7 +7,7 @@ import java.io.IOException;
 public class SimpleRPG {
     public static void main(String[] args) throws SimpleRPGException {
         Game game;
-        game = new Game("SimpleRPG",800,640);
+        game = new Game("SimpleRPG");
         game.start();
     }
 }

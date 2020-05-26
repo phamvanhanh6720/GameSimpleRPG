@@ -8,7 +8,8 @@ import java.awt.image.BufferStrategy;
 
 public class Game implements Runnable {
     private String title;
-    private int width,height;
+    public static final int WIDTH=800;
+    public static final int HEIGHT=640;
     private Display display;
     private KeyBoard input;
 
@@ -24,12 +25,10 @@ public class Game implements Runnable {
     public final static int PLAYER_HP=100;
     public final static int PLAYER_MP=100;
 
-    public Game(String title, int width,int height)  {
+    public Game(String title)  {
         this.title=title;
-        this.width=width;
-        this.height=height;
 
-        display=new Display(title, width,height);
+        display=new Display(title);
         input=new KeyBoard();
         board=new Board(this,input);
 
@@ -47,7 +46,7 @@ public class Game implements Runnable {
             return ;
         }
         g=bs.getDrawGraphics();
-        g.clearRect(0,0,width,height);
+        g.clearRect(0,0,Game.WIDTH,Game.HEIGHT);
         board.render(g);
 
         bs.show();
@@ -92,5 +91,8 @@ public class Game implements Runnable {
 
         running=false;
         thread.stop();
+    }
+    public String getTitle(){
+        return title;
     }
 }
