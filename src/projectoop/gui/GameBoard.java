@@ -65,7 +65,7 @@ public class GameBoard extends JPanel {
 
     public void setShowChoseLevel(){
         cardLayout.show(this,TAG_CHOOSELEVEL);
-        howtoPlay.requestFocus();
+        chooseLevel.requestFocus();
     }
 
     public void setShowHowToPlay(){
@@ -82,23 +82,4 @@ public class GameBoard extends JPanel {
         return game;
     }
 
-    public Menu getMenu() {
-        return menu;
-    }
-
-    public PlayGame getPlayGame() {
-        return playGame;
-    }
-
-    public HowToPlay getHowtoPlay() {
-        return howtoPlay;
-    }
-
-    public ChooseLevel getChooseLevel() {
-        return chooseLevel;
-    }
-
-    public Option getOption() {
-        return option;
-    }
 }

@@ -14,17 +14,22 @@ import java.awt.*;
 
 public class Player extends Creature {
 
-
+    public final static double PLAYER_SPEED=1.0;
+    public final static int PLAYER_HP=100;
+    public final static int PLAYER_MP=100;
 
     private KeyBoard input;
     private boolean shot=false;
+
     private int timeBetweenShot=30;
     private int timeBetweenPlace=15;
-    private int mp=Game.PLAYER_MP;
+
+
+    private int mp=Player.PLAYER_MP;
     private BufferedImage spriteMp;
 
     public Player(int x, int y, Board board){
-        super(x,y,board, Game.PLAYER_SPEED,Game.PLAYER_HP);
+        super(x,y,board, PLAYER_SPEED,PLAYER_HP);
 
         sprite=Sprite.player_down;
         input=board.getInput();
@@ -74,8 +79,8 @@ public class Player extends Creature {
     @Override
     public void render(Graphics g) {
         chooseSprite();
-        chooseSpriteMp(Game.PLAYER_MP,mp);
-        chooseSpriteHp(Game.PLAYER_HP,hp);
+        chooseSpriteMp(Player.PLAYER_MP,mp);
+        chooseSpriteHp(Player.PLAYER_HP,hp);
 
         g.drawImage(sprite,(int)x,(int)y,null);
         g.drawImage(spriteHp,(int)x+4,(int)y-15,null);
@@ -197,7 +202,7 @@ public class Player extends Creature {
 
     }
      public void attack(int xBullet, int yBullet){
-        PlayerBullet playerBullet =new PlayerBullet(xBullet,yBullet,board,Game.PLAYER_SPEED*1.5);
+        PlayerBullet playerBullet =new PlayerBullet(xBullet,yBullet,board,Player.PLAYER_SPEED*1.5);
         playerBullet.setDirection(direction);
         board.addBullets(playerBullet);
         mp-=5;

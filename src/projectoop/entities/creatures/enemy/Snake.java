@@ -15,7 +15,7 @@ public class Snake extends Enemy {
 
 
     public Snake(int x, int y, Board board){
-        super(x,y,board, Game.PLAYER_SPEED,Game.PLAYER_HP/5,40);
+        super(x,y,board, Player.PLAYER_SPEED,Player.PLAYER_HP/5,40);
         ai=new AIMedium(board.getPlayer(),this);
         sprite= Sprite.snake_down;
         rectangle=new Rectangle((int)x+18,(int)y+12,28,30);
@@ -39,7 +39,7 @@ public class Snake extends Enemy {
     @Override
     public void render(Graphics g) {
         super.render(g);
-        chooseSpriteHp(Game.PLAYER_HP/5,hp);
+        chooseSpriteHp(Player.PLAYER_HP/5,hp);
         g.drawImage(spriteHp,(int)x+13,(int)y+2,null);
     }
     /*

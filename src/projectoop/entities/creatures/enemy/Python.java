@@ -2,6 +2,7 @@ package projectoop.entities.creatures.enemy;
 
 import projectoop.Board;
 import projectoop.Game;
+import projectoop.entities.creatures.Player;
 import projectoop.entities.weapon.PythonBullet;
 import projectoop.entities.creatures.Creature;
 import projectoop.entities.creatures.enemy.ai.AILow;
@@ -16,7 +17,7 @@ public class Python extends Enemy {
 
     private int timeBetweenShot;
     public Python(int x, int y, Board board){
-        super(x,y,board, Game.PLAYER_SPEED/2,Game.PLAYER_HP/10,Game.TILE_SIZE*2);
+        super(x,y,board, Player.PLAYER_SPEED/2,Player.PLAYER_HP/10,Game.TILE_SIZE*2);
         ai=new AILow();
         sprite= Sprite.python_down;
         rectangle=new Rectangle((int)x+5,(int)y+8,32,36);
@@ -56,7 +57,7 @@ public class Python extends Enemy {
     @Override
     public void render(Graphics g) {
         super.render(g);
-        chooseSpriteHp(Game.PLAYER_HP/10,hp);
+        chooseSpriteHp(Player.PLAYER_HP/10,hp);
         g.drawImage(spriteHp,(int)x+4,(int)y-8,null);
     }
     /*
@@ -85,7 +86,7 @@ public class Python extends Enemy {
                 yBullet=(int)(y+Sprite.python_left.getHeight()/4);
                 break;
         }
-        PythonBullet pythonBullet=new PythonBullet(xBullet,yBullet,board,Game.PLAYER_SPEED*1.5);
+        PythonBullet pythonBullet=new PythonBullet(xBullet,yBullet,board,Player.PLAYER_SPEED*1.5);
         pythonBullet.setDirection(direction);
         board.addBullets(pythonBullet);
 

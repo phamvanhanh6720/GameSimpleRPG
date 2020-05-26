@@ -2,6 +2,7 @@ package projectoop.gui;
 
 
 import projectoop.Board;
+import projectoop.Game;
 import projectoop.input.KeyBoard;
 
 import javax.swing.*;
@@ -18,6 +19,10 @@ public class PlayGame extends JPanel   {
         this.gameBoard=gameBoard;
         input=new KeyBoard();
         board=new Board(input);
+        setBounds(0,0,Game.WIDTH,Game.HEIGHT);
+        //setPreferredSize(new Dimension(Game.WIDTH,Game.HEIGHT));
+        //setMaximumSize(new Dimension(Game.WIDTH,Game.HEIGHT));
+        //setMinimumSize(new Dimension(Game.WIDTH,Game.HEIGHT));
         setBackground(Color.WHITE);
         setLayout(null);
         setFocusable(true);
@@ -28,7 +33,8 @@ public class PlayGame extends JPanel   {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
         board.update();
-        board.render(g);
+        board.render(g2d);
     }
 }

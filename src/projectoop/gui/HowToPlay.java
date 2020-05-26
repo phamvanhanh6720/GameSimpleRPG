@@ -41,7 +41,8 @@ public class HowToPlay extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==btnOk){
-            gameBoard.setShowMenu();
+            //set ve menu
+            gameBoard.getGame().setCurrentState(0);
         }
     }
 }

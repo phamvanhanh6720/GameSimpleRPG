@@ -8,7 +8,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class ChooseLevel extends JPanel {
-    private Game game;
     private GUI gui;
     private GameBoard gameBoard;
 
@@ -21,7 +20,6 @@ public class ChooseLevel extends JPanel {
     public ChooseLevel(GameBoard gameBoard){
         this.gameBoard=gameBoard;
         this.gui=gameBoard.getGui();
-        this.game=gameBoard.getGame();
 
         setBackground(Color.GREEN);
         setLayout(null);
@@ -30,8 +28,8 @@ public class ChooseLevel extends JPanel {
 
     }
     public void initComps(GUI gui){
-        lbEasy=setLabel(300,150,"/textures/Exit.png");
-        lbHard=setLabel(lbEasy.getX(),lbEasy.getY()+15,"/textures/Option.png");
+        lbEasy=setLabel(300,150,"/textures/easy.png");
+        lbHard=setLabel(lbEasy.getX(),lbEasy.getY()+lbEasy.getHeight()+15,"/textures/hard.png");
 
         lbEasy.addMouseListener(mouseAdapter);
         lbHard.addMouseListener(mouseAdapter);
@@ -46,11 +44,12 @@ public class ChooseLevel extends JPanel {
         lbBackGround.setBackground(Color.BLACK);
         backgroundIcon=new ImageIcon(getClass().getResource("/textures/background.png"));
         lbBackGround.setIcon(backgroundIcon);
+        add(lbBackGround);
 
     }
     public JLabel setLabel(int x, int y, String imgIconFile){
         JLabel label=new JLabel();
-        ImageIcon icon=new ImageIcon(imgIconFile);
+        ImageIcon icon= new ImageIcon(getClass().getResource(imgIconFile));
         label.setBounds(x,y,icon.getIconWidth(),icon.getIconHeight());
         label.setIcon(icon);
         return label;
@@ -62,12 +61,14 @@ public class ChooseLevel extends JPanel {
         public void mousePressed(MouseEvent e) {
 
             if(e.getSource()==lbEasy){
-                game.setLevel(0);
-                gameBoard.setShowMenu();
+                gameBoard.getGame().setLevel(0);
+                //set ve menu
+                gameBoard.getGame().setCurrentState(0);
             }
             if(e.getSource()==lbHard){
-                game.setLevel(1);
-                gameBoard.setShowMenu();
+                gameBoard.getGame().setLevel(1);
+                // set ve menu
+                gameBoard.getGame().setCurrentState(0);
             }
 
         }
@@ -75,11 +76,11 @@ public class ChooseLevel extends JPanel {
         @Override
         public void mouseEntered(MouseEvent e) {
             if (e.getSource() == lbEasy) {
-                ImageIcon playIcon = new ImageIcon(getClass().getResource("/textures/Exit2.png"));
+                ImageIcon playIcon = new ImageIcon(getClass().getResource("/textures/easy2.png"));
                 lbEasy.setIcon(playIcon);
             }
             if (e.getSource() == lbHard) {
-                ImageIcon optionIcon = new ImageIcon(getClass().getResource("/textures/Option2.png"));
+                ImageIcon optionIcon = new ImageIcon(getClass().getResource("/textures/hard2.png"));
                 lbHard.setIcon(optionIcon);
             }
         }
@@ -87,11 +88,11 @@ public class ChooseLevel extends JPanel {
         @Override
         public void mouseExited(MouseEvent e) {
             if (e.getSource() == lbEasy) {
-                ImageIcon playIcon = new ImageIcon(getClass().getResource("/textures/Exit.png"));
+                ImageIcon playIcon = new ImageIcon(getClass().getResource("/textures/easy.png"));
                 lbEasy.setIcon(playIcon);
             }
             if (e.getSource() == lbHard) {
-                ImageIcon optionIcon = new ImageIcon(getClass().getResource("/textures/Option.png"));
+                ImageIcon optionIcon = new ImageIcon(getClass().getResource("/textures/hard.png"));
                 lbHard.setIcon(optionIcon);
             }
         }

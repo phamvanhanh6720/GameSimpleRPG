@@ -10,7 +10,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class Menu extends JPanel {
-    private Game game;
     private GUI gui;
     private GameBoard gameBoard;
 
@@ -23,7 +22,7 @@ public class Menu extends JPanel {
     public Menu(GameBoard gameBoard){
         this.gameBoard=gameBoard;
         this.gui=gameBoard.getGui();
-        this.game=gameBoard.getGame();
+
         setBackground(Color.GREEN);
         setLayout(null);
         initComps(gui);
@@ -32,9 +31,9 @@ public class Menu extends JPanel {
 
     }
     public void initComps(GUI gui){
-        lbPlayGame=setLabel(300,150,"/textures/Play.png");
-        lbOption=setLabel(lbPlayGame.getX(),lbPlayGame.getY()+15,"/textures/Option.png");
-        lbExit=setLabel(lbOption.getX(),lbOption.getY()+15,"/textures/Exit.png");
+        lbPlayGame=setLabel(300,150,"/textures/play.png");
+        lbOption=setLabel(lbPlayGame.getX(),lbPlayGame.getY()+lbPlayGame.getHeight()+15,"/textures/option.png");
+        lbExit=setLabel(lbOption.getX(),lbOption.getY()+lbOption.getHeight()+15,"/textures/exit.png");
 
         lbPlayGame.addMouseListener(mouseAdapter);
         lbOption.addMouseListener(mouseAdapter);
@@ -47,7 +46,7 @@ public class Menu extends JPanel {
     }
     public void initBackground(){
         lbBackGround=new JLabel();
-        lbBackGround.setBounds(0,0,gui.getWidth(),gui.getHeight());
+        lbBackGround.setBounds(0,0,Game.WIDTH,Game.HEIGHT);
         lbBackGround.setBackground(Color.BLACK);
         backgroundIcon=new ImageIcon(getClass().getResource("/textures/background.png"));
         lbBackGround.setIcon(backgroundIcon);
@@ -73,14 +72,16 @@ public class Menu extends JPanel {
         @Override
         public void mousePressed(MouseEvent e) {
             if(e.getSource()==lbExit){
-                game.setRunning(false);
+                gameBoard.getGame().setRunning(false);
 
             }
             if(e.getSource()==lbPlayGame){
-                gameBoard.setShowPlay();
+                // chuyen vao playing state
+                gameBoard.getGame().setCurrentState(1);
             }
             if(e.getSource()==lbOption){
-                gameBoard.setShowOption();
+                //chuyen sang option State
+                gameBoard.getGame().setCurrentState(2);
             }
 
         }
@@ -88,15 +89,15 @@ public class Menu extends JPanel {
         @Override
         public void mouseEntered(MouseEvent e) {
             if (e.getSource() == lbPlayGame) {
-                ImageIcon playIcon = new ImageIcon(getClass().getResource("/textures/Play2.png"));
+                ImageIcon playIcon = new ImageIcon(getClass().getResource("/textures/play2.png"));
                 lbPlayGame.setIcon(playIcon);
             }
             if (e.getSource() == lbOption) {
-                ImageIcon optionIcon = new ImageIcon(getClass().getResource("/textures/Option2.png"));
+                ImageIcon optionIcon = new ImageIcon(getClass().getResource("/textures/option2.png"));
                 lbOption.setIcon(optionIcon);
             }
             if (e.getSource() == lbExit) {
-                ImageIcon exitIcon = new ImageIcon(getClass().getResource("/textures/Exit2.png"));
+                ImageIcon exitIcon = new ImageIcon(getClass().getResource("/textures/exit2.png"));
                 lbExit.setIcon(exitIcon);
             }
         }
@@ -104,15 +105,15 @@ public class Menu extends JPanel {
         @Override
         public void mouseExited(MouseEvent e) {
             if (e.getSource() == lbPlayGame) {
-                ImageIcon playIcon = new ImageIcon(getClass().getResource("/textures/Play.png"));
+                ImageIcon playIcon = new ImageIcon(getClass().getResource("/textures/play.png"));
                 lbPlayGame.setIcon(playIcon);
             }
             if (e.getSource() == lbOption) {
-                ImageIcon optionIcon = new ImageIcon(getClass().getResource("/textures/Option.png"));
+                ImageIcon optionIcon = new ImageIcon(getClass().getResource("/textures/option.png"));
                 lbOption.setIcon(optionIcon);
             }
             if (e.getSource() == lbExit) {
-                ImageIcon exitIcon = new ImageIcon(getClass().getResource("/textures/Exit.png"));
+                ImageIcon exitIcon = new ImageIcon(getClass().getResource("/textures/exit.png"));
                 lbExit.setIcon(exitIcon);
             }
         }

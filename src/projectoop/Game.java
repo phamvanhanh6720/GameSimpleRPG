@@ -20,8 +20,12 @@ public class Game implements Runnable {
     /*
     currentState=0: Menu Game
     currentState=1: PlayingState (PlayGame)
+    currentState=2: Option
+    currentState=3: Choose Level
+    currentState=4: How to Play
+
      */
-    private int currentState=0;
+    private int currentState;
 
     private boolean running=false;
     private BufferStrategy bs;
@@ -31,46 +35,18 @@ public class Game implements Runnable {
     private Board board;
     public static final int TILE_SIZE=32;
 
-    public final static double PLAYER_SPEED=1.0;
-    public final static int PLAYER_HP=100;
-    public final static int PLAYER_MP=100;
+
 /*
 
  */
     public Game(String title)  {
         this.title=title;
+        currentState=0;
 
-        //display=new Display(title);
-        //input=new KeyBoard();
-        //board=new Board(input);
-
-        //display.getFrame().addKeyListener(input);
         gui=new GUI(title,this);
         gameBoard=gui.getGameBoard();
 
     }
-    /*
-    public void update(){
-        input.update();
-        board.update();
-    }
-    public void render(){
-        bs=display.getCanvas().getBufferStrategy();
-        if(bs==null){
-            display.getCanvas().createBufferStrategy(3);
-            return ;
-        }
-        g=bs.getDrawGraphics();
-        g.clearRect(0,0,Game.WIDTH,Game.HEIGHT);
-        board.render(g);
-
-        bs.show();
-        g.dispose();
-
-    }
-
-
-     */
 
     @Override
     public void run() {
@@ -80,21 +56,35 @@ public class Game implements Runnable {
         final double ns = 1000000000.0 / 60.0; //nanosecond, 60 frames per second
         double delta = 0;
 
-        //display.getCanvas().requestFocus();
         while(running){
             long now=System.nanoTime();
             delta+=(now-lastTime)/ns;
             lastTime=now;
             while(delta>=1){
-                //update();
-                //render();
-                //gameBoard.setShowPlay();
-                gameBoard.setShowMenu();
-
+                switch (currentState){
+                    case 0:
+                        gameBoard.setShowMenu();
+                        break;
+                    case 1:
+                        gameBoard.setShowPlay();
+                        break;
+                    case 2:
+                        gameBoard.setShowOption();
+                        break;
+                    case 3:
+                        gameBoard.setShowChoseLevel();
+                        break;
+                    case 4:
+                        gameBoard.setShowHowToPlay();
+                        break;
+                }
                 delta-=1;
             }
 
 
+        }
+        if(running==false){
+            System.exit(0);
         }
     }
     public synchronized void start(){

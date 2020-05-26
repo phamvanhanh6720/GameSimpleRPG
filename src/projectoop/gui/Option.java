@@ -9,7 +9,6 @@ import java.awt.event.MouseEvent;
 
 public class Option extends  JPanel{
 
-        private Game game;
         private GUI gui;
         private GameBoard gameBoard;
 
@@ -22,7 +21,6 @@ public class Option extends  JPanel{
         public Option(GameBoard gameBoard){
             this.gameBoard=gameBoard;
             this.gui=gameBoard.getGui();
-            this.game=gameBoard.getGame();
 
             setBackground(Color.GREEN);
             setLayout(null);
@@ -31,8 +29,8 @@ public class Option extends  JPanel{
 
         }
         public void initComps(GUI gui){
-            lbChooseLevel=setLabel(300,150,"/textures/Play.png");
-            lbHowToPlay=setLabel(lbChooseLevel.getX(),lbChooseLevel.getY()+15,"/textures/Option.png");
+            lbChooseLevel=setLabel(300,150,"/textures/chooselevel.png");
+            lbHowToPlay=setLabel(lbChooseLevel.getX(),lbChooseLevel.getY()+lbChooseLevel.getHeight()+15,"/textures/howtoplay.png");
 
 
             lbChooseLevel.addMouseListener(mouseAdapter);
@@ -44,15 +42,16 @@ public class Option extends  JPanel{
         }
         public void initBackground(){
             lbBackGround=new JLabel();
-            lbBackGround.setBounds(0,0,gui.getWidth(),gui.getHeight());
+            lbBackGround.setBounds(0,0,Game.WIDTH,Game.HEIGHT);
             lbBackGround.setBackground(Color.BLACK);
             backgroundIcon=new ImageIcon(getClass().getResource("/textures/background.png"));
             lbBackGround.setIcon(backgroundIcon);
+            add(lbBackGround);
 
         }
         public JLabel setLabel(int x, int y, String imgIconFile){
             JLabel label=new JLabel();
-            ImageIcon icon=new ImageIcon(imgIconFile);
+            ImageIcon icon=new ImageIcon(getClass().getResource(imgIconFile));
             label.setBounds(x,y,icon.getIconWidth(),icon.getIconHeight());
             label.setIcon(icon);
             return label;
@@ -64,10 +63,14 @@ public class Option extends  JPanel{
             public void mousePressed(MouseEvent e) {
 
                 if(e.getSource()==lbHowToPlay){
-                    gameBoard.setShowHowToPlay();
+                    // currentState=4 : How To Play
+                    gameBoard.getGame().setCurrentState(4);
+
                 }
                 if(e.getSource()==lbChooseLevel){
-                    gameBoard.setShowChoseLevel();
+                    // currentState=3: Choose Level
+                    gameBoard.getGame().setCurrentState(3);
+
                 }
 
             }
@@ -75,11 +78,11 @@ public class Option extends  JPanel{
             @Override
             public void mouseEntered(MouseEvent e) {
                 if (e.getSource() == lbChooseLevel) {
-                    ImageIcon playIcon = new ImageIcon(getClass().getResource("/textures/Play2.png"));
+                    ImageIcon playIcon = new ImageIcon(getClass().getResource("/textures/chooselevel2.png"));
                     lbChooseLevel.setIcon(playIcon);
                 }
                 if (e.getSource() == lbHowToPlay) {
-                    ImageIcon optionIcon = new ImageIcon(getClass().getResource("/textures/Option2.png"));
+                    ImageIcon optionIcon = new ImageIcon(getClass().getResource("/textures/howtoplay2.png"));
                     lbHowToPlay.setIcon(optionIcon);
                 }
             }
@@ -87,11 +90,11 @@ public class Option extends  JPanel{
             @Override
             public void mouseExited(MouseEvent e) {
                 if (e.getSource() == lbChooseLevel) {
-                    ImageIcon playIcon = new ImageIcon(getClass().getResource("/textures/Play.png"));
+                    ImageIcon playIcon = new ImageIcon(getClass().getResource("/textures/chooselevel.png"));
                     lbChooseLevel.setIcon(playIcon);
                 }
                 if (e.getSource() == lbHowToPlay) {
-                    ImageIcon optionIcon = new ImageIcon(getClass().getResource("/textures/Option.png"));
+                    ImageIcon optionIcon = new ImageIcon(getClass().getResource("/textures/howtoplay.png"));
                     lbHowToPlay.setIcon(optionIcon);
                 }
             }
