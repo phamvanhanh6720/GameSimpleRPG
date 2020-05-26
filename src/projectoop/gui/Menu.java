@@ -3,6 +3,7 @@ package projectoop.gui;
 
 import projectoop.Game;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -28,6 +29,7 @@ public class Menu extends JPanel {
         initComps(gui);
         initBackground();
 
+
     }
     public void initComps(GUI gui){
         lbPlayGame=setLabel(300,150,"/textures/Play.png");
@@ -49,14 +51,21 @@ public class Menu extends JPanel {
         lbBackGround.setBackground(Color.BLACK);
         backgroundIcon=new ImageIcon(getClass().getResource("/textures/background.png"));
         lbBackGround.setIcon(backgroundIcon);
+        add(lbBackGround);
 
     }
     public JLabel setLabel(int x, int y, String imgIconFile){
         JLabel label=new JLabel();
-        ImageIcon icon=new ImageIcon(getClass().getResource(imgIconFile));
-        label.setBounds(x,y,icon.getIconWidth(),icon.getIconHeight());
-        label.setIcon(icon);
-        return label;
+        try {
+            ImageIcon icon = new ImageIcon(getClass().getResource(imgIconFile));
+            label.setBounds(x, y, icon.getIconWidth(), icon.getIconHeight());
+            label.setIcon(icon);
+            return label;
+        }
+        catch (Exception e){
+            System.out.println("Error");
+            return null;
+        }
     }
 
 

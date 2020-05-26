@@ -35,7 +35,7 @@ public class GameBoard extends JPanel {
         add(playGame,TAG_PLAYGAME);
 
         howtoPlay=new HowToPlay(this);
-        add(option,TAG_OPTION);
+        add(howtoPlay,TAG_HOWTOPLAY);
 
         option=new Option(this);
         add(option,TAG_OPTION);
@@ -54,6 +54,7 @@ public class GameBoard extends JPanel {
     }
     public void setShowPlay(){
         cardLayout.show(this,TAG_PLAYGAME);
+        playGame.repaint();
         playGame.requestFocus();
 
     }
@@ -79,5 +80,25 @@ public class GameBoard extends JPanel {
     }
     public Game getGame(){
         return game;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public PlayGame getPlayGame() {
+        return playGame;
+    }
+
+    public HowToPlay getHowtoPlay() {
+        return howtoPlay;
+    }
+
+    public ChooseLevel getChooseLevel() {
+        return chooseLevel;
+    }
+
+    public Option getOption() {
+        return option;
     }
 }

@@ -15,10 +15,9 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Board implements IRender {
-    private Game game;
     private KeyBoard input;
 
-    private FileLevel level;
+    private FileLevel map;
     private List<Creature> creatures=new ArrayList<Creature>();
     private Entity[][] entities;
     private List<Entity> foreground=new ArrayList<Entity>();
@@ -27,14 +26,14 @@ public class Board implements IRender {
     private List<Weapon> bullets=new ArrayList<Weapon>();
 
 
-    public Board(Game game, KeyBoard input)  {
-        this.game=game;
+    public Board(KeyBoard input)  {
+
         this.input=input;
 
         try {
-            level = new FileLevel("map/mapdemo2.txt", this);
-            entities = new Entity[level.getHeight()][level.getWidth()];
-            level.createEntities();
+            map = new FileLevel("map/mapdemo2.txt", this);
+            entities = new Entity[map.getHeight()][map.getWidth()];
+            map.createEntities();
         }
         catch (LoadLevelException e){
         }
@@ -50,6 +49,7 @@ public class Board implements IRender {
  */
     @Override
     public void update() {
+        input.update();
         updateEntities();
         updateForeground();
         updateCreatures();
@@ -74,8 +74,8 @@ public class Board implements IRender {
         }
     }
     public void updateEntities(){
-        for (int y=0;y<level.getHeight();y++)
-            for (int x=0;x<level.getWidth();x++)
+        for (int y=0;y<map.getHeight();y++)
+            for (int x=0;x<map.getWidth();x++)
                 entities[y][x].update();
     }
     public void updateForeground(){
@@ -119,8 +119,8 @@ public class Board implements IRender {
             itr.next().render(g);
     }
     public void renderEntities(Graphics g){
-        for (int y=0;y<level.getHeight();y++)
-            for (int x=0;x<level.getWidth();x++)
+        for (int y=0;y<map.getHeight();y++)
+            for (int x=0;x<map.getWidth();x++)
                 entities[y][x].render(g);
 
     }

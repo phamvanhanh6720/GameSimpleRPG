@@ -52,7 +52,7 @@ public class Option extends  JPanel{
         }
         public JLabel setLabel(int x, int y, String imgIconFile){
             JLabel label=new JLabel();
-            ImageIcon icon=new ImageIcon(getClass().getResource(imgIconFile));
+            ImageIcon icon=new ImageIcon(imgIconFile);
             label.setBounds(x,y,icon.getIconWidth(),icon.getIconHeight());
             label.setIcon(icon);
             return label;

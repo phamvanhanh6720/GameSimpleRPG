@@ -16,12 +16,17 @@ public class GUI extends JFrame {
         setLayout(new CardLayout());
         setLocationRelativeTo(null);
         setResizable(false);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
         gameBoard=new GameBoard(this,game);
         add(gameBoard);
+        setVisible(true);
 
 
+    }
+    public GameBoard getGameBoard(){
+        return gameBoard;
     }
 
 }

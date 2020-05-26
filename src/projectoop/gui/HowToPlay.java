@@ -25,7 +25,7 @@ public class HowToPlay extends JPanel implements ActionListener {
         lbBackGround=new JLabel();
         lbBackGround.setBounds(0,0, Game.WIDTH,Game.HEIGHT);
         lbBackGround.setBackground(Color.BLACK);
-        backgroundIcon=new ImageIcon(getClass().getResource("/textures/background_howToPlay.png"));
+        backgroundIcon=new ImageIcon(getClass().getResource("/textures/background_option.png"));
         lbBackGround.setIcon(backgroundIcon);
 
         add(lbBackGround);

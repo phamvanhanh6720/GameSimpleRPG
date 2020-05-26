@@ -1,6 +1,7 @@
 package projectoop;
 
 import projectoop.gui.Display;
+import projectoop.gui.GUI;
 import projectoop.gui.GameBoard;
 import projectoop.input.KeyBoard;
 
@@ -15,6 +16,7 @@ public class Game implements Runnable {
     private Display display;
     private KeyBoard input;
     private GameBoard gameBoard;
+    private GUI gui;
     /*
     currentState=0: Menu Game
     currentState=1: PlayingState (PlayGame)
@@ -32,17 +34,22 @@ public class Game implements Runnable {
     public final static double PLAYER_SPEED=1.0;
     public final static int PLAYER_HP=100;
     public final static int PLAYER_MP=100;
+/*
 
+ */
     public Game(String title)  {
         this.title=title;
 
-        display=new Display(title);
-        input=new KeyBoard();
-        board=new Board(this,input);
+        //display=new Display(title);
+        //input=new KeyBoard();
+        //board=new Board(input);
 
-        display.getFrame().addKeyListener(input);
+        //display.getFrame().addKeyListener(input);
+        gui=new GUI(title,this);
+        gameBoard=gui.getGameBoard();
 
     }
+    /*
     public void update(){
         input.update();
         board.update();
@@ -63,6 +70,8 @@ public class Game implements Runnable {
     }
 
 
+     */
+
     @Override
     public void run() {
         running=true;
@@ -71,14 +80,17 @@ public class Game implements Runnable {
         final double ns = 1000000000.0 / 60.0; //nanosecond, 60 frames per second
         double delta = 0;
 
-        display.getCanvas().requestFocus();
+        //display.getCanvas().requestFocus();
         while(running){
             long now=System.nanoTime();
             delta+=(now-lastTime)/ns;
             lastTime=now;
             while(delta>=1){
-                update();
-                render();
+                //update();
+                //render();
+                //gameBoard.setShowPlay();
+                gameBoard.setShowMenu();
+
                 delta-=1;
             }
 
