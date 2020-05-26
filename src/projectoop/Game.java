@@ -1,6 +1,7 @@
 package projectoop;
 
 import projectoop.gui.Display;
+import projectoop.gui.GameBoard;
 import projectoop.input.KeyBoard;
 
 import java.awt.*;
@@ -10,8 +11,15 @@ public class Game implements Runnable {
     private String title;
     public static final int WIDTH=800;
     public static final int HEIGHT=640;
+    private int level=0;
     private Display display;
     private KeyBoard input;
+    private GameBoard gameBoard;
+    /*
+    currentState=0: Menu Game
+    currentState=1: PlayingState (PlayGame)
+     */
+    private int currentState=0;
 
     private boolean running=false;
     private BufferStrategy bs;
@@ -94,5 +102,29 @@ public class Game implements Runnable {
     }
     public String getTitle(){
         return title;
+    }
+
+    public int getCurrentState() {
+        return currentState;
+    }
+
+    public void setCurrentState(int currentState) {
+        this.currentState = currentState;
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

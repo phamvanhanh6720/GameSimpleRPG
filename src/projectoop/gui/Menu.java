@@ -1,12 +1,15 @@
 package projectoop.gui;
 
 
+import projectoop.Game;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class Menu extends JPanel {
+    private Game game;
     private GUI gui;
     private GameBoard gameBoard;
 
@@ -19,6 +22,7 @@ public class Menu extends JPanel {
     public Menu(GameBoard gameBoard){
         this.gameBoard=gameBoard;
         this.gui=gameBoard.getGui();
+        this.game=gameBoard.getGame();
         setBackground(Color.GREEN);
         setLayout(null);
         initComps(gui);
@@ -60,6 +64,7 @@ public class Menu extends JPanel {
         @Override
         public void mousePressed(MouseEvent e) {
             if(e.getSource()==lbExit){
+                game.setRunning(false);
 
             }
             if(e.getSource()==lbPlayGame){
