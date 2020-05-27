@@ -210,7 +210,7 @@ public class Player extends Creature {
         PlayerBullet playerBullet =new PlayerBullet(xBullet,yBullet,board,Player.PLAYER_SPEED*1.5);
         playerBullet.setDirection(direction);
         board.addBullets(playerBullet);
-        mp-=5;
+        mp-=8;
     }
     /*
     |-------------------------------------

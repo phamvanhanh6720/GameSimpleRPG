@@ -1,6 +1,8 @@
 package projectoop;
 
 import projectoop.entities.Entity;
+import projectoop.entities.tile.PortTile;
+import projectoop.entities.tile.Tile;
 import projectoop.entities.weapon.Weapon;
 import projectoop.entities.creatures.Creature;
 import projectoop.entities.creatures.Player;
@@ -21,7 +23,7 @@ public class Board implements IRender {
 
     private KeyBoard input;
     private PlayGame playGame;
-    private int level;
+    private int level=0;
     private boolean pause=false;
     private boolean endGame=false;
     private boolean win=false;
@@ -71,7 +73,9 @@ public class Board implements IRender {
         }
 
     }
-    public void resetAllAttributes(String round){
+
+    // reset all arrtributes: thuc hien khi chuyen giua cac trang thai tu gameover-> menu, gamewin->menu, changemap, exit->menu
+    public void resetAllAttributes(String round,int level){
         count=1;
         pause=false;
         win=false;
@@ -79,6 +83,8 @@ public class Board implements IRender {
         exit=false;
         timeAfterGameOver=100;
         timeAfterGameWin=100;
+        this.level=level;
+        playGame.getGameBoard().getGame().setLevel(level);
 
         this.round=round;
         input=new KeyBoard();
@@ -100,7 +106,7 @@ public class Board implements IRender {
     public void drawUniqueScreen(Graphics g){
         if(exit==true){
             playGame.getGameBoard().getGame().setCurrentState(0);
-            resetAllAttributes("a");
+            resetAllAttributes("a",0);
             return;
         }
         if(endGame==true){
@@ -110,12 +116,23 @@ public class Board implements IRender {
             }
             else{
                 playGame.getGameBoard().getGame().setCurrentState(0);
-                resetAllAttributes("a");
+                resetAllAttributes("a",0);
             }
             return;
         }
         if(pause==true){
             drawPause(g);
+            return;
+        }
+        if(win==true){
+            drawGameWin(g);
+            if(timeAfterGameWin>=0){
+                timeAfterGameWin--;
+            }
+            else {
+                playGame.getGameBoard().getGame().setCurrentState(0);
+                resetAllAttributes("a",0);
+            }
             return;
         }
 
@@ -133,7 +150,7 @@ public class Board implements IRender {
     public void drawGameWin(Graphics g){
         g.setFont(new Font("Arial",Font.BOLD,70));
         g.setColor(Color.BLACK);
-        g.drawString("You Win!",300,300);
+        g.drawString("You Win!",250,300);
     }
 
     /*
@@ -166,7 +183,24 @@ public class Board implements IRender {
 
     }
     public boolean checkEmptyEnemy(){
+        if(creatures.size()==1){
+            return true;
+        }
         return false;
+    }
+    public boolean checkChangeMap(){
+        if(checkEmptyEnemy()==true&&round=="a"){
+            if(getPlayer().getRectangle().intersects(getPortTile().getRectangle())){
+                return true;
+            }
+        }
+        return false;
+    }
+    public void checkGameWin(){
+        if(checkEmptyEnemy()==true&&round=="b"){
+            win=true;
+            return;
+        }
     }
 
 
@@ -177,8 +211,9 @@ public class Board implements IRender {
     */
     @Override
     public void update() {
-        level=playGame.getGameBoard().getGame().getLevel();
+        //load map A
         if(count>=1&&playGame.getGameBoard().getGame().getCurrentState()==1){
+            level=playGame.getGameBoard().getGame().getLevel();
             loadMap("map",level,round);
             count--;
         }
@@ -187,6 +222,16 @@ public class Board implements IRender {
         checkExit();
         checkEndGame();
         checkPause();
+        checkGameWin();
+        //check va chuyen sang map B
+        if(checkChangeMap()==true){
+
+            resetAllAttributes("b",level);
+            loadMap("map",level,round);
+            input.update();
+            count--;
+
+        }
 
         updateEntities();
         updateForeground();
@@ -323,6 +368,16 @@ public class Board implements IRender {
             cur=itr.next();
             if(cur instanceof Player)
                 return (Player)cur;
+        }
+        return null;
+    }
+    public PortTile getPortTile(){
+        Iterator<Entity> itr=foreground.iterator();
+        Entity cur;
+        while(itr.hasNext()){
+            cur=itr.next();
+            if(cur instanceof PortTile)
+                return (PortTile) cur;
         }
         return null;
     }

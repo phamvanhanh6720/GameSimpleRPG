@@ -16,7 +16,7 @@ public class Snake extends Enemy {
 
 
     public Snake(int x, int y, Board board,int level){
-        super(x,y,board, Player.PLAYER_SPEED,Player.PLAYER_HP/5,40);
+        super(x,y,board, Player.PLAYER_SPEED,Player.PLAYER_HP/4,40);
         if(level==0){
             ai=new AILow();
         }
@@ -137,7 +137,7 @@ public class Snake extends Enemy {
     }
     public void subtractPlayerHp(){
         Player player=board.getPlayer();
-        player.setHp(player.getHp()-1);
+        player.setHp(player.getHp()-2);
     }
 
     /*

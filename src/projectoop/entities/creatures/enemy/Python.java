@@ -17,7 +17,7 @@ public class Python extends Enemy {
 
     private int timeBetweenShot;
     public Python(int x, int y, Board board){
-        super(x,y,board, Player.PLAYER_SPEED/2,Player.PLAYER_HP/10,Game.TILE_SIZE*2);
+        super(x,y,board, Player.PLAYER_SPEED/2,Player.PLAYER_HP/2,Game.TILE_SIZE*2);
         ai=new AILow();
         sprite= Sprite.python_down;
         rectangle=new Rectangle((int)x+5,(int)y+8,32,36);
@@ -57,7 +57,7 @@ public class Python extends Enemy {
     @Override
     public void render(Graphics g) {
         super.render(g);
-        chooseSpriteHp(Player.PLAYER_HP/10,hp);
+        chooseSpriteHp(Player.PLAYER_HP/2,hp);
         g.drawImage(spriteHp,(int)x+4,(int)y-8,null);
     }
     /*

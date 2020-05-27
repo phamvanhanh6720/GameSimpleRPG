@@ -85,7 +85,7 @@ public class FileLevel {
                 PortTile portTile=new PortTile(x,y);
                 board.addEntities(x,y, new Grass0Tile(x,y));
                 board.addForeground(portTile);
-                board.addStaticRectangles(portTile.getRectangle());
+                //board.addStaticRectangles(portTile.getRectangle());
                 break;
             case 'b':
                 BigTree bigTree=new BigTree(x,y);
