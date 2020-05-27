@@ -366,6 +366,12 @@ public class Player extends Creature {
     public double getYCenter() {
         return y+25;
     }
+    public int getMp(){
+        return mp;
+    }
+    public void setMp(int mp){
+        this.mp=mp;
+    }
 
 
 }

@@ -73,6 +73,17 @@ public class Board implements IRender {
         }
 
     }
+    public void changeMapB(){
+        int mp=getPlayer().getMp();
+        int hp=getPlayer().getHp();
+        resetAllAttributes("b",level);
+        loadMap("map",level,round);
+        getPlayer().setMp(mp);
+        getPlayer().setHp(hp);
+        input.update();
+        count--;
+
+    }
 
     // reset all arrtributes: thuc hien khi chuyen giua cac trang thai tu gameover-> menu, gamewin->menu, changemap, exit->menu
     public void resetAllAttributes(String round,int level){
@@ -225,12 +236,7 @@ public class Board implements IRender {
         checkGameWin();
         //check va chuyen sang map B
         if(checkChangeMap()==true){
-
-            resetAllAttributes("b",level);
-            loadMap("map",level,round);
-            input.update();
-            count--;
-
+            changeMapB();
         }
 
         updateEntities();
