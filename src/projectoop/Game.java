@@ -1,20 +1,17 @@
 package projectoop;
 
-import projectoop.gui.Display;
 import projectoop.gui.GUI;
 import projectoop.gui.GameBoard;
-import projectoop.input.KeyBoard;
-
-import java.awt.*;
-import java.awt.image.BufferStrategy;
 
 public class Game implements Runnable {
-    private String title;
+
     public static final int WIDTH=800;
     public static final int HEIGHT=640;
-    private int level=0;
-    private Display display;
-    private KeyBoard input;
+    public static final int TILE_SIZE=32;
+
+    private String title;
+    private int level;
+
     private GameBoard gameBoard;
     private GUI gui;
     /*
@@ -26,22 +23,13 @@ public class Game implements Runnable {
 
      */
     private int currentState;
-
     private boolean running=false;
-    private BufferStrategy bs;
-    private Graphics g;
     private Thread thread;
 
-    private Board board;
-    public static final int TILE_SIZE=32;
-
-
-/*
-
- */
     public Game(String title)  {
         this.title=title;
         currentState=0;
+        level=0;
 
         gui=new GUI(title,this);
         gameBoard=gui.getGameBoard();

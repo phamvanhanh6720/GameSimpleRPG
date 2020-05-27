@@ -19,11 +19,8 @@ public class Player extends Creature {
     public final static int PLAYER_MP=100;
 
     private KeyBoard input;
-    private boolean shot=false;
-
     private int timeBetweenShot=30;
     private int timeBetweenPlace=15;
-
 
     private int mp=Player.PLAYER_MP;
     private BufferedImage spriteMp;
@@ -50,6 +47,7 @@ public class Player extends Creature {
             afterBeKilled();
             return;
         }
+        checkBeKilled();
         if(timeBetweenShot<-7500){
             timeBetweenShot=0;
         }
@@ -165,6 +163,13 @@ public class Player extends Creature {
 
     @Override
     public void afterBeKilled() {
+        if (timeAfter>0){
+            timeAfter--;
+        }
+        else{
+            board.setPause(true);
+            remove();
+        }
 
     }
 

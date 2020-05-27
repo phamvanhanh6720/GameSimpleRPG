@@ -4,6 +4,7 @@ import projectoop.Board;
 import projectoop.Game;
 import projectoop.entities.creatures.Creature;
 import projectoop.entities.creatures.Player;
+import projectoop.entities.creatures.enemy.ai.AILow;
 import projectoop.entities.creatures.enemy.ai.AIMedium;
 import projectoop.graphics.Sprite;
 
@@ -14,9 +15,15 @@ import java.util.List;
 public class Snake extends Enemy {
 
 
-    public Snake(int x, int y, Board board){
+    public Snake(int x, int y, Board board,int level){
         super(x,y,board, Player.PLAYER_SPEED,Player.PLAYER_HP/5,40);
-        ai=new AIMedium(board.getPlayer(),this);
+        if(level==0){
+            ai=new AILow();
+        }
+        else{
+            ai=new AIMedium(board.getPlayer(),this);
+        }
+
         sprite= Sprite.snake_down;
         rectangle=new Rectangle((int)x+18,(int)y+12,28,30);
     }
@@ -52,6 +59,7 @@ public class Snake extends Enemy {
     public void calculateMove() {
         Player p = null;
         p = board.getPlayer();
+        if (p==null) return;
         // khi khoang cach giua Snake va player nho hon 1 gia tri thi snake chuyen trang thai sang tan cong, moving=false
         if(Math.sqrt(Math.pow(this.getXCentrer()-p.getXCentrer(),2)+Math.pow(this.getYCenter()-p.getYCenter(),2)) <= 40){
             moving = false;

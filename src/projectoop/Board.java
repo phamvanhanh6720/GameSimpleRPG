@@ -6,54 +6,196 @@ import projectoop.entities.creatures.Creature;
 import projectoop.entities.creatures.Player;
 import projectoop.exceptions.LoadLevelException;
 import projectoop.graphics.IRender;
+import projectoop.gui.GameBoard;
+import projectoop.gui.PlayGame;
 import projectoop.input.KeyBoard;
 import projectoop.level.FileLevel;
 
 import java.awt.*;
+import java.awt.event.FocusEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class Board implements IRender {
+
     private KeyBoard input;
+    private PlayGame playGame;
+    private int level;
+    private boolean pause=false;
+    private boolean endGame=false;
+    private boolean win=false;
+    private boolean exit=false;
+
+    private String round;
+
+    private int timeAfterGameOver=100;
+    private int timeAfterGameWin=100;
+
+    //so lan load map
+    private int count;
 
     private FileLevel map;
     private List<Creature> creatures=new ArrayList<Creature>();
     private Entity[][] entities;
     private List<Entity> foreground=new ArrayList<Entity>();
     private List<Rectangle> staticRectangles=new ArrayList<Rectangle>();
-
     private List<Weapon> bullets=new ArrayList<Weapon>();
 
 
-    public Board(KeyBoard input)  {
+    public Board(KeyBoard input,PlayGame playGame)  {
 
         this.input=input;
+        this.playGame=playGame;
+        round="a";
+        count=1;
 
+
+
+
+    }
+    /*
+    |-----------------------------
+    |Load Map
+    |------------------------------
+     */
+    public void loadMap(String basePath,int level,String round){
+        String fileName= Integer.toString(level)+"map"+round+".txt";
+        String path=basePath+"/"+fileName;
         try {
-            map = new FileLevel("map/mapdemo2.txt", this);
+            map = new FileLevel(path, this,level);
             entities = new Entity[map.getHeight()][map.getWidth()];
             map.createEntities();
         }
         catch (LoadLevelException e){
         }
 
+    }
+    public void resetAllAttributes(String round){
+        count=1;
+        pause=false;
+        win=false;
+        endGame=false;
+        exit=false;
+        timeAfterGameOver=100;
+        timeAfterGameWin=100;
 
+        this.round=round;
+        input=new KeyBoard();
+        playGame.setInput(input);
+        playGame.addKeyListener(input);
 
+        bullets.clear();
+        foreground.clear();
+        staticRectangles.clear();
+        creatures.clear();
 
     }
-/*
-|-----------------------------
-|Update & Render
-|------------------------------
- */
+    /*
+   |-----------------------------
+   |Draw
+   |------------------------------
+   */
+    //draw game over or game win or pause
+    public void drawUniqueScreen(Graphics g){
+        if(exit==true){
+            playGame.getGameBoard().getGame().setCurrentState(0);
+            resetAllAttributes("a");
+            return;
+        }
+        if(endGame==true){
+            drawGameOver(g);
+            if(timeAfterGameOver>=0){
+                timeAfterGameOver--;
+            }
+            else{
+                playGame.getGameBoard().getGame().setCurrentState(0);
+                resetAllAttributes("a");
+            }
+            return;
+        }
+        if(pause==true){
+            drawPause(g);
+            return;
+        }
+
+    }
+    public void drawGameOver(Graphics g){
+        g.setFont(new Font("Arial",Font.BOLD,70));
+        g.setColor(Color.BLACK);
+        g.drawString("Game Over",250,300);
+    }
+    public void drawPause(Graphics g){
+        g.setFont(new Font("Arial",Font.BOLD,70));
+        g.setColor(Color.BLACK);
+        g.drawString("Pause",300,300);
+    }
+    public void drawGameWin(Graphics g){
+        g.setFont(new Font("Arial",Font.BOLD,70));
+        g.setColor(Color.BLACK);
+        g.drawString("You Win!",300,300);
+    }
+
+    /*
+    |-----------------------------
+    |Check
+    |------------------------------
+    */
+    public void checkExit(){
+        if(input.exit==true){
+            exit=true;
+            return;
+        }
+        exit=false;
+    }
+    public void checkEndGame(){
+        if(getPlayer().isRemoved()==true){
+            endGame=true;
+        }
+    }
+
+    public void checkPause(){
+        if(input.pause==true){
+            pause=true;
+            return;
+        }
+        if(input.pause==false&&endGame==false){
+            pause=false;
+            return;
+        }
+
+    }
+    public boolean checkEmptyEnemy(){
+        return false;
+    }
+
+
+    /*
+    |-----------------------------
+    |Update & Render
+    |------------------------------
+    */
     @Override
     public void update() {
+        level=playGame.getGameBoard().getGame().getLevel();
+        if(count>=1&&playGame.getGameBoard().getGame().getCurrentState()==1){
+            loadMap("map",level,round);
+            count--;
+        }
+
         input.update();
+        checkExit();
+        checkEndGame();
+        checkPause();
+
         updateEntities();
         updateForeground();
-        updateCreatures();
         updateBullets();
+        if(pause==true){
+            return;
+        }
+        updateCreatures();
+
 
 
 
@@ -72,6 +214,8 @@ public class Board implements IRender {
             renderBullets(g);
             renderCreatures(g);
         }
+
+        drawUniqueScreen(g);
     }
     public void updateEntities(){
         for (int y=0;y<map.getHeight();y++)
@@ -188,5 +332,5 @@ public class Board implements IRender {
     public List<Creature> getCreatures(){
         return creatures;
     }
-
+    public void setPause(boolean pause){this.pause=pause;};
 }

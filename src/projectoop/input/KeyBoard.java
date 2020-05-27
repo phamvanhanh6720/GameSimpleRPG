@@ -5,9 +5,10 @@ import java.awt.event.KeyListener;
 
 public class KeyBoard implements KeyListener {
     private boolean[] keys;
-    public boolean up, down,left, right,space,skill;
+    public boolean up, down,left, right,space,skill,pause=false;
+    public boolean exit;
     public KeyBoard(){
-        keys=new boolean[128];
+        keys=new boolean[256];
     }
 
     public void update(){
@@ -17,6 +18,8 @@ public class KeyBoard implements KeyListener {
         right=keys[KeyEvent.VK_RIGHT]||keys[KeyEvent.VK_D];
         space=keys[KeyEvent.VK_SPACE];
         skill=keys[KeyEvent.VK_F];
+        pause=keys[KeyEvent.VK_P];
+        exit=keys[KeyEvent.VK_ESCAPE];
 
     }
 
@@ -27,11 +30,28 @@ public class KeyBoard implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent keyEvent) {
-        keys[keyEvent.getKeyCode()]=true;
+        if(keyEvent.getKeyCode()==keyEvent.VK_P){
+            if(keys[keyEvent.getKeyCode()]==true){
+                keys[keyEvent.getKeyCode()]=false;
+            }
+            else{
+                keys[keyEvent.getKeyCode()]=true;
+            }
+        }
+        else{
+            keys[keyEvent.getKeyCode()]=true;
+        }
+
     }
 
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-        keys[keyEvent.getKeyCode()]=false;
+        if(keyEvent.getKeyCode()==keyEvent.VK_P){
+            return;
+        }
+        else{
+            keys[keyEvent.getKeyCode()]=false;
+        }
+
     }
 }

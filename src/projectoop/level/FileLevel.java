@@ -17,11 +17,14 @@ import java.util.StringTokenizer;
 
 public class FileLevel {
     private int width, height;
+    private int level;
     private Board board;
     private String[] lineTiles;
-    public FileLevel(String path, Board board) throws LoadLevelException {
+    public FileLevel(String path, Board board,int level) throws LoadLevelException {
         loadLevel(path);
         this.board=board;
+        this.level=level;
+
     }
     public void loadLevel(String path) throws LoadLevelException {
         try {
@@ -108,7 +111,7 @@ public class FileLevel {
                 board.addCreatures(player);
                 break;
             case 's':
-                Snake snake=new Snake(x* Game.TILE_SIZE,y*Game.TILE_SIZE,board);
+                Snake snake=new Snake(x* Game.TILE_SIZE,y*Game.TILE_SIZE,board,level);
                 board.addEntities(x,y, new Grass0Tile(x,y));
                 board.addCreatures(snake);
 

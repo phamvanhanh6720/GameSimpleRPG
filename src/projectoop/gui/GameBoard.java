@@ -1,6 +1,7 @@
 package projectoop.gui;
 
 import projectoop.Game;
+import projectoop.input.KeyBoard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,6 +28,7 @@ public class GameBoard extends JPanel {
         setBackground(Color.WHITE);
         cardLayout=new CardLayout();
         setLayout(cardLayout);
+        //addKeyListener(input);
 
         menu=new Menu(this);
         add(menu,TAG_MENU);
@@ -81,5 +83,6 @@ public class GameBoard extends JPanel {
     public Game getGame(){
         return game;
     }
+
 
 }

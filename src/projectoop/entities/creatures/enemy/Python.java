@@ -181,6 +181,8 @@ public class Python extends Enemy {
     }
     //Choose direction before attack
     public void chooseDirection(){
+        Player player=board.getPlayer();
+        if(player==null) return;
         if (getXCentrer()>board.getPlayer().getXCentrer()){
             setDirection(3);
         }

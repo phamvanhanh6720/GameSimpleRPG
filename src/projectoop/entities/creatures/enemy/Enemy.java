@@ -2,6 +2,7 @@ package projectoop.entities.creatures.enemy;
 
 import projectoop.Board;
 import projectoop.entities.creatures.Creature;
+import projectoop.entities.creatures.Player;
 import projectoop.entities.creatures.enemy.ai.AI;
 
 import java.awt.*;
@@ -63,6 +64,8 @@ public abstract class Enemy extends Creature {
     */
     @Override
     public void calculateMove() {
+        Player p=board.getPlayer();
+        if(p==null) return;
         if(rectangle.intersects(board.getPlayer().getRectangle())) {
             moving=false;
             return;

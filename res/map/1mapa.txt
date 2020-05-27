@@ -35,5 +35,5 @@ b - bigtree
 
 # - player
 s - snake
-d - python
+p - python
 p - python

@@ -1,6 +1,7 @@
 package projectoop.gui;
 
 import projectoop.Game;
+import projectoop.input.KeyBoard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +18,7 @@ public class GUI extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
 
         gameBoard=new GameBoard(this,game);
