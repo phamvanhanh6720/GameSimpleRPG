@@ -18,6 +18,16 @@ public class Sprite {
     ---Entities
     -------------------------------------------
      */
+    public static BufferedImage player_bullet_down=ImageLoader.loadImage("/textures/bullet_1_down.png");
+    public static BufferedImage player_bullet_up=ImageLoader.loadImage("/textures/bullet_1_up.png");
+    public static BufferedImage player_bullet_right=ImageLoader.loadImage("/textures/bullet_1_right.png");
+    public static BufferedImage player_bullet_left=ImageLoader.loadImage("/textures/bullet_1_left.png");
+    public static BufferedImage python_bullet_down=ImageLoader.loadImage("/textures/pythonbullet_down.png");
+    public static BufferedImage python_bullet_up=ImageLoader.loadImage("/textures/pythonbullet_up.png");
+    public static BufferedImage python_bullet_right=ImageLoader.loadImage("/textures/pythonbullet_right.png");
+    public static BufferedImage python_bullet_left=ImageLoader.loadImage("/textures/pythonbullet_left.png");
+
+
     public static BufferedImage bullet=ImageLoader.loadImage("/textures/bullet_1.png");
     public static BufferedImage pythonBullet=ImageLoader.loadImage("/textures/pythonbullet.png");
     public static BufferedImage border=ImageLoader.loadImage("/textures/border.png");

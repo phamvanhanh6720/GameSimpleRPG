@@ -7,13 +7,14 @@ import projectoop.entities.creatures.enemy.Enemy;
 import projectoop.graphics.Sprite;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Iterator;
 import java.util.List;
 
 public class PlayerBullet extends Weapon {
     public PlayerBullet(int x, int y, Board board, double speed){
         super(x,y,board,speed);
-        sprite= Sprite.bullet;
+        sprite = Sprite.player_bullet_left;
         rectangle=new Rectangle(x,y,10,10);
 
     }
@@ -24,6 +25,7 @@ public class PlayerBullet extends Weapon {
     */    
     @Override
     public void update() {
+        chooseSprite(direction);
         if(animate>=100){
             remove();
             return;
@@ -105,6 +107,22 @@ public class PlayerBullet extends Weapon {
         return;
 
 
+    }
+    public void chooseSprite(int direction){
+        switch (direction){
+            case 0:
+                this.sprite = Sprite.player_bullet_down;
+                break;
+            case 3:
+                this.sprite = Sprite.player_bullet_left;
+                break;
+            case 2:
+                this.sprite = Sprite.player_bullet_up;
+                break;
+            case 1:
+                this.sprite = Sprite.player_bullet_right;
+                break;
+        }
     }
 
 
