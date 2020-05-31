@@ -248,8 +248,6 @@ public class Board implements IRender {
         updateCreatures();
 
 
-
-
     }
 
     @Override
