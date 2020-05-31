@@ -95,7 +95,7 @@ public class Board implements IRender {
         timeAfterGameOver=100;
         timeAfterGameWin=100;
         this.level=level;
-        playGame.getGameBoard().getGame().setLevel(level);
+        playGame.getGameBoard().getGui().getGame().setLevel(level);
 
         this.round=round;
         input=new KeyBoard();
@@ -116,7 +116,7 @@ public class Board implements IRender {
     //draw game over or game win or pause
     public void drawUniqueScreen(Graphics g){
         if(exit==true){
-            playGame.getGameBoard().getGame().setCurrentState(0);
+            playGame.getGameBoard().getGui().getGame().setCurrentState(0);
             resetAllAttributes("a",0);
             return;
         }
@@ -126,7 +126,7 @@ public class Board implements IRender {
                 timeAfterGameOver--;
             }
             else{
-                playGame.getGameBoard().getGame().setCurrentState(0);
+                playGame.getGameBoard().getGui().getGame().setCurrentState(0);
                 resetAllAttributes("a",0);
             }
             return;
@@ -141,7 +141,7 @@ public class Board implements IRender {
                 timeAfterGameWin--;
             }
             else {
-                playGame.getGameBoard().getGame().setCurrentState(0);
+                playGame.getGameBoard().getGui().getGame().setCurrentState(0);
                 resetAllAttributes("a",0);
             }
             return;
@@ -223,8 +223,8 @@ public class Board implements IRender {
     @Override
     public void update() {
         //load map A
-        if(count>=1&&playGame.getGameBoard().getGame().getCurrentState()==1){
-            level=playGame.getGameBoard().getGame().getLevel();
+        if(count>=1&&playGame.getGameBoard().getGui().getGame().getCurrentState()==1){
+            level=playGame.getGameBoard().getGui().getGame().getLevel();
             loadMap("map",level,round);
             count--;
         }
