@@ -3,13 +3,13 @@ package projectoop.entities.creatures.enemy;
 import projectoop.Board;
 import projectoop.entities.creatures.Creature;
 import projectoop.entities.creatures.Player;
-import projectoop.entities.creatures.enemy.ai.AI;
+import projectoop.entities.creatures.enemy.ai.IAI;
 
 import java.awt.*;
 
 public abstract class Enemy extends Creature {
 
-    protected AI ai;
+    protected IAI ai;
 
     protected final double MAX_STEPS;
     protected final double rest;

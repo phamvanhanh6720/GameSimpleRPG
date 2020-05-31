@@ -8,8 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class ChooseLevel extends JPanel {
-    private GUI gui;
-    private GameBoard gameBoard;
+    private IGameBoard gameBoard;
 
     private JLabel lbBackGround;
     private JLabel lbEasy;
@@ -19,11 +18,10 @@ public class ChooseLevel extends JPanel {
 
     public ChooseLevel(GameBoard gameBoard){
         this.gameBoard=gameBoard;
-        this.gui=gameBoard.getGui();
 
         setBackground(Color.GREEN);
         setLayout(null);
-        initComps(gui);
+        initComps(gameBoard.getGui());
         initBackground();
 
     }
@@ -40,7 +38,7 @@ public class ChooseLevel extends JPanel {
     }
     public void initBackground(){
         lbBackGround=new JLabel();
-        lbBackGround.setBounds(0,0,gui.getWidth(),gui.getHeight());
+        lbBackGround.setBounds(0,0,Game.WIDTH,Game.HEIGHT);
         lbBackGround.setBackground(Color.BLACK);
         backgroundIcon=new ImageIcon(getClass().getResource("/textures/background.png"));
         lbBackGround.setIcon(backgroundIcon);
@@ -61,14 +59,14 @@ public class ChooseLevel extends JPanel {
         public void mousePressed(MouseEvent e) {
 
             if(e.getSource()==lbEasy){
-                gameBoard.getGame().setLevel(0);
+                gameBoard.getGui().getGame().setLevel(0);
                 //set ve menu
-                gameBoard.getGame().setCurrentState(0);
+                gameBoard.getGui().getGame().setCurrentState(0);
             }
             if(e.getSource()==lbHard){
-                gameBoard.getGame().setLevel(1);
+                gameBoard.getGui().getGame().setLevel(1);
                 // set ve menu
-                gameBoard.getGame().setCurrentState(0);
+                gameBoard.getGui().getGame().setCurrentState(0);
             }
 
         }

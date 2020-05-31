@@ -12,7 +12,6 @@ public class Game implements Runnable {
     private String title;
     private int level;
 
-    private GameBoard gameBoard;
     private GUI gui;
     /*
     currentState=0: Menu Game
@@ -32,7 +31,6 @@ public class Game implements Runnable {
         level=0;
 
         gui=new GUI(title,this);
-        gameBoard=gui.getGameBoard();
 
     }
 
@@ -51,19 +49,19 @@ public class Game implements Runnable {
             while(delta>=1){
                 switch (currentState){
                     case 0:
-                        gameBoard.setShowMenu();
+                        gui.getGameBoard().setShowMenu();
                         break;
                     case 1:
-                        gameBoard.setShowPlay();
+                        gui.getGameBoard().setShowPlay();
                         break;
                     case 2:
-                        gameBoard.setShowOption();
+                        gui.getGameBoard().setShowOption();
                         break;
                     case 3:
-                        gameBoard.setShowChoseLevel();
+                        gui.getGameBoard().setShowChoseLevel();
                         break;
                     case 4:
-                        gameBoard.setShowHowToPlay();
+                        gui.getGameBoard().setShowHowToPlay();
                         break;
                 }
                 delta-=1;

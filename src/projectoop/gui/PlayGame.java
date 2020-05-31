@@ -12,7 +12,7 @@ import java.awt.*;
 public class PlayGame extends JPanel   {
 
     private Board board;
-    private GameBoard gameBoard;
+    private IGameBoard gameBoard;
     private KeyBoard input;
 
     public PlayGame(GameBoard gameBoard){
@@ -35,7 +35,7 @@ public class PlayGame extends JPanel   {
         board.update();
         board.render(g2d);
     }
-    public GameBoard getGameBoard(){
+    public IGameBoard getGameBoard(){
         return gameBoard;
     }
     public void setInput(KeyBoard keyBoard){

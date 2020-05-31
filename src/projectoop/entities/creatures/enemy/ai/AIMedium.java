@@ -3,7 +3,7 @@ package projectoop.entities.creatures.enemy.ai;
 import projectoop.entities.creatures.Player;
 import projectoop.entities.creatures.enemy.Enemy;
 
-public class AIMedium extends AI{
+public class AIMedium implements IAI {
     Player player;
     Enemy enemy;
     public AIMedium(Player player,Enemy enemy){

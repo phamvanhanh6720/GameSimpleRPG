@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class HowToPlay extends JPanel implements ActionListener {
-    private GameBoard gameBoard;
+    private IGameBoard gameBoard;
     private JLabel lbBackGround;
     private ImageIcon backgroundIcon;
     private JButton btnOk;
@@ -42,7 +42,7 @@ public class HowToPlay extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==btnOk){
             //set ve menu
-            gameBoard.getGame().setCurrentState(0);
+            gameBoard.getGui().getGame().setCurrentState(0);
         }
     }
 }

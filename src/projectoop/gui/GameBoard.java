@@ -6,14 +6,13 @@ import projectoop.input.KeyBoard;
 import javax.swing.*;
 import java.awt.*;
 
-public class GameBoard extends JPanel {
+public class GameBoard extends JPanel implements IGameBoard{
     private static final String TAG_PLAYGAME="tag_playgame";
     private static final String TAG_OPTION="tag_option";
     private static final String TAG_MENU="tag_menu";
     private static final String TAG_HOWTOPLAY="tag_howtoplay";
     private static final String TAG_CHOOSELEVEL="tag_chooselevel";
 
-    private Game game;
     private CardLayout cardLayout;
     private GUI gui;
     private Menu menu;
@@ -23,12 +22,10 @@ public class GameBoard extends JPanel {
     private Option option;
 
     public GameBoard(GUI gui,Game game){
-        this.game=game;
         this.gui=gui;
         setBackground(Color.WHITE);
         cardLayout=new CardLayout();
         setLayout(cardLayout);
-        //addKeyListener(input);
 
         menu=new Menu(this);
         add(menu,TAG_MENU);
@@ -79,9 +76,6 @@ public class GameBoard extends JPanel {
 
     public GUI getGui() {
         return gui;
-    }
-    public Game getGame(){
-        return game;
     }
 
 

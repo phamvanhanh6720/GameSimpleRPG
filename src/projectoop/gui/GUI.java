@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GUI extends JFrame {
-    private GameBoard gameBoard;
+    private IGameBoard gameBoard;
     private Game game;
 
     public GUI(String title,Game game){
@@ -22,13 +22,16 @@ public class GUI extends JFrame {
 
 
         gameBoard=new GameBoard(this,game);
-        add(gameBoard);
+        add((GameBoard)gameBoard);
         setVisible(true);
 
 
     }
-    public GameBoard getGameBoard(){
+    public IGameBoard getGameBoard(){
         return gameBoard;
+    }
+    public Game getGame(){
+        return  game;
     }
 
 }

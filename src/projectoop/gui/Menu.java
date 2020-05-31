@@ -10,8 +10,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class Menu extends JPanel {
-    private GUI gui;
-    private GameBoard gameBoard;
+
+    private IGameBoard gameBoard;
 
     private JLabel lbBackGround;
     private JLabel lbPlayGame;
@@ -21,11 +21,10 @@ public class Menu extends JPanel {
 
     public Menu(GameBoard gameBoard){
         this.gameBoard=gameBoard;
-        this.gui=gameBoard.getGui();
 
         setBackground(Color.GREEN);
         setLayout(null);
-        initComps(gui);
+        initComps(gameBoard.getGui());
         initBackground();
 
 
@@ -72,16 +71,16 @@ public class Menu extends JPanel {
         @Override
         public void mousePressed(MouseEvent e) {
             if(e.getSource()==lbExit){
-                gameBoard.getGame().setRunning(false);
+                gameBoard.getGui().getGame().setRunning(false);
 
             }
             if(e.getSource()==lbPlayGame){
                 // chuyen vao playing state
-                gameBoard.getGame().setCurrentState(1);
+                gameBoard.getGui().getGame().setCurrentState(1);
             }
             if(e.getSource()==lbOption){
                 //chuyen sang option State
-                gameBoard.getGame().setCurrentState(2);
+                gameBoard.getGui().getGame().setCurrentState(2);
             }
 
         }

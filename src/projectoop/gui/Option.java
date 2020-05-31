@@ -9,8 +9,7 @@ import java.awt.event.MouseEvent;
 
 public class Option extends  JPanel{
 
-        private GUI gui;
-        private GameBoard gameBoard;
+        private IGameBoard gameBoard;
 
         private JLabel lbBackGround;
         private JLabel lbChooseLevel;
@@ -20,11 +19,10 @@ public class Option extends  JPanel{
 
         public Option(GameBoard gameBoard){
             this.gameBoard=gameBoard;
-            this.gui=gameBoard.getGui();
 
             setBackground(Color.GREEN);
             setLayout(null);
-            initComps(gui);
+            initComps(gameBoard.getGui());
             initBackground();
 
         }
@@ -64,12 +62,12 @@ public class Option extends  JPanel{
 
                 if(e.getSource()==lbHowToPlay){
                     // currentState=4 : How To Play
-                    gameBoard.getGame().setCurrentState(4);
+                    gameBoard.getGui().getGame().setCurrentState(4);
 
                 }
                 if(e.getSource()==lbChooseLevel){
                     // currentState=3: Choose Level
-                    gameBoard.getGame().setCurrentState(3);
+                    gameBoard.getGui().getGame().setCurrentState(3);
 
                 }
 
