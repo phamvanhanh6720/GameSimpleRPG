@@ -15,8 +15,7 @@ import projectoop.level.FileLevel;
 
 import java.awt.*;
 import java.awt.event.FocusEvent;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
 
 public class Board implements IRender {
@@ -277,6 +276,7 @@ public class Board implements IRender {
             itr.next().update();
     }
     public void updateCreatures(){
+        Collections.sort(creatures);
         Iterator<Creature> itr=creatures.iterator();
         Creature creature;
         while(itr.hasNext()){

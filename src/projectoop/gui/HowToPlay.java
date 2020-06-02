@@ -17,11 +17,19 @@ public class HowToPlay extends JPanel implements ActionListener {
     public HowToPlay(GameBoard gameBoard){
         this.gameBoard=gameBoard;
         setBackground(Color.GREEN);
+        setBounds(0,0,Game.WIDTH,Game.HEIGHT);
         setLayout(null);
         initComps();
 
     }
     public void initComps(){
+
+        btnOk=new JButton();
+        btnOk.setText("OK");
+        btnOk.setBounds(350,560,100,50);
+        btnOk.addActionListener(this);
+        add(btnOk);
+
         lbBackGround=new JLabel();
         lbBackGround.setBounds(0,0, Game.WIDTH,Game.HEIGHT);
         lbBackGround.setBackground(Color.BLACK);
@@ -29,12 +37,6 @@ public class HowToPlay extends JPanel implements ActionListener {
         lbBackGround.setIcon(backgroundIcon);
 
         add(lbBackGround);
-
-        btnOk=new JButton();
-        btnOk.setText("OK");
-        btnOk.setBounds(350,560,100,50);
-        btnOk.addActionListener(this);
-        add(btnOk);
 
     }
 

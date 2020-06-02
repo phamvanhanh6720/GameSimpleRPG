@@ -13,7 +13,7 @@ public class GUI extends JFrame {
     public GUI(String title,Game game){
         this.game=game;
         setTitle(title);
-        setSize(Game.WIDTH,Game.HEIGHT);
+        setSize(Game.WIDTH+14,Game.HEIGHT+32);
         setLayout(new CardLayout());
         setLocationRelativeTo(null);
         setResizable(false);

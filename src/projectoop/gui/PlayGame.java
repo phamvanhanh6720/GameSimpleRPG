@@ -20,7 +20,7 @@ public class PlayGame extends JPanel   {
         input=new KeyBoard();
         board=new Board(input,this);
 
-        setBounds(0,0,Game.WIDTH,Game.HEIGHT);
+        //setBounds(100,-20,Game.WIDTH,Game.HEIGHT);
         setBackground(Color.WHITE);
         setLayout(null);
         setFocusable(true);

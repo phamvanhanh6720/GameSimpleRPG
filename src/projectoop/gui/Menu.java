@@ -24,6 +24,7 @@ public class Menu extends JPanel {
 
         setBackground(Color.GREEN);
         setLayout(null);
+        setBounds(0,0,Game.WIDTH,Game.HEIGHT);
         initComps(gameBoard.getGui());
         initBackground();
 

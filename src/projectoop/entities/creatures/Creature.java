@@ -7,7 +7,7 @@ import projectoop.graphics.Sprite;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public abstract class Creature extends AnimatedEntity {
+public abstract class Creature extends AnimatedEntity implements Comparable<Creature> {
     protected Board board;
 
     protected int direction=-1;
@@ -64,6 +64,18 @@ public abstract class Creature extends AnimatedEntity {
         }
         spriteHp=Sprite.hp0;
         return;
+    }
+    @Override
+    public int compareTo(Creature creature){
+        if(getYCenter()==creature.getYCenter()){
+            return 0;
+        }
+        else if(getYCenter()>creature.getYCenter()){
+            return 1;
+        }
+        else{
+            return -1;
+        }
     }
     /*
     |----------------------------------
