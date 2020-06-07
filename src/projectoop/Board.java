@@ -235,6 +235,7 @@ public class Board implements IRender {
         checkGameWin();
         //check va chuyen sang map B
         if(checkChangeMap()==true){
+            level=playGame.getGameBoard().getGui().getGame().getLevel();
             changeMapB();
         }
 

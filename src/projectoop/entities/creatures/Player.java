@@ -183,7 +183,7 @@ public class Player extends Creature {
             double xBullet=0,yBullet=0;
             switch(direction){
                 case 0:
-                    xBullet=x+Sprite.player_down.getWidth()/2.5;
+                    xBullet=x+Sprite.player_down.getWidth()/2.5+4;
                     yBullet=y+Sprite.player_down.getHeight()/3;
                     break;
                 case 1:
@@ -191,7 +191,7 @@ public class Player extends Creature {
                     yBullet=y+Sprite.player_down.getHeight()/3;
                     break;
                 case 2:
-                    xBullet=x+Sprite.player_down.getWidth()/2.5;
+                    xBullet=x+Sprite.player_down.getWidth()/2.5+4;
                     yBullet=y+Sprite.player_down.getHeight()/3;
                     break;
                 case 3:
