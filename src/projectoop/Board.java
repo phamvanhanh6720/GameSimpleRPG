@@ -94,7 +94,7 @@ public class Board implements IRender {
         timeAfterGameOver=100;
         timeAfterGameWin=100;
         this.level=level;
-        playGame.getGameBoard().getGui().getGame().setLevel(level);
+        //playGame.getGameBoard().getGui().getGame().setLevel(level);
 
         this.round=round;
         input=new KeyBoard();
