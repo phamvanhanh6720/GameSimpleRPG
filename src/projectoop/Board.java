@@ -75,8 +75,15 @@ public class Board implements IRender {
     public void changeMapB(){
         int mp=getPlayer().getMp();
         int hp=getPlayer().getHp();
-        resetAllAttributes("b",level);
-        loadMap("map",level,round);
+        if(level==0){
+            resetAllAttributes("b",0);
+            loadMap("map",0,round);
+        }
+        else{
+            resetAllAttributes("b",1);
+            loadMap("map",1,round);
+        }
+
         getPlayer().setMp(mp);
         getPlayer().setHp(hp);
         input.update();
@@ -94,7 +101,7 @@ public class Board implements IRender {
         timeAfterGameOver=100;
         timeAfterGameWin=100;
         this.level=level;
-        //playGame.getGameBoard().getGui().getGame().setLevel(level);
+        playGame.getGameBoard().getGui().getGame().setLevel(level);
 
         this.round=round;
         input=new KeyBoard();
@@ -222,7 +229,7 @@ public class Board implements IRender {
     @Override
     public void update() {
         //load map A
-        if(count>=1&&playGame.getGameBoard().getGui().getGame().getCurrentState()==1){
+        if(count>=1&&playGame.getGameBoard().getGui().getGame().getCurrentState()==1&&round=="a"){
             level=playGame.getGameBoard().getGui().getGame().getLevel();
             loadMap("map",level,round);
             count--;

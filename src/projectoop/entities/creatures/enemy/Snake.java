@@ -22,6 +22,7 @@ public class Snake extends Enemy {
         }
         else{
             ai=new AIMedium(board.getPlayer(),this);
+            System.out.println("hard");
         }
 
         sprite= Sprite.snake_down;
